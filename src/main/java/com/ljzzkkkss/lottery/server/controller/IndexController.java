@@ -1,5 +1,6 @@
 package com.ljzzkkkss.lottery.server.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.ljzzkkkss.lottery.server.constants.ReturnType;
 import com.ljzzkkkss.lottery.server.model.ReturnBody;
 import com.ljzzkkkss.lottery.server.model.User;
@@ -20,7 +21,7 @@ public class IndexController {
     @PostMapping("/login")
     public ReturnBody login(HttpServletRequest request,@RequestBody User user){
         User logUser = userService.findByUserName(user.getUsername());
-        if(null == logUser){
+        if(null == logUser || StringUtils.isEmpty(logUser.getPassword())){
             return ReturnType.LOGIN_ERROR;
         }
         if(!logUser.getPassword().equals(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))){
