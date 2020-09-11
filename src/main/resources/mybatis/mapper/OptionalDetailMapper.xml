@@ -7,4 +7,8 @@
         VALUES (#{matchId}.#{optionalId},#{category},#{rate},#{content});
     </select>
 
+    <select id="getOptionalDetailByOptionalId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.OptionalDetail">
+        SELECT `matchId`,`category`,`rate`,`content` FROM `optional_detail` WHERE `optionalId` = #{optionalId};
+    </select>
+
 </mapper>

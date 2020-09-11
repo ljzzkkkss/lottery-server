@@ -46,3 +46,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false

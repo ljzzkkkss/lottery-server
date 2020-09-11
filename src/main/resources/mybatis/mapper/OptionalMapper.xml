@@ -7,4 +7,13 @@
          VALUES (#{userId},#{name},#{optionDate},#{cost},#{status});
     </insert>
 
+    <select id="getOptionalListByUserId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.Optional">
+        SELECT `id`,`name`,DATE_FROMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost` FROM `optional`
+        WHERE `userId` = #{userId}
+    </select>
+
+    <select id="getOptionalByOptionalId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.Optional">
+        SELECT `id`,`name`,DATE_FROMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost` FROM `optional`
+        WHERE `id` = #{id}
+    </select>
 </mapper>

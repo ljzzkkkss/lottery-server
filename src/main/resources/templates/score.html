@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>比分</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/weui.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+    <div class="page tabbar js_show" id="webpage" v-cloak>
+        <div class="page__bd" style="height: 100%;">
+            <div class="weui-tab">
+                <div class="weui_tab_bd">
+                    <div class="matchScoreContainer flexCenterBetween">
+                        <div class="headerTimeTypeSort flexCenterBetween">
+                            <div class="timeSortBox flexCenterAround" @click="showTimeSortLists">
+                                <img class="arrowImgBox" src="img/left_arrow.png" alt="">
+                                <div class="flex1 flexCenterCenter">
+                                    <img class="timeIcon" src="img/timeIcon.png" alt="">
+                                    <div class="timeBox">20026期</div>
+                                </div>
+                                <img class="arrowImgBox" src="img/right_arrow.png" alt="">
+                            </div>
+                            <div class="typeSortBox flexCenter" @click="showSortLists">
+                                <img class="sortIcon" src="img/sortIcon.png" alt="">
+                                <div class="dataBox">筛选</div>
+                            </div>
+                        </div>
+                        <div class="scoreDetailInfoLists flex1">
+                            <div class="scoreDetailList" v-for="item in scoreDetailInfoLists">
+                                <div class="headerInfo flexCenterBetween">
+                                    <div class="nameBox">{{item.title}}</div>
+                                    <div class="timeBox">{{item.time}}</div>
+                                </div>
+                                <div class="detailInfoList flexCenter">
+                                    <div class="scoreInfoWrap">
+                                        <div class="scoreInfo flexCenterBetween flex1">
+                                            <div class="countryInfoBox flexCenter">
+                                                <img class="countryImg" :src="item.pic" alt="">
+                                                <div class="countryName">{{item.name}}<span class="tipsBox">[8]</span></div>
+                                            </div>
+                                            <div class="scoreBox flexCenter">
+                                                <div class="loseScoreBox">0</div>
+                                                <div class="winScoreBox">3</div>
+                                            </div>
+                                        </div>
+                                        <div class="scoreInfo flexCenterBetween flex1">
+                                            <div class="countryInfoBox flexCenter">
+                                                <img class="countryImg" src="img/mineIcon2.png" alt="">
+                                                <div class="countryName">{{item.name}}<span class="tipsBox">[12]</span></div>
+                                            </div>
+                                            <div class="scoreBox flexCenter">
+                                                <div class="loseScoreBox">{{item.loseScore}}</div>
+                                                <div class="winScoreBox">{{item.winScore}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="coutLineBox"></div>
+                                    <div class="focusBtnBox" v-if="item.status == 0">关注</div>
+                                    <div class="finishedBtnBox" v-if="item.status == 1">完成</div>
+                                    <div class="matchScoreNumBox" v-if="item.status == 2">{{item.score}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weui-tabbar">
+                    <a href="index.html" class="weui-tabbar__item">
+                        <span style="display: inline-block;position: relative;">
+                            <img src="./img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
+                            <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
+                        </span>
+                        <p class="weui-tabbar__label">首页</p>
+                    </a>
+                    <a href="scheme.html" class="weui-tabbar__item">
+                        <img src="./img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">自选方案</p>
+                    </a>
+                    <a href="score.html" class="weui-tabbar__item weui-bar__item_on">
+                        <img src="./img/tab/tabIcon_3_2.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">比分</p>
+                    </a>
+                    <a href="mine.html" class="weui-tabbar__item ">
+                        <img src="./img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">我的</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="maskBox" v-if="sortListsFlag || timeSortListsFlag" @click="hideSortLists"></div>
+        <!--日期筛选-->
+        <div class="showTimeSortLists" v-if="timeSortListsFlag">
+            <div class="sortHeaderBox flexCenter">
+                <img class="timeIcon" src="img/timeIcon.png" alt="">
+                <div class="dataBox">08</div>
+            </div>
+            <div class="week_day_lists flexCenterAround">
+                <div class="timeBox">五</div>
+                <div class="timeBox">六</div>
+                <div class="timeBox">日</div>
+                <div class="timeBox">一</div>
+                <div class="timeBox">二</div>
+                <div class="timeBox">三</div>
+                <div class="timeBox">四</div>
+            </div>
+            <div class="day_lists flexCenter">
+                <div class="timeBox">1</div>
+                <div class="timeBox">2</div>
+                <div class="timeBox">3</div>
+                <div class="timeBox">4</div>
+                <div class="timeBox">5</div>
+                <div class="timeBox">6</div>
+                <div class="timeBox">7</div>
+                <div class="timeBox">8</div>
+                <div class="timeBox">9</div>
+                <div class="timeBox">今</div>
+                <div class="timeBox">11</div>
+                <div class="timeBox">12</div>
+                <div class="timeBox">13</div>
+                <div class="timeBox">14</div>
+                <div class="timeBox">15</div>
+                <div class="timeBox">16</div>
+                <div class="timeBox">17</div>
+                <div class="timeBox">18</div>
+                <div class="timeBox">19</div>
+                <div class="timeBox"><span class="selectTime">20</span></div>
+                <div class="timeBox">22</div>
+                <div class="timeBox">23</div>
+                <div class="timeBox">24</div>
+                <div class="timeBox">25</div>
+                <div class="timeBox">26</div>
+                <div class="timeBox">27</div>
+                <div class="timeBox">28</div>
+                <div class="timeBox">28</div>
+                <div class="timeBox">30</div>
+            </div>
+        </div>
+        <!--筛选-->
+        <div class="showTypeSortLists flexCenterBetween" v-if="sortListsFlag">
+            <div class="sortHeaderBox flexCenterBetween">
+                <div class="typeSortBox flexCenter">
+                    <img class="sortIcon" src="img/sortIcon.png" alt="">
+                    <div class="dataBox">筛选</div>
+                </div>
+                <div class="dataBox">共11场比赛，已选1场</div>
+            </div>
+            <div class="typeSortLists flex1 flexCenter">
+                <div class="sortBox current">瑞典超</div>
+                <div class="sortBox">欧冠</div>
+                <div class="sortBox">巴甲</div>
+                <div class="sortBox">欧潮</div>
+                <div class="sortBox">欧冠</div>
+            </div>                  
+            <div class="footerFixedBtnLists flexCenterBetween">
+                <div class="btnBox cancleBtn" @click="hideSortLists">取消</div>
+                <div class="btnBox sureBtn">筛好了</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- <script type="text/javascript">
+    // 初始化
+    var vConsole = new VConsole();
+</script> -->
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#webpage',
+        data: {
+            sortListsFlag:false,
+            timeSortListsFlag:false,
+            scoreDetailInfoLists:[
+                {
+                    id:0,
+                    title:'周日007 K1联赛',
+                    time:'08-30 20:13',
+                    pic:'img/mineIcon2.png',
+                    name:'索尔纳',
+                    loseScore:0,
+                    winScore:3,
+                    status:0
+                },
+                {
+                    id:1,
+                    title:'周日007 K1联赛',
+                    time:'08-30 20:13',
+                    pic:'img/mineIcon2.png',
+                    name:'索尔纳',
+                    loseScore:0,
+                    winScore:3,
+                    status:1
+                },
+                {
+                    id:2,
+                    title:'周日007 K1联赛',
+                    time:'08-30 20:13',
+                    pic:'img/mineIcon2.png',
+                    name:'索尔纳',
+                    loseScore:0,
+                    winScore:3,
+                    status:2,
+                    score:89
+                }
+
+            ]
+        },
+        mounted: function () {
+            let that = this;
+            var token = getToken();
+            if (token == null || token.length < 1) {
+                login(location.href);
+                return;
+            }
+
+        },
+        methods: {
+            showTimeSortLists(){
+                this.timeSortListsFlag = true;
+            },
+            hideSortLists(){
+                this.sortListsFlag = false;
+                this.timeSortListsFlag = false;
+            },
+            showSortLists(){
+                this.sortListsFlag = true;
+            }
+        }
+    })
+</script>
+</html>

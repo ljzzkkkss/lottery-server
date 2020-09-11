@@ -1,0 +1,143 @@
+html,body{max-width:750px;margin:auto;height: 100%;}
+body{font-weight:normal;font-family:Microsoft YaHei,'华文细黑',Helvetica Neue,Helvetica,Tahoma,Arial,Times New Roman,Verdana CenturyGothic,Pingfang SC,Hiragino Sans GB,Hiragino Sans GB W3,Microsoft YaHei UI,WenQuanYi Micro Hei,sans-serif;overflow-x:hidden}
+*{margin:0;padding: 0px;box-sizing: border-box;}
+input,select,button,textarea{box-sizing:border-box;font-size:100%;font-family:inherit;outline:0;background:none;border:none}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{color:#ccc}
+
+a{text-decoration: none;display: block;}
+em,i{font-style: normal;}
+
+.page{height: 100%;}
+.weui-mask{opacity: 1 !important;visibility: visible !important;}
+.weui-tabbar{background: #fff !important;}
+.weui-tabbar:before{border-top: 1px solid #F9F9F9 !important;}
+.weui_tab_bd{height: 100%;overflow: auto;padding-bottom: 53px;}
+.weui-tabbar__label{color: #9B9B9B !important;}
+.weui-bar__item_on .weui-tabbar__label{color: #E2231A !important;}
+
+.flexCenterBetween{display: flex;flex-direction:row;align-items: center;justify-content: space-between;}
+.flexCenterAround{display: flex;flex-direction:row;align-items: center;justify-content: space-around;}
+.flexCenterCenter{display: flex;flex-direction:row;align-items: center;justify-content: center;}
+.flexCenter{display: flex;flex-direction:row;align-items: center;}
+.flexEnd{display: flex;flex-direction:row;align-items: flex-end;}
+.flexCenterTop{display: flex;flex-direction:row;align-items: flex-start;}
+.flexTopBetween{display: flex;flex-direction:row;justify-content: space-between;align-items: flex-start;}
+.flexEndBetween{display: flex;flex-direction:row;justify-content: space-between;align-items: flex-end;}
+.flexBetweenColumn{display: flex;flex-direction:column;align-items: center;justify-content: space-between;}
+
+.flex1{flex: 1;}
+/*超出一行显示省略号*/
+.ellipsis1{display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+/*超出两行显示省略号*/
+.ellipsis2{text-overflow: -o-ellipsis-lastline;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;}
+
+.commonBtnWrap{padding:20px 14px;}
+
+.commonBtn{display:block;background: linear-gradient(90deg, #FD6A46 0%, #EF4034 100%);border-radius:4px;height: 42px;width: 100%;text-align: center;line-height:42px;font-size:14px;color: #FFFFFF;margin:20px auto;}
+.commonBtn.disabled{background: #F1F1F2;color:#ADAEB4;}
+.borderCommonBtn{background: #fff;border:1px solid #53BFF7;color:#53BFF7;}
+
+.cutSectionBox{width:100%;height: 8px;background: #F3F3F3;}
+
+/*箭头样式*/
+.arrowIcon{position: relative;width: 7px;height: 14px;display: inline-block;}
+.arrowIcon:after,.arrowIcon:before {
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-left-color: #9B9B9B;
+    position: absolute;
+    content: "";
+}
+.arrowIcon:after{
+top: 0px;
+left: -2px;
+border-left-color: #fff !important;
+} 
+
+/*公用列表样式*/
+.commonListsBox{padding:0 1.125rem;}
+.commonListsBox .listBox{border-bottom:1px solid rgba(232,232,232,0.98);padding:1.125rem 0;}
+.commonListsBox .listBox .listLabelBox{font-size: 16px;color: #2C2C2C;}
+
+/*修改提示文字的颜色*/
+input::-webkit-input-placeholder { /* WebKit browsers */ 
+color: #D6D6D6;
+} 
+input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+color: #D6D6D6;
+} 
+input::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+color: #D6D6D6;
+} 
+input:-ms-input-placeholder { /* Internet Explorer 10+ */ 
+color: #D6D6D6;
+} 
+
+/*解决加载时vue的一些标签闪现问题*/
+[v-cloak] { display: none !important}
+
+/*提示文字*/
+.showtoast{position: fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index: 5000;max-width: 90%;min-width:55%;padding:10px 20px;background: rgba(17, 17, 17, 0.7);text-align: center;border-radius: 5px;color: #FFFFFF;
+    }
+
+/*轮播图*/
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    border-radius:10px;
+}
+
+/*遮罩层*/
+.maskBox{width:100%;height:100%;position: fixed;left:0px;top:0px;background: rgba(0,0,0,0.5);z-index: 600;}
+
+/*缺省页*/
+.noContentDefaultBox{padding:90px 15px;}
+.noContentDefaultBox .defalutContent{margin:0 auto;text-align: center;}
+.noContentDefaultBox .defalutContent .defaultImg{width:45%;height: auto;}
+.noContentDefaultBox .defalutContent .tipsBox{font-size:16px;color:#282828;margin:33px 0;}
+
+.popWinBox{position: fixed;left:50%;top:50%;transform: translate(-50%,-50%);width:90%;background:#fff;border-radius: 5px;padding:20px 14px;z-index: 1000;}
+.popWinBox .closeIconBtn{width:36px;height: 36px;padding:10px;position: absolute;top: 0px;right: 0px;;}
+.popWinBox .contentBox{margin-top:30px;}
+
+.titleBoxWrap{text-align: center;}
+.titleBoxWrap span{color:#37373A;font-size:14px;position: relative;z-index: 1;}
+.titleBoxWrap span::after{content:'';width: 60px;height: 11px;background: #FFF3F2;border-radius: 2px;position: absolute;left:0px;right:0px;bottom: -3px;z-index: -1;}
+
+/*底部取消 分享按钮*/
+.footerFixedBtnLists{position: absolute;left:0px;bottom:0px;z-index:99;width:100%;padding:20px 14px 40px;}
+.footerFixedBtnLists .btnBox{width:48%;height: 42px;border-radius: 2px;text-align: center;line-height: 42px;font-size:14px;}
+.footerFixedBtnLists .btnBox.cancleBtn{background:#F1F1F2;color:#6F6F72;}
+.footerFixedBtnLists .btnBox.sureBtn{background:#EF4034;color:#fff;}
+
+table,tbody,tr{width:100%;border-spacing: 0;}
+
+/*底部弹窗*/
+.footerActionSheetPop{border-top-left-radius: 16px;border-top-right-radius: 16px;background:#fff;padding:0 14px 100px;position: fixed;bottom: 0px;left:0px;width:100%;flex-direction: column;min-height: 226px;z-index: 1000;}
+.footerActionSheetPop .titleBox{padding:20px 0;text-align: center;color:#37373A;font-size:16px;width:100%;}
+.footerActionSheetPop .contentBox{max-height:200px;overflow: auto;width:100%;flex: 1;}

@@ -1,0 +1,284 @@
+
+@media only screen and (min-width: 320px) and (max-height: 568px) and (-webkit-device-pixel-ratio: 2) {
+    
+ }
+
+.bannerWrapper{padding:14px;}
+
+.changeTabsLists{width:100%;overflow-x: auto;white-space: nowrap;background: #fff;}
+.changeTabsLists .tabName{padding:10px 15px;font-size:16px;color:#6F6F72;display: inline-block;}
+.changeTabsLists .tabName.current{font-size:18px;color: #EF4034;position: relative;}
+.changeTabsLists .tabName.current::after{content:'';position: absolute;left:0px;right:0px;margin:0 auto;bottom:0px;width: 16px;height: 4px;
+    background: linear-gradient(90deg, #FD6A46 0%, #E2231A 100%);border-radius: 2px;}
+
+
+/*资讯列表*/
+.newsInfoLists{padding-left:14px;}
+.newsInfoLists .newsList{padding:20px 14px 20px 0;border-bottom:1px solid #F3F3F3;}
+.news_info .title_box{color:#37373A;font-size:16px;font-weight: bold;}
+.news_info{height: 85px;flex-direction: column;}
+.news_info  .time_looknum{font-size:12px;color:#ADAEB4;}
+.news_info  .time_looknum .time_box{padding-right:5px;}
+.news_info  .time_looknum .look_num{padding-left:5px;}
+.news_img{width: 116px;height: 85px;border-radius: 5px;margin-left:10px;}
+.hitRateBox{display:inline-block;margin-right:5px;min-width: 70px;height: 16px;background: #F1F6FF;border-radius: 2px;padding:0 4px;line-height: 16px;color:#75A1F1;font-size:10px;}
+.setTopTagBox{display:inline-block;margin-right:5px;width: 28px;height: 16px;text-align:center;line-height:14px;border-radius: 2px;border: 1px solid #E2231A;color:#E2231A;font-size:10px;}
+
+/*资讯详情*/
+.newsDetailBanner{width:100%;}
+.newsDetailBanner img{width:100%;height: auto;}
+.newsDetailContent{padding:20px 14px;}
+.newsTitleBox{color:#37373A;font-weight: bold;font-size:16px;}
+.newsOtherInfo{margin-top:5px;}
+.newsAuthorInfo .nameBox{color:#37373A;font-size:14px;}
+.newsAuthorInfo .timeBox{color:#ADAEB4;font-size:10px;}
+.newsOtherInfo .lookUserNum{color:#ADAEB4;font-size:12px;}
+.richTxtContent{margin-top:20px;font-size:14px;word-break: break-word;}
+.richTxtContent p{margin:10px 0;color:#6F6F72;}
+.richTxtContent h3{margin:10px 0;color: #37373A;}
+.richTxtContent img{width:100% !important;height: auto;border-radius: 5px;margin:10px auto;}
+
+.fixedRecommendBtn{position: fixed;right:14px;bottom: 30%;width: 50px;height: 50px;background: linear-gradient(90deg, #FD6A46 0%, #EF4034 100%);border-radius: 50%;color:#fff;font-size:14px;line-height: 18px;}
+/*文章详情推荐方案弹窗*/
+.articleProgrammeLists .programmeList{margin-bottom:20px;}
+.articleProgrammeLists .programmeList .dataInfoBox{width: 84px;height: 48px;text-align:center;padding:3px 0;background: #FFFFFF;box-shadow: 0px 0px 5px 0px rgba(203, 203, 203, 0.36);}
+.articleProgrammeLists .programmeList .dataBox{color:#37373A;font-size: 14px;}
+.articleProgrammeLists .programmeList .scoreBox{color:#6F6F72;font-size: 12px;}
+.articleProgrammeLists .programmeList .detailInfoBox{margin-top:10px;}
+.matchInfoBox{color:#ADAEB4;font-size: 10px;}
+.countryVsInfo{margin-left:5px;}
+.countryVsInfo .mainIcon{color:#ADAEB4;font-size: 10px;margin-right:5px;}
+.countryVsInfo .countryName{color:#37373A;font-size: 12px;}
+.countryVsInfo .vsIcon{color:#ADAEB4;font-size: 12px;margin:0 10px;}
+.leftTagBox{color:#fff;font-size: 10px;width: 14px;height: 49px;text-align: center;word-wrap: break-word;line-height: 14px;}
+.leftTagBox.styleColor1{background:#ADAEB4;}
+.leftTagBox.styleColor2{background:#49B346;}
+.leftTagBox.styleColor3{background:#4A90E2;}
+.leftTagBox.styleColor4{background:#F95C55;}
+.leftTagBox.styleColor5{background:#46B383;}
+
+/*我的*/
+.userInfoBox{padding:30px 18px;background: linear-gradient(90deg, #EF4034 0%, #FF6D56 100%);}
+.userInfoBox .headerImg{width: 60px;height: 60px;border-radius: 30px;margin-right:10px;}
+.userInfoBox .nameBox{font-size:21px;color:#FFFFFF;font-weight: bold;}
+.userInfoBox .phoneNum{font-size:11px;color:#FFFFFF;margin-top:5px;}
+
+.userOptInforLists{padding:20px 18px;}
+.userOptInforLists .infoList{padding:12px 0px;box-sizing: border-box;}
+.userOptInforLists .infoList .labelNameBox{font-size:14px;color: #333435;}
+.userOptInforLists .infoList .labelNameBox .iconImg{width:20px;height: auto;margin-right:10px;display: block;}
+.arrowImg{width:7px;height: 12px;margin-left:10px;}
+
+/*登录*/
+.loginContainer{padding:20px 30px;}
+.loginTabsChange .tabBox{color:#6F6F72;font-size:18px;margin-right:30px;}
+.loginTabsChange .tabBox.current{color:#37373A;font-size:24px;font-weight: bold;}
+
+.loginFormBox{margin:40px 0;}
+.loginFormBox .formInputWrap{padding:12px 5px;border-bottom:1px solid #F1F1F2;margin-bottom:20px;font-size:14px;color: #333435;width:100%;}
+.loginFormBox .formInputWrap .formInput{font-size:14px;color: #333435;border:0 none;width:100%;}
+.loginFormBox .formInputWrap .codeBox{font-size:14px;color: #4A90E2;margin-left:10px;}
+.footerEnterBox a{color:#6F6F72;font-size:14px;}
+
+/*帮助中心*/
+.helpContainer{padding:20px 18px;}
+.helpContainer h3{color:#37373A;font-size:16px;margin-bottom:20px;}
+.helpContainer p{color:#6F6F72;font-size:14px;margin-bottom:20px;}
+
+/*保存的方案*/
+.saveProgrammeContainer{padding:10px 14px;width:100%;height: 100%;background:#FAFAFA;}
+.saveProgrammeContainer .programmeInfoLists .programmeList{background:#fff;margin-bottom:10px;padding:20px 10px;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .infoBox{width:80%;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .nameBox{font-size:14px;color: #37373A;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .timeBox{font-size:12px;color: #ADAEB4;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .moneyBox{font-size:14px;color: #37373A;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .otherInfoBox{text-align: right;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .statusBox.statusStyle1{color:#D0021B;font-size:12px;}
+.saveProgrammeContainer .programmeInfoLists .programmeList .statusBox.statusStyle2{color:#4A90E2;font-size:12px;}
+
+/*方案详情*/
+.programmeDetailContainer{width:100%;min-height: 100%;background:#FAFAFA;padding:14px 14px 100px;}
+.programmeDetailContent{padding:0 10px 10px;background:#fff;}
+.programmeDetailContent .headerDataBox{padding:20px 0;border-bottom:1px solid #F1F1F2;margin-bottom: 20px;}
+.programmeDetailContent .headerDataBox .dataInfoBox{text-align: center;}
+.programmeDetailContent .headerDataBox .dataInfoBox .labelBox{color:#ADAEB4;font-size:12px;}
+.programmeDetailContent .headerDataBox .dataInfoBox .dataBox{color:#37373A;font-size:14px;font-weight: bold;}
+
+.matchDetailInfoBox{margin-top:20px;background: #FAFAFA;border-radius: 2px;border: 1px solid #F1F1F2;}
+.matchDetailInfoBox .headerBox{background:#F1F1F2;}
+.matchDetailInfoBox .headerBox .titleBox{background:#F1F1F2;color:#6F6F72;font-size:12px;text-align: center;height: 30px;line-height: 30px;}
+.matchCountryInfo{height: 33px;line-height: 33px;}
+.winloseScoreInfo{background:#fff;border-top:1px solid #F1F1F2;min-height: 32px;width: 100%;}
+.winloseScoreInfo .scoreDetail{color:#ADAEB4;font-size:12px;border-right:1px solid #F1F1F2;flex:1;text-align: center;width: 22%;padding:10px 0;}
+.winloseScoreInfo .scoreDetail:nth-child(2){width:34%;}
+.winloseScoreInfo .scoreDetail:last-child{border-right:0;}
+.winloseScoreInfo .scoreDetail .infoBox{color:#37373A;}
+.winloseScoreInfo .scoreDetail .dataBox{color:#ADAEB4;}
+
+.tipsContentBox{color:#6F6F72;font-size:10px;margin-top:10px;}
+
+/*投注确认*/
+.bettingDetailContainer{width:100%;min-height: 100%;background:#FAFAFA;padding:42px 14px 130px;position: relative;}
+.headerBettingCountime{width:100%;height:32px;text-align: center;line-height: 32px;background:#fff;font-size:12px;color:#6F6F72;position: absolute;left:0px;top:0px;}
+.headerBettingCountime .timeBox{color:#D0021B;}
+
+.betLotteryInfoLists{background: #FFFFFF;border-radius: 5px;}
+.betLotteryInfoLists .betInfoList{padding:15px 14px;border-bottom:1px solid #F1F1F2;}
+.betLotteryInfoLists .betInfoList:last-child{border-bottom:0 none;}
+.betLotteryInfoLists .betInfoList .leftTagBox{border-radius:2px;margin-right:2px;height: 32px;line-height: 10px;}
+.betLotteryInfoLists .betInfoList .detailInfoLists{flex-wrap: wrap;margin-top:20px;}
+.betLotteryInfoLists .betInfoList .detailInfoLists .detailInfoBox{margin:0 10px 10px 0;}
+.betLotteryInfoLists .betInfoList  .dataInfoBox{color:#37373A;width: 84px;height: 32px;text-align:Center;line-height:30px;background: #FFF3F2;border-radius: 2px;border: 1px solid #EF4034;}
+.betLotteryInfoLists .betInfoList  .dataInfoBox.redBox{color:#E2231A;}
+.betLotteryInfoLists .betInfoList  .dataInfoBox .dataBox{font-size: 14px;}
+.betLotteryInfoLists .betInfoList  .dataInfoBox .scoreBox{font-size: 12px;margin-left:5px;}
+
+.addSelectMatchBtn{margin-top:10px;width: 347px;height: 42px;background: #FFFFFF;border-radius: 5px;text-align: center;line-height: 42px;color:#37373A;font-size:14px;}
+.addSelectMatchBtn .numBox{font-size:12px;color: #ADAEB4;margin-left:5px;}
+.bettingDetailContainer .tipsBox{color:#ADAEB4;font-size:10px;margin-top:10px;}
+
+.footerBettingInfoBox{background:#fff;width:100%;position: fixed;left:0px;bottom: 0px;padding:0px 0 34px;}
+.bettingNumInfo{padding:5px 14px;border-bottom:1px solid #F9F9F9;}
+.bettingNumInfo .infoBox{height: 32px;padding:0 10px;background: #F1F1F2;border-radius: 4px;}
+.bettingNumInfo .infoBox .numBox{color:#37373A;font-size:14px;margin-right:10px;}
+.bettingNumInfo .infoBox  .arrowIcon{transform: rotate(90deg);}
+
+.addSubtractBox .numBox{color:#37373A;font-size:14px;width:30px;text-align: center;}
+.addSubtractBox .btnBox{width: 20px;height: 20px;text-align:center;line-height:20px;border-radius: 4px;font-size:15px;background: #F1F1F2;}
+.addSubtractBox .subtractBtn{color:#C5C8CA;}
+.addSubtractBox .addBtn{color:#333435;}
+
+.footOptInfoBtn{padding:5px 14px;width: 100%;background:#fff;}
+.footOptInfoBtn .dataInfoBox{text-align: right;margin:0 5px;}
+.footOptInfoBtn .dataInfoBox .betNumBox{color:#37373A;font-size:12px;}
+.footOptInfoBtn .dataInfoBox .betNumBox .moneyBox{color:#D0021B;margin:0 4px;}
+.footOptInfoBtn .dataInfoBox .rewardMoneyNum{color:#ADAEB4;font-size:10px;}
+.footOptInfoBtn .sendBtnBox{width: 100px;height: 42px;border-radius: 4px;border: 1px solid #E2231A;text-align:center;line-height: 40px;color:#E2231A;font-size:16px;}
+.footOptInfoBtn .saveBtnBox{width: 100px;height: 42px;border-radius: 4px;background: linear-gradient(90deg, #FD6A46 0%, #EF4034 100%);text-align:center;line-height: 42px;color:#fff;font-size:16px;}
+.footOptInfoBtn .clearContentBtn{padding:0 15px;text-align: center;}
+.footOptInfoBtn .clearContentBtn .deleteImg{width:16px;height: 16px;display: block;margin:0 auto;}
+.footOptInfoBtn .clearContentBtn .txtBox{color:#ADAEB4;font-size:10px;}
+
+.dataInfoCommonBox{color:#37373A;width: 84px;height: 32px;text-align:Center;line-height:30px;background: #FFF3F2;border-radius: 2px;border: 1px solid #EF4034;}
+.dataInfoCommonBox.redBox{color:#E2231A;}
+.dataInfoCommonBox .dataBox{font-size: 14px;}
+.dataInfoCommonBox .scoreBox{font-size: 12px;margin-left:5px;}
+
+.selectPassWays{flex-wrap: wrap;}
+.selectPassWays .dataInfoCommonBox{margin:0 10px 10px 0;border: 1px solid #FFF3F2;}
+.selectPassWays .dataInfoCommonBox.redBox{border: 1px solid #E2231A;}
+
+/*自选方案*/
+.optionalSchemeContainer{width: 100%;height: 100%;flex-direction: column;padding-bottom:52px;position: relative;background:#FAFAFA;}
+.optionalSchemeContainer .footOptInfoBtn{position: fixed;left:0px;bottom: 53px;border-bottom:1px solid #F9F9F9;}
+.schemeInfoLists{overflow:auto;width:100%;}
+.schemeHeaderInfoBox{width: 100%;}
+.changeBetWasgBox{background:#EF4034;padding:10px 14px;position: relative;z-index: 1000;height: 45px;}
+.changeBetWasgBox .waysBox{color:#FFFFFF;font-size:16px;font-weight: bold;}
+.changeBetWasgBox .rightArrowBox{width:6px;height:auto;margin-left: 10px;transform: rotate(90deg);transition: all 0.5s ease;}
+.changeBetWasgBox .rightArrowBox.rotateStyle{transform: rotate(-90deg);}
+.warningTipsBox{width:100%;height: 28px;text-align:center;line-height:28px;color:#FFFFFF;font-size:12px;background: #FC6945;position: relative;z-index: 1000;}
+.allBetWasgLists{padding:5px 10px;background:#fff;flex-wrap: wrap;position: absolute;width:100%;left:0px;top:45px;z-index: 1000;}
+.allBetWasgLists .waysBox{border-radius: 4px;border:1px solid #ccc;color:#333435;font-size:16px;width:30%;height: 42px;text-align: center;line-height: 40px;margin:0 1.5% 10px;}
+.allBetWasgLists .waysBox.current{color:#EF4034;border:1px solid #EF4034;}
+
+.lotteryMatchDetaiInfo .tabHeaderInfoBox{width:100%;height: 32px;background:#fff;padding:0 14px;color:#6F6F72;font-size: 12px;}
+.lotteryMatchDetaiInfo .tabHeaderInfoBox .arrowIcon{transform: rotate(-90deg);transition: all 0.5s ease;}
+.lotteryMatchDetaiInfo .tabHeaderInfoBox .arrowIcon.rotateStyle{transform: rotate(90deg);}
+.lotteryMatchDetaiInfo .lotteryMatchBox{padding:15px 14px;}
+.lotteryMatchDetaiInfo .lotteryMatchBox .countryName{font-size:16px;}
+.lotteryMatchDetaiInfo .lotteryMatchBox .vsIcon{font-size:14px;}
+.lotteryMatchDetaiInfo .lotteryMatchBox .matchInfoBox{margin:0 5px;}
+
+.lotteryMatchBox .matchDetailBox{margin-top:15px;}
+.lotteryMatchBox .matchDetailBox .labelBox{color:#6F6F72;font-size:10px;margin-right:5px;}
+/* .lotteryMatchBox .matchDetailBox .detailInfoBoxWrap{border-top:1px solid #f9f9fa;}
+.lotteryMatchBox .matchDetailBox .detailInfoBox{border-bottom:1px solid #F9F9FA;} */
+.matchInfoBoxWrap .detailInfoBox{margin-top:-1px;}
+.matchInfoBoxWrap .leftTagBox{height: 35px;line-height: 10px;}
+.matchInfoBoxWrap .dataInfoBox{flex:1;min-height: 35px;background: #fff;border:1px solid #F9F9FA;margin-left:-1px;text-align: center;color:#37373A;font-size:14px;}
+.matchInfoBoxWrap .dataInfoBox:first-child{margin-left:0px;}
+.matchInfoBoxWrap .dataInfoBox .scoreBox{font-size:12px;margin-left:4px;}
+.matchInfoBoxWrap .dataInfoBox.current{background: #FFF3F2;border: 1px solid #EF4034;color:#EF4034;position: relative;}
+.lotteryMatchBox .matchDetailBox .seletedCountBox{font-size: 12px;color:#6F6F72;text-align: center;background:#fff;width:43px;height: 73px;}
+.lotteryMatchBox .matchDetailBox .seletedCountBox .numBox{color:#EF4034;}
+.selectSinglebetStyle{border:1px solid #EF4034;position: relative;width: 100%;}
+
+.selectedSchemeDetail{max-height: 80%;flex-direction: column;padding:0px;}
+.selectedSchemeDetail .countryVsInfo{width:100%;padding:20px 15px;}
+.selectedSchemeDetail .countryVsInfo .countryName{font-size:16px;}
+.selectedSchemeDetail .countryVsInfo .vsIcon{font-size:14px;}
+.selectedSchemeDetail .countryVsInfo .matchInfoBox{margin:0 5px;}
+.selectedSchemeDetail .tipsBox{font-size: 10px;color:#EF4034;width:100%;text-align: center;padding:10px 0;}
+.selectedSchemeDetail .schemeDetailContent{background: #FAFAFA;overflow: auto;flex:1;width:100%;padding:0 15px 5px;}
+.selectedSchemeDetail .schemeDetailContent .matchInfoBoxWrap{margin-bottom:20px;}
+.selectedSchemeDetail .schemeDetailContent .matchInfoBoxWrap .leftTagBox{height: 45px;line-height: 14px;}
+.selectedSchemeDetail .footerBtnLists{width:100%;}
+.selectedSchemeDetail .footerBtnLists .btnBox{flex:1;text-align: center;height: 52px;line-height: 52px;color:#37373A;font-size: 16px;}
+.selectedSchemeDetail .footerBtnLists .btnBox.sureBtn{color:#EF4034;}
+
+/*比分*/
+.matchScoreContainer{width:100%;height: 100%;background:#FAFAFA;flex-direction: column;padding:10px 14px;}
+.headerTimeTypeSort{width:100%;position: relative;}
+.headerTimeTypeSort .timeSortBox{height:42px;padding:0 20px;background:#fff;width:237px;}
+.headerTimeTypeSort .timeSortBox .arrowImgBox{width:12px;height: 12px;}
+.headerTimeTypeSort .timeSortBox .timeIcon{width:16px;height: 16px;margin-right:5px;}
+.headerTimeTypeSort .timeSortBox .timeBox{color:#6F6F72;font-size:14px;}
+.headerTimeTypeSort .typeSortBox{padding:0 25px;height: 42px;background: #FFFFFF;}
+.headerTimeTypeSort .typeSortBox .sortIcon{width:16px;height: 16px;margin-right:5px;}
+.headerTimeTypeSort .typeSortBox .dataBox{color:#6F6F72;font-size:14px;}
+.scoreDetailInfoLists{width:100%;overflow:auto;}
+.scoreDetailInfoLists{margin-top:10px;}
+.scoreDetailInfoLists .scoreDetailList{margin-bottom:16px;padding:10px 14px;background:#fff;}
+.scoreDetailInfoLists .scoreDetailList .headerInfo{color:#ADAEB4;font-size:12px;}
+.scoreDetailInfoLists .scoreDetailList .detailInfoList{margin-top:15px;}
+.scoreDetailInfoLists .scoreDetailList .countryImg{width:20px;height: auto;margin-right:10px;}
+.scoreDetailInfoLists .scoreDetailList .countryName{color:#37373A;font-size: 14px;}
+.scoreDetailInfoLists .scoreDetailList .countryName .tipsBox{color:#ADAEB4;font-size: 10px;margin-left:5px;}
+.scoreDetailInfoLists .scoreDetailList .loseScoreBox{color:#ADAEB4;font-size: 12px;margin-right:30px;}
+.scoreDetailInfoLists .scoreDetailList .winScoreBox{color:#37373A;font-size: 14px;font-weight: bold;}
+.scoreDetailInfoLists .scoreDetailList .coutLineBox{width: 1px;height: 44px;background: #F3F3F3;margin:0 20px 0 15px;}
+.scoreDetailInfoLists .scoreDetailList .scoreInfoWrap{width:75%;}
+.scoreDetailInfoLists .scoreDetailList .scoreInfoWrap .scoreInfo:nth-child(2){margin-top:5px;}
+.focusBtnBox{width: 64px;height: 28px;text-align:center;line-height:26px;border-radius: 5px;border: 1px solid #F3F3F3;color:#6F6F72;font-size: 12px;}
+.finishedBtnBox{color:#6F6F72;font-size: 12px;width: 64px;text-align: center;}
+.matchScoreNumBox{color:#49B346;font-size:14px;font-weight: bold;width: 64px;text-align: center;}
+
+.showTypeSortLists{position: absolute;width:100%;left:0px;top:0px;z-index: 1000;background:#fff;flex-direction: column;max-height: 500px;padding:20px 14px 100px;}
+.showTypeSortLists .typeSortLists{width:100%;overflow: auto;flex-wrap: wrap;}
+.showTypeSortLists .typeSortLists .sortBox{margin:0 1.6% 10px;width: 30%;height: 32px;text-align:center;line-height:30px;border:1px solid #f1f1f2;background: #F1F1F2;border-radius: 2px;color:#37373A;font-size:14px;}
+.showTypeSortLists .typeSortLists .sortBox.current{background: #FFF3F2;border: 1px solid #E2231A;color:#E2231A;}
+.showTypeSortLists .footerFixedBtnLists{padding:20px 14px;}
+.showTypeSortLists .sortHeaderBox{width:100%;padding-bottom: 20px;}
+.showTypeSortLists .sortHeaderBox .dataBox{font-size:12px;color:#ADAEB4;}
+.showTypeSortLists .sortHeaderBox .typeSortBox .sortIcon{width:16px;height: 16px;margin-right:5px;}
+.showTypeSortLists .sortHeaderBox .typeSortBox .dataBox{color:#6F6F72;font-size:14px;}
+
+.showTimeSortLists{position: absolute;width:100%;left:0px;top:0px;z-index: 1000;background:#fff;max-height: 500px;padding:20px 14px;}
+.showTimeSortLists .sortHeaderBox{margin-bottom:10px;}
+.showTimeSortLists .sortHeaderBox .timeIcon{width:16px;height: 16px;margin-right:5px;}
+.showTimeSortLists .sortHeaderBox .dataBox{color:#6F6F72;font-size:14px;}
+
+.week_day_lists{color:#ADAEB4;font-size:12px;width:100%;padding:5px 0;}
+.week_day_lists .timeBox{flex: 1;text-align:center;}
+.day_lists{flex-wrap: wrap;}
+.day_lists .timeBox{width:14.28%;text-align: center;font-size:14px;color:#37373A;padding:5px 0;}
+.day_lists .timeBox .selectTime{width: 24px;height: 24px;background: #EF4034;color:#fff;border-radius: 50%;text-align: center;line-height: 24px;display: inline-block;}
+
+/*留言*/
+.leaveMessageContainer{background: #F9F9FA;width:100%;min-height: 100%;padding:10px 18px 106px;}
+.messageTimeBox{color:#C5C8CA;font-size:10px;padding:20px 0;text-align: center;}
+
+.sendMessageContent{margin-bottom:20px;}
+.sendMessageContent .headerImg{width: 40px;height: 40px;}
+.leftMessageContent .headerImg{margin-right:10px;}
+.rightMessageContent .headerImg{margin-left:10px;}
+.rightMessageContent .messageContent{margin-left:auto;}
+.sendMessageContent .messageContent{max-width: 80%;}
+.sendMessageContent .messageContent.messageContent_scheme{width: 80%;}
+.sendMessageContent .messageContent.messageContent_scheme .contentBox{width:100%;}
+.sendMessageContent .contentBox{background:#fff;padding:5px 10px;font-size:14px;color:#333435;display: inline-block;border-radius: 6px;word-break: break-word;}
+.footerSendBtnBox{position: fixed;left:0px;bottom:0px;width:100%;padding:20px 20px 34px;background: #F9F9FA;border-top:1px solid #F1F1F2;}
+.footerSendBtnBox .sendMsgInputWrap{height: 42px;background: #FFFFFF;border-radius: 21px;padding:7px 7px 7px 15px;}
+.footerSendBtnBox .sendMsgInputWrap .sendInputBox{border:0 none;background: #fff;font-size:14px;color:#333435;}
+.footerSendBtnBox .sendMsgInputWrap .sendBtn{width: 70px;height: 28px;margin-left:10px;text-align:center;line-height:28px;background: #EF4034;border-radius: 17px;color:#FFFFFF;font-size: 14px;}
