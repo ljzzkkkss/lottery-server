@@ -34,7 +34,7 @@ public class OptionalController {
     public ReturnBody addOptional(HttpServletRequest request, @RequestBody OptionalParam optionalParam){
         User user = (User) request.getSession().getAttribute("user");
         optionalParam.getOptional().setUserId(user.getId());
-        optionalService.addOptional(optionalParam)
+        optionalService.addOptional(optionalParam);
         return ReturnType.SUCCESS;
     }
 }
