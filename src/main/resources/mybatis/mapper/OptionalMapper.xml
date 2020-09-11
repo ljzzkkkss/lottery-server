@@ -3,8 +3,8 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.OptionalMapper" >
 
     <insert id="insertOptional"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ljzzkkkss.lottery.server.model.Optional">
-        INSERT INTO `optional`(`userId`,`name`,`optionDate`,`status`)
-         VALUES (#{userId},#{name},#{optionDate},#{status});
+        INSERT INTO `optional`(`userId`,`name`,`optionDate`,`cost`,`status`)
+         VALUES (#{userId},#{name},#{optionDate},#{cost},#{status});
     </insert>
 
 </mapper>

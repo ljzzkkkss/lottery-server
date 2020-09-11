@@ -10,6 +10,7 @@ public class Optional implements Serializable {
     private String lotteryImg;
     private Integer status;
     private String name;
+    private String cost;
     private String optionDate;
 
     public Integer getId() {
@@ -58,5 +59,13 @@ public class Optional implements Serializable {
 
     public void setOptionDate(String optionDate) {
         this.optionDate = optionDate;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 }
