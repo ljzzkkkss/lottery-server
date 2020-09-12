@@ -13,21 +13,21 @@
                     title:'这是一篇教育资讯的内容标题最多两行这是一篇教育资讯的内容标题最多两行',
                     time:'2020.08.23',
                     hitrate:'80%',
-                    img:'img/banner.png'
+                    img:'/templates/img/banner.png'
                 },
                 {
                     id:1,
                     title:'这是一篇教育资讯的内容标',
                     time:'2020.08.23',
                     hitrate:'80%',
-                    img:'img/banner.png'
+                    img:'/templates/img/banner.png'
                 },
                 {
                     id:3,
                     title:'普通类本科批次A阶段录取结果可查',
                     time:'2020.08.23',
                     hitrate:'80%',
-                    img:'img/banner.png'
+                    img:'/templates/img/banner.png'
                 },
             ],
             pageNum:1,
@@ -36,11 +36,11 @@
             bannerImgLists:[
                 {
                     id:0,
-                    picPath:'img/banner.png',
+                    picPath:'/templates/img/banner.png',
                 },
                 {
                     id:1,
-                    picPath:'img/banner.png',
+                    picPath:'/templates/img/banner.png',
                 }
             ],
             articleTabs:[

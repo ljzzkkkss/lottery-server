@@ -7,6 +7,7 @@ import com.ljzzkkkss.lottery.server.model.Optional;
 import com.ljzzkkkss.lottery.server.model.OptionalDetail;
 import com.ljzzkkkss.lottery.server.model.OptionalParam;
 import com.ljzzkkkss.lottery.server.service.OptionalService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class OptionalServiceImpl implements OptionalService {
     @Resource
     private OptionalMapper optionalMapper;

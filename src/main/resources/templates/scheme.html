@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>自选方案</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/swiper.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/weui.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
-    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/common.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/weui.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/style.css" />
+    <script type="text/javascript" src="/templates/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/templates/js/common.js"></script>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                             <div class="changeBetWasgBox">
                                 <div class="flexCenterCenter" @click="showChangeBetWays">
                                     <div class="waysBox">混合过关</div>
-                                    <img class="rightArrowBox" :class="showBetWays?'rotateStyle':''" src="img/rightArrow2.png" alt="">
+                                    <img class="rightArrowBox" :class="showBetWays?'rotateStyle':''" src="/templates/img/rightArrow2.png" alt="">
                                 </div>
                                 <div class="allBetWasgLists flexCenter" v-if="showBetWays">
                                     <div class="waysBox current">胜平负</div>
@@ -41,7 +41,7 @@
                             <div class="lotteryMatchDetaiInfo">
                                 <div class="tabHeaderInfoBox flexCenterBetween" @click="changeShowSubDetail">
                                     <div>2020-08-13 星期五 4场比赛</div>
-                                    <img class="arrowIcon" :class="showSubDetail?'rotateStyle':''" src="img/rightArrow.png" alt="">
+                                    <img class="arrowIcon" :class="showSubDetail?'rotateStyle':''" src="/templates/img/rightArrow.png" alt="">
                                 </div>
                                 <div class="lotteryMatchLists" v-if="showSubDetail">
                                     <div class="lotteryMatchBox">
@@ -160,7 +160,7 @@
                         </div>
                         <div class="footOptInfoBtn flexCenter">
                             <div class="clearContentBtn">
-                                <img class="deleteImg" src="img/deleteIcon.png" alt="">
+                                <img class="deleteImg" src="/templates/img/deleteIcon.png" alt="">
                                 <div class="txtBox">清空</div>
                             </div>
                             <div class="dataInfoBox flex1 flexCenterCenter">
@@ -173,21 +173,21 @@
                 <div class="weui-tabbar">
                     <a href="index.html" class="weui-tabbar__item">
                         <span style="display: inline-block;position: relative;">
-                            <img src="./img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
+                            <img src=".//templates/img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
                             <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
                         </span>
                         <p class="weui-tabbar__label">首页</p>
                     </a>
                     <a href="scheme.html" class="weui-tabbar__item weui-bar__item_on">
-                        <img src="./img/tab/tabIcon_2_2.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_2_2.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">自选方案</p>
                     </a>
                     <a href="score.html" class="weui-tabbar__item">
-                        <img src="./img/tab/tabIcon_3_1.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_3_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">比分</p>
                     </a>
                     <a href="mine.html" class="weui-tabbar__item ">
-                        <img src="./img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">我的</p>
                     </a>
                 </div>

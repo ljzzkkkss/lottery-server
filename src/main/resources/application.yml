@@ -50,3 +50,6 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     cache: false
+
+file:
+  url: http://static.xxx.top

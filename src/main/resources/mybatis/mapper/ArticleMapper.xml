@@ -3,13 +3,13 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.ArticleMapper" >
 
     <select id="getArticleListByCategoryPage" resultType="com.ljzzkkkss.lottery.server.model.Article">
-        SELECT `id`,`title`,`subTitle`,`category`,`lable`,DATE_FROMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `atricle`
+        SELECT `id`,`title`,`subTitle`,`category`,`label`,DATE_FROMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `article`
         WHERE `category` = #{category} AND `status` = 1
         ORDER BY `isTop`,`date` DESC LIMIT #{start},#{pageSize}
     </select>
 
     <select id="getArticleById" resultType="com.ljzzkkkss.lottery.server.model.Article">
-        SELECT `id`,`title`,`subTitle`,`category`,`content`,`lable`,DATE_FROMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `atricle`
+        SELECT `id`,`title`,`subTitle`,`category`,`content`,`label`,DATE_FROMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `article`
         WHERE `id` = #{id}
     </select>
 

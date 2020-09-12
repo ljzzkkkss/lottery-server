@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>比分</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/swiper.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/weui.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
-    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/common.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/swiper.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/weui.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/style.css" />
+    <script type="text/javascript" src="/templates/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/templates/js/common.js"></script>
 </head>
 
 <body>
@@ -21,15 +21,15 @@
                     <div class="matchScoreContainer flexCenterBetween">
                         <div class="headerTimeTypeSort flexCenterBetween">
                             <div class="timeSortBox flexCenterAround" @click="showTimeSortLists">
-                                <img class="arrowImgBox" src="img/left_arrow.png" alt="">
+                                <img class="arrowImgBox" src="/templates/img/left_arrow.png" alt="">
                                 <div class="flex1 flexCenterCenter">
-                                    <img class="timeIcon" src="img/timeIcon.png" alt="">
+                                    <img class="timeIcon" src="/templates/img/timeIcon.png" alt="">
                                     <div class="timeBox">20026期</div>
                                 </div>
-                                <img class="arrowImgBox" src="img/right_arrow.png" alt="">
+                                <img class="arrowImgBox" src="/templates/img/right_arrow.png" alt="">
                             </div>
                             <div class="typeSortBox flexCenter" @click="showSortLists">
-                                <img class="sortIcon" src="img/sortIcon.png" alt="">
+                                <img class="sortIcon" src="/templates/img/sortIcon.png" alt="">
                                 <div class="dataBox">筛选</div>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="scoreInfo flexCenterBetween flex1">
                                             <div class="countryInfoBox flexCenter">
-                                                <img class="countryImg" src="img/mineIcon2.png" alt="">
+                                                <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
                                                 <div class="countryName">{{item.name}}<span class="tipsBox">[12]</span></div>
                                             </div>
                                             <div class="scoreBox flexCenter">
@@ -74,21 +74,21 @@
                 <div class="weui-tabbar">
                     <a href="index.html" class="weui-tabbar__item">
                         <span style="display: inline-block;position: relative;">
-                            <img src="./img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
+                            <img src=".//templates/img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
                             <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
                         </span>
                         <p class="weui-tabbar__label">首页</p>
                     </a>
                     <a href="scheme.html" class="weui-tabbar__item">
-                        <img src="./img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">自选方案</p>
                     </a>
                     <a href="score.html" class="weui-tabbar__item weui-bar__item_on">
-                        <img src="./img/tab/tabIcon_3_2.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_3_2.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">比分</p>
                     </a>
                     <a href="mine.html" class="weui-tabbar__item ">
-                        <img src="./img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
+                        <img src=".//templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">我的</p>
                     </a>
                 </div>
@@ -98,7 +98,7 @@
         <!--日期筛选-->
         <div class="showTimeSortLists" v-if="timeSortListsFlag">
             <div class="sortHeaderBox flexCenter">
-                <img class="timeIcon" src="img/timeIcon.png" alt="">
+                <img class="timeIcon" src="/templates/img/timeIcon.png" alt="">
                 <div class="dataBox">08</div>
             </div>
             <div class="week_day_lists flexCenterAround">
@@ -146,7 +146,7 @@
         <div class="showTypeSortLists flexCenterBetween" v-if="sortListsFlag">
             <div class="sortHeaderBox flexCenterBetween">
                 <div class="typeSortBox flexCenter">
-                    <img class="sortIcon" src="img/sortIcon.png" alt="">
+                    <img class="sortIcon" src="/templates/img/sortIcon.png" alt="">
                     <div class="dataBox">筛选</div>
                 </div>
                 <div class="dataBox">共11场比赛，已选1场</div>
@@ -181,7 +181,7 @@
                     id:0,
                     title:'周日007 K1联赛',
                     time:'08-30 20:13',
-                    pic:'img/mineIcon2.png',
+                    pic:'/templates/img/mineIcon2.png',
                     name:'索尔纳',
                     loseScore:0,
                     winScore:3,
@@ -191,7 +191,7 @@
                     id:1,
                     title:'周日007 K1联赛',
                     time:'08-30 20:13',
-                    pic:'img/mineIcon2.png',
+                    pic:'/templates/img/mineIcon2.png',
                     name:'索尔纳',
                     loseScore:0,
                     winScore:3,
@@ -201,7 +201,7 @@
                     id:2,
                     title:'周日007 K1联赛',
                     time:'08-30 20:13',
-                    pic:'img/mineIcon2.png',
+                    pic:'/templates/img/mineIcon2.png',
                     name:'索尔纳',
                     loseScore:0,
                     winScore:3,
