@@ -1,12 +1,14 @@
 package com.ljzzkkkss.lottery.server.service.impl;
 
+import com.ljzzkkkss.lottery.server.mapper.HelpMapper;
 import com.ljzzkkkss.lottery.server.mapper.MatchMapper;
 import com.ljzzkkkss.lottery.server.mapper.OptionalDetailMapper;
 import com.ljzzkkkss.lottery.server.mapper.OptionalMapper;
+import com.ljzzkkkss.lottery.server.model.Help;
 import com.ljzzkkkss.lottery.server.model.Optional;
 import com.ljzzkkkss.lottery.server.model.OptionalDetail;
 import com.ljzzkkkss.lottery.server.model.OptionalParam;
-import com.ljzzkkkss.lottery.server.service.OptionalService;
+import com.ljzzkkkss.lottery.server.service.MineService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +19,15 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class OptionalServiceImpl implements OptionalService {
+public class MineServiceImpl implements MineService {
     @Resource
     private OptionalMapper optionalMapper;
     @Resource
     private OptionalDetailMapper optionalDetailMapper;
     @Resource
     private MatchMapper matchMapper;
+    @Resource
+    private HelpMapper helpMapper;
 
     @Override
     public List<Optional> getOptionalListByUserId(Integer userId) {
@@ -80,5 +84,10 @@ public class OptionalServiceImpl implements OptionalService {
             optionalDetail.setOptionalId(optional.getId());
             optionalDetailMapper.insertOptionalDetail(optionalDetail);
         }
+    }
+
+    @Override
+    public List<Help> getAllHelp() {
+        return helpMapper.getAll();
     }
 }

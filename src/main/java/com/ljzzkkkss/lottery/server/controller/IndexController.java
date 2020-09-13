@@ -2,9 +2,10 @@ package com.ljzzkkkss.lottery.server.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.ljzzkkkss.lottery.server.constants.ReturnType;
+import com.ljzzkkkss.lottery.server.model.Log;
 import com.ljzzkkkss.lottery.server.model.ReturnBody;
 import com.ljzzkkkss.lottery.server.model.User;
-import com.ljzzkkkss.lottery.server.service.UserService;
+import com.ljzzkkkss.lottery.server.service.IndexService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
@@ -15,11 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 @Controller
 public class IndexController {
     @Resource
-    private UserService userService;
+    private IndexService indexService;
     @Value("${file.url}")
     private String fileUrl;
 
@@ -27,7 +29,7 @@ public class IndexController {
     @ResponseBody
     @PostMapping("/login")
     public ReturnBody login(HttpServletRequest request,@RequestBody User user){
-        User logUser = userService.findByUserName(user.getUsername());
+        User logUser = indexService.findByUserName(user.getUsername());
         if(null == logUser || StringUtils.isEmpty(logUser.getPassword())){
             return ReturnType.LOGIN_ERROR;
         }
@@ -35,6 +37,11 @@ public class IndexController {
             return ReturnType.LOGIN_ERROR;
         }
         request.getSession().setAttribute("user",user);
+        Log log = new Log();
+        log.setContent("系统登录");
+        log.setPhone(user.getPassword());
+        log.setLogTime(new Date());
+        indexService.insertLog(log);
         return new ReturnBody(fileUrl);
     }
 
@@ -63,5 +70,12 @@ public class IndexController {
     @GetMapping("/register")
     public String register(){
         return "register";
+    }
+
+    @GetMapping("/private/userInfo")
+    public ReturnBody register(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user");
+        user.setPassword(null);
+        return new ReturnBody(user);
     }
 }
