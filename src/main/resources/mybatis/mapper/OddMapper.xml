@@ -3,7 +3,7 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.OddMapper" >
 
     <select id="getOddByMatchId" parameterType="Long" resultType="com.ljzzkkkss.lottery.server.model.Odd">
-        SELECT `id`,`matchId`,`category`,`rate`,`content` FROM `odd`
+        SELECT `id`,`matchId`,`category`,`rate`,`content`,`single` FROM `odd`
         WHERE `matchId` = #{matchId};
     </select>
 
