@@ -3,12 +3,12 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.OptionalDetailMapper" >
 
     <select id="insertOptionalDetail" parameterType="com.ljzzkkkss.lottery.server.model.OptionalDetail">
-        INSERT INTO `optional_detail`(`matchId`,`optionalId`,`category`,`rate`,`content`,`times`,`game`,`noteNumber`,`optionDate`)
+        INSERT INTO `optional_detail`(`matchId`,`optionalId`,`category`,`rate`,`content`)
         VALUES (#{matchId}.#{optionalId},#{category},#{rate},#{content},#{times},#{game},#{noteNumber},#{optionDate});
     </select>
 
     <select id="getOptionalDetailByOptionalId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.OptionalDetail">
-        SELECT `matchId`,`category`,`rate`,`content`,`times`,`game`,`noteNumber`,`optionDate` FROM `optional_detail` WHERE `optionalId` = #{optionalId};
+        SELECT `matchId`,`optionalId`,`category`,`rate`,`content` FROM `optional_detail` WHERE `optionalId` = #{optionalId};
     </select>
 
 </mapper>
