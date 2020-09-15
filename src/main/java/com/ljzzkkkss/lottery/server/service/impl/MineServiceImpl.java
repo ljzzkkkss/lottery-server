@@ -58,12 +58,11 @@ public class MineServiceImpl implements MineService {
             List<OptionalDetail> optionalDetails = (List<OptionalDetail>) matchMap.get(key).get("optionalDetail");
             Map<String,List<OptionalDetail>> optionalDetailMap = new HashMap<>();
             Map<String,Object> match = new HashMap<>();
-            for(OptionalDetail optionalDetail : optionalDetailList){
-                if(null == result.get(optionalDetail.getCategory())){
+            for(OptionalDetail optionalDetail : optionalDetails){
+                if(null == optionalDetailMap.get(optionalDetail.getCategory())){
                     optionalDetailMap.put(optionalDetail.getCategory(),new ArrayList<>());
-                }else{
-                    optionalDetailMap.get(optionalDetail.getCategory()).add(optionalDetail);
                 }
+                optionalDetailMap.get(optionalDetail.getCategory()).add(optionalDetail);
             }
             match.put("match",matchMap.get(key).get("match"));
             match.put("optionalDetail",optionalDetailMap);
