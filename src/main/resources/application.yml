@@ -53,3 +53,7 @@ spring:
 
 file:
   url: http://static.xxx.top
+message:
+  url: http://47.98.50.99:18002/send.do
+  uid: 8856
+  pw: 143912

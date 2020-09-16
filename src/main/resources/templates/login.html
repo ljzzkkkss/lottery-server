@@ -33,7 +33,7 @@
             </div>
             <div class="formInputWrap flexCenter">
                 <input class="formInput flex1" type="number" placeholder="验证码" v-model="code" name="">
-                <div class="codeBox">获取验证码</div>
+                <div class="codeBox" @click="sendCode()">获取验证码</div>
             </div>
         </div>
         <div v-if="changeTab == 0">
@@ -42,7 +42,7 @@
         </div>
         <div v-else>
             <div class="commonBtn disabled" v-if="phone == '' || code == ''">登录</div>
-            <div class="commonBtn" @click="loginWithCode()" v-else>登录</div>
+            <div class="commonBtn" @click="loginByCode()" v-else>登录</div>
         </div>
         <div class="footerEnterBox flexCenterBetween">
             <a href="/update_password">忘记密码</a>
@@ -94,8 +94,46 @@
 
                 })
             },
-            loginWithCode(){
+            sendCode(){
+                $.ajax('/sendCode', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        phone: this.phone,
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            alert("发送成功！")
+                        }else{
+                            alert(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
+            },
+            loginByCode(){
+                $.ajax('/loginByCode', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        username: this.phone,
+                        code: this.code
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            localStorage.setItem("ctx",res.data);
+                            window.location.href = '/index'
+                        }else{
+                            alert(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
 
+                })
             }
         }
     })

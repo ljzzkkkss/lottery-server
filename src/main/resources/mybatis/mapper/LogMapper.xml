@@ -3,8 +3,8 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.LogMapper" >
 
     <insert id="insertLog" parameterType="com.ljzzkkkss.lottery.server.model.Log">
-        INSERT INTO `Log`(`content`,`phone`.`logTime`)
-        VALUES(#{content},#{phone}.#{logTime});
+        INSERT INTO `Log`(`content`,`phone`,`logTime`)
+        VALUES(#{content},#{phone},#{logTime});
     </insert>
 
 
