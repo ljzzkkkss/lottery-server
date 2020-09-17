@@ -1,14 +1,10 @@
 package com.ljzzkkkss.lottery.server.controller;
 
-import com.ljzzkkkss.lottery.server.constants.ReturnType;
-import com.ljzzkkkss.lottery.server.model.OptionalParam;
 import com.ljzzkkkss.lottery.server.model.ReturnBody;
 import com.ljzzkkkss.lottery.server.model.User;
 import com.ljzzkkkss.lottery.server.service.MineService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -33,15 +29,6 @@ public class MineController {
         return new ReturnBody(mineService.getOptionalDetailByOptionalId(optionalId,user.getId()));
     }
 
-    @ResponseBody
-    @PostMapping("/private/optional/addOptional")
-    public ReturnBody addOptional(HttpServletRequest request, @RequestBody OptionalParam optionalParam){
-        User user = (User) request.getSession().getAttribute("user");
-        optionalParam.getOptional().setUserId(user.getId());
-        mineService.addOptional(optionalParam);
-        return ReturnType.SUCCESS;
-    }
-
     @GetMapping("/mine")
     public String mine(){
         return "mine";
@@ -50,6 +37,16 @@ public class MineController {
     @GetMapping("/help")
     public String help(){
         return "help";
+    }
+
+    @GetMapping("/private/bet_programme")
+    public String bet_programme(){
+        return "bet_programme";
+    }
+
+    @GetMapping("/private/save_programme")
+    public String save_programme(){
+        return "save_programme";
     }
 
     @ResponseBody

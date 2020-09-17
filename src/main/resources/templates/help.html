@@ -16,10 +16,10 @@
 
 <body>
     <div class="helpContainer" id="webpage">
-        <h3>这是问题标题？</h3>
-        <p>昨天从市教育招生考试院获悉，我市2020年普通高校招生本科批次A阶段录取工作现已基本结束。570所院校2108个专业组共计录取新生31170余人，争取招生院校在津增投本科招生计划750余个。</p>
-        <h3>这是问题标题？</h3>
-        <p>昨天从市教育招生考试院获悉，我市2020年普通高校招生本科批次A阶段录取工作现已基本结束。570所院校2108个专业组共计录取新生31170余人，争取招生院校在津增投本科招生计划750余个。</p>
+        <div v-for="help in helpList">
+            <h3>{{help.title}}</h3>
+            <p>{{help.content}}</p>
+        </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -32,10 +32,23 @@
     var app = new Vue({
         el: '#webpage',
         data: {
-
+            helpList:[]
         },
         mounted: function () {
-            
+            $.ajax('/help/list', {
+                type: 'GET',
+                contentType: 'application/json',
+                success: res => {
+                    if (res.code === '0000') {
+                        app.helpList = res.data;
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: err => {
+                    console.log(err);
+                }
+            })
         },
         methods: {
 

@@ -35,6 +35,11 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
+    public List<Optional> getPayedOptionalListByUserId(Integer userId) {
+        return optionalMapper.getOptionalListByUserId(userId);
+    }
+
+    @Override
     public Map<String, Object> getOptionalDetailByOptionalId(Integer optionalId,Integer userId) {
         Optional optional = optionalMapper.getOptionalByOptionalId(optionalId);
         if(!userId.equals(optional.getUserId())){
@@ -71,18 +76,6 @@ public class MineServiceImpl implements MineService {
         result.put("optional",optional);
         result.put("match",matchList);
         return result;
-    }
-
-    @Override
-    @Transactional
-    public void addOptional(OptionalParam optionalParam) {
-        Optional optional = optionalParam.getOptional();
-        List<OptionalDetail> optionalDetailList = optionalParam.getOptionalDetailList();
-        optionalMapper.insertOptional(optional);
-        for(OptionalDetail optionalDetail : optionalDetailList){
-            optionalDetail.setOptionalId(optional.getId());
-            optionalDetailMapper.insertOptionalDetail(optionalDetail);
-        }
     }
 
     @Override

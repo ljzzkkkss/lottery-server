@@ -169,6 +169,7 @@ public class IndexController {
         return "register";
     }
 
+    @ResponseBody
     @GetMapping("/private/userInfo")
     public ReturnBody register(HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");

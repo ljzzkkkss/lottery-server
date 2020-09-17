@@ -126,7 +126,7 @@
                 }
             },
             goNewsDetail(id){
-                window.location.href = 'news_detail.html?id='+id
+                window.location.href = '/news_detail?id='+id
             }
         }
     })

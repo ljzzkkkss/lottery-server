@@ -8,5 +8,6 @@ import java.util.List;
 public interface OptionalMapper {
     void insertOptional(Optional optional);
     List<Optional> getOptionalListByUserId(@Param("userId")Integer userId);
+    List<Optional> getPayedOptionalListByUserId(@Param("userId")Integer userId);
     Optional getOptionalByOptionalId(@Param("id")Integer id);
 }

@@ -34,7 +34,7 @@ function GetQueryString(name) {
 
 function login(loginUrl) {
     if (loginUrl == null || loginUrl.length < 1) {
-        loginUrl = "login.html";
+        loginUrl = "/login";
     }
     
     clearToken();

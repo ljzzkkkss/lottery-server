@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface MineService {
     List<Optional> getOptionalListByUserId(Integer userId);
+    List<Optional> getPayedOptionalListByUserId(Integer userId);
     Map<String,Object> getOptionalDetailByOptionalId(Integer optionalId,Integer userId);
-    void addOptional(OptionalParam optionalParam);
     List<Help> getAllHelp();
 }
