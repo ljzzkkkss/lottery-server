@@ -9,7 +9,7 @@
     </select>
 
     <select id="getArticleById" resultType="com.ljzzkkkss.lottery.server.model.Article">
-        SELECT `id`,`title`,`subTitle`,`category`,`content`,`label`,DATE_FORMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `article`
+        SELECT `id`,`title`,`subTitle`,`category`,`content`,`label`,DATE_FORMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image`,`recommendGame`,`hasRecommend` FROM `article`
         WHERE `id` = #{id}
     </select>
 

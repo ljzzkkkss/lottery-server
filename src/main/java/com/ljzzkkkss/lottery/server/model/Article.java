@@ -15,6 +15,8 @@ public class Article implements Serializable {
     private Integer isTop;
     private String label;
     private String category;
+    private Integer hasRecommend;
+    private String recommendGame;
 
     public Integer getId() {
         return id;
@@ -94,5 +96,21 @@ public class Article implements Serializable {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Integer getHasRecommend() {
+        return hasRecommend;
+    }
+
+    public void setHasRecommend(Integer hasRecommend) {
+        this.hasRecommend = hasRecommend;
+    }
+
+    public String getRecommendGame() {
+        return recommendGame;
+    }
+
+    public void setRecommendGame(String recommendGame) {
+        this.recommendGame = recommendGame;
     }
 }

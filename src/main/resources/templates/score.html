@@ -36,36 +36,34 @@
                         <div class="scoreDetailInfoLists flex1">
                             <div class="scoreDetailList" v-for="item in scoreDetailInfoLists">
                                 <div class="headerInfo flexCenterBetween">
-                                    <div class="nameBox">{{item.title}}</div>
-                                    <div class="timeBox">{{item.time}}</div>
+                                    <div class="nameBox">{{item.round}} {{item.match}}</div>
+                                    <div class="timeBox">{{item.matchTime}}</div>
                                 </div>
                                 <div class="detailInfoList flexCenter">
                                     <div class="scoreInfoWrap">
                                         <div class="scoreInfo flexCenterBetween flex1">
                                             <div class="countryInfoBox flexCenter">
-                                                <img class="countryImg" :src="item.pic" alt="">
-                                                <div class="countryName">{{item.name}}<span class="tipsBox">[8]</span></div>
+                                                <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
+                                                <div class="countryName">{{item.mainTeam}}<span class="tipsBox"></span></div>
                                             </div>
                                             <div class="scoreBox flexCenter">
-                                                <div class="loseScoreBox">0</div>
-                                                <div class="winScoreBox">3</div>
+                                                <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[0] : ''}}</div>
+                                                <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
                                             </div>
                                         </div>
                                         <div class="scoreInfo flexCenterBetween flex1">
                                             <div class="countryInfoBox flexCenter">
                                                 <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
-                                                <div class="countryName">{{item.name}}<span class="tipsBox">[12]</span></div>
+                                                <div class="countryName">{{item.clientTeam}}<span class="tipsBox"></span></div>
                                             </div>
                                             <div class="scoreBox flexCenter">
-                                                <div class="loseScoreBox">{{item.loseScore}}</div>
-                                                <div class="winScoreBox">{{item.winScore}}</div>
+                                                <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[1] : ''}}</div>
+                                                <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="coutLineBox"></div>
-                                    <div class="focusBtnBox" v-if="item.status == 0">关注</div>
-                                    <div class="finishedBtnBox" v-if="item.status == 1">完成</div>
-                                    <div class="matchScoreNumBox" v-if="item.status == 2">{{item.score}}</div>
+                                    <div class="matchScoreNumBox">{{item.status}}</div>
                                 </div>
                             </div>
                         </div>
@@ -74,21 +72,21 @@
                 <div class="weui-tabbar">
                     <a href="/index" class="weui-tabbar__item">
                         <span style="display: inline-block;position: relative;">
-                            <img src=".//templates/img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
+                            <img src="/templates/img/tab/tabIcon_1_1.png" alt="" class="weui-tabbar__icon">
                             <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
                         </span>
                         <p class="weui-tabbar__label">首页</p>
                     </a>
                     <a href="/scheme" class="weui-tabbar__item">
-                        <img src=".//templates/img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">自选方案</p>
                     </a>
                     <a href="/score" class="weui-tabbar__item weui-bar__item_on">
-                        <img src=".//templates/img/tab/tabIcon_3_2.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_3_2.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">比分</p>
                     </a>
                     <a href="/mine" class="weui-tabbar__item ">
-                        <img src=".//templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">我的</p>
                     </a>
                 </div>
@@ -176,49 +174,29 @@
         data: {
             sortListsFlag:false,
             timeSortListsFlag:false,
-            scoreDetailInfoLists:[
-                {
-                    id:0,
-                    title:'周日007 K1联赛',
-                    time:'08-30 20:13',
-                    pic:'/templates/img/mineIcon2.png',
-                    name:'索尔纳',
-                    loseScore:0,
-                    winScore:3,
-                    status:0
-                },
-                {
-                    id:1,
-                    title:'周日007 K1联赛',
-                    time:'08-30 20:13',
-                    pic:'/templates/img/mineIcon2.png',
-                    name:'索尔纳',
-                    loseScore:0,
-                    winScore:3,
-                    status:1
-                },
-                {
-                    id:2,
-                    title:'周日007 K1联赛',
-                    time:'08-30 20:13',
-                    pic:'/templates/img/mineIcon2.png',
-                    name:'索尔纳',
-                    loseScore:0,
-                    winScore:3,
-                    status:2,
-                    score:89
-                }
-
-            ]
+            scoreDetailInfoLists:[],
+            selectedDate: dateFormat('YYYY-mm-dd',new Date())
         },
         mounted: function () {
-            let that = this;
-            var token = getToken();
-            if (token == null || token.length < 1) {
-                login(location.href);
-                return;
-            }
-
+            showloading();
+            $.ajax('/match/list?matchTime=' + this.selectedDate, {
+                type: 'GET',
+                contentType: 'application/json',
+                success: res => {
+                    // 隐藏加载中
+                    hideloading();
+                    if (res.code === '0000') {
+                        app.scoreDetailInfoLists = res.data;
+                    } else {
+                        showToast(res.message);
+                    }
+                },
+                error: err => {
+                    // 隐藏加载中
+                    hideloading();
+                    console.log(err);
+                }
+            });
         },
         methods: {
             showTimeSortLists(){

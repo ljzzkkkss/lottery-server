@@ -14,7 +14,7 @@ public class MatchController {
     private MatchService matchService;
 
     @ResponseBody
-    @GetMapping("/match/getList")
+    @GetMapping("/match/list")
     public ReturnBody getList(String matchTime){
         return new ReturnBody(matchService.getMatchListByMatchTime(matchTime));
     }

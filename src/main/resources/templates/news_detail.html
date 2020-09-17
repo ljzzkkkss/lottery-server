@@ -22,17 +22,14 @@
             <div class="newsOtherInfo flexCenterBetween">
                 <div class="newsAuthorInfo">
                     <!-- <div class="nameBox">刘晓蕙</div> -->
-                    <div class="timeBox">{{articleInfo.createTime}}</div>
+                    <div class="timeBox">{{articleInfo.date}}</div>
                 </div>
                 <!-- <div class="lookUserNum">{{articleInfo.readNum}}人已看</div> -->
             </div>
             <div class="richTxtContent">
-                <p>昨天从市教育招生考试院获悉，我市2020年普通高校招生本科批次A阶段录取工作现已基本结束。570所院校2108个专业组共计录取新生31170余人，争取招生院校在津增投本科招生计划750余个。</p>
-                <h3>双色球今年方案命中情况如下</h3>
-                <p>昨天从市教育招生考试院获悉，我市2020年普通高校招生本科批次A阶段录取工作现已基本结束。570所院校2108个专业组共计录取新生31170余人，争取招生院校在津增投本科招生计划750余个。</p>
             </div>
         </div>
-        <div class="fixedRecommendBtn flexCenterCenter" @click="showRecommend">
+        <div class="fixedRecommendBtn flexCenterCenter" v-if="articleInfo.hasRecommend == 1" @click="showRecommend()">
             <div>
                 <div>推荐</div>
                 <div>方案</div>
@@ -116,16 +113,18 @@
         el: '#app',
         data: {
             articleInfo:{
-                title:'喜报！289万！上期命中双色球一等奖！优秀！！2007期双色球再搏万元大奖！！',
-                createTime:'2020.08.23 01:20'
+                title: '',
+                date: '',
+                content: '',
+                hasRecommend: 0,
+                recommendGame: ''
             },
             showRecommendPop:false
             
         },
         mounted: function () {
             let id = $.request.queryString.id;
-            console.log(id)
-            // this.init(id);
+            this.init(id);
         },
         methods: {
             showRecommend(){
@@ -135,35 +134,23 @@
                 this.showRecommendPop = false;
             },
             init(id) {
-                let that = this;
-                var token = getToken();
-                if (token == null || token.length < 1) {
-                    login(location.href);
-                    return;
-                }
-                var url = "/article/detail";
-                var jsonData = {
-                    articleId:id,
-                }
                 showloading();
-                getRequest(url, token, jsonData, function (data) {
-                    // 隐藏加载中
-                    hideloading();
-                    if (data.code != 200) {
-                        showToast("请稍后再试");
-                        return;
+                $.ajax('/article/getDetail?id=' + id, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        hideloading();
+                        if (res.code === '0000') {
+                            app.articleInfo = res.data;
+                            $(".richTxtContent").html(res.data.content);
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        hideloading();
+                        console.log(err);
                     }
-                    let lists = data.result;
-                    for (let i in lists) {
-                        let time = lists[i].createTime;
-                        lists[i].createTime = time.match(/(\S*)T/)[1];
-                    }
-                    that.articleInfo = lists[0];
-                    $(".richTxtContent").html(lists[0].detail)
-                }, function (data) {
-                    // 隐藏加载中
-                    hideloading();
-                    showToast("请稍后再试");
                 });
             },
         }
