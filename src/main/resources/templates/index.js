@@ -7,6 +7,7 @@
     var app = new Vue({
         el: '#app',
         data: {
+            ctx: '',
             newsLists:[
                 {
                     id:0,
@@ -33,16 +34,7 @@
             pageNum:1,
             totalPage:0,
             pageSize:5,
-            bannerImgLists:[
-                {
-                    id:0,
-                    picPath:'/templates/img/banner.png',
-                },
-                {
-                    id:1,
-                    picPath:'/templates/img/banner.png',
-                }
-            ],
+            bannerImgLists:[],
             articleTabs:[
                 {
                     id:0,
@@ -72,7 +64,39 @@
                 if(scrollTop + windowHeight >=  scrollHeight){
                     that.scrollBottom();
                  }
-            })
+            });
+            that.ctx = window.localStorage.getItem("ctx");
+            if(null === that.ctx || '' === that.ctx){
+                $.ajax('/getFileUrl', {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        if (res.code === '0000') {
+                            window.localStorage.setItem("ctx",res.data);
+                            that.ctx = res.data
+                        } else {
+                            alert(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err);
+                    }
+                });
+            }
+            $.ajax('/banner/list', {
+                type: 'GET',
+                contentType: 'application/json',
+                success: res => {
+                    if (res.code === '0000') {
+                        app.bannerImgLists = res.data;
+                    } else {
+                        alert(res.message);
+                    }
+                },
+                error: err => {
+                    console.log(err);
+                }
+            });
         },
         methods: {
             changeTabs(id,dex){

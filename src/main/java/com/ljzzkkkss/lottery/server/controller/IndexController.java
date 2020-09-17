@@ -176,4 +176,10 @@ public class IndexController {
         user.setPassword(null);
         return new ReturnBody(user);
     }
+
+    @ResponseBody
+    @GetMapping("/getFileUrl")
+    public ReturnBody getFileUrl(){
+        return new ReturnBody(fileUrl);
+    }
 }
