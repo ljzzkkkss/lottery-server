@@ -4,5 +4,8 @@ import com.ljzzkkkss.lottery.server.model.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    User findByUserName(@Param("username")String username);
+    User findByPhone(@Param("phone")String phone);
+    void updatePassword(User user);
+    void updateLastLogin(User user);
+    void insertUser(User user);
 }

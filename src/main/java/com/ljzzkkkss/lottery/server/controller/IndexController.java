@@ -38,17 +38,19 @@ public class IndexController {
     @ResponseBody
     @PostMapping("/login")
     public ReturnBody login(HttpServletRequest request,@RequestBody User user){
-        User logUser = indexService.findByUserName(user.getUsername());
+        User logUser = indexService.findByPhone(user.getPhone());
         if(null == logUser || StringUtils.isEmpty(logUser.getPassword())){
             return ReturnType.LOGIN_ERROR;
         }
         if(!logUser.getPassword().equals(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()))){
             return ReturnType.LOGIN_ERROR;
         }
+        logUser.setLastLogin(new Date());
+        indexService.updateLastLogin(logUser);
         request.getSession().setAttribute("user",logUser);
         Log log = new Log();
         log.setContent("系统登录");
-        log.setPhone(user.getUsername());
+        log.setPhone(user.getPhone());
         log.setLogTime(new Date());
         indexService.insertLog(log);
         return new ReturnBody(fileUrl);
@@ -57,19 +59,21 @@ public class IndexController {
     @ResponseBody
     @PostMapping("/loginByCode")
     public ReturnBody loginByCode(HttpServletRequest request,@RequestBody Map<String,String> param){
-        String username = param.get("username");
+        String phone = param.get("phone");
         String code = param.get("code");
-        User logUser = indexService.findByUserName(username);
-        if(null == logUser || StringUtils.isEmpty(logUser.getPassword())){
-            return ReturnType.USERNAME_ERROR;
+        User logUser = indexService.findByPhone(phone);
+        if(null == logUser){
+            return ReturnType.PHONE_ERROR;
         }
-        if (!code.equals(stringRedisTemplate.opsForValue().get(username + RedisConstants.CODE_SUFFIX))) {
+        if (!code.equals(stringRedisTemplate.opsForValue().get(phone + RedisConstants.CODE_SUFFIX))) {
             return ReturnType.CODE_ERROR;
         }
+        logUser.setLastLogin(new Date());
+        indexService.updateLastLogin(logUser);
         request.getSession().setAttribute("user",logUser);
         Log log = new Log();
         log.setContent("系统登录");
-        log.setPhone(logUser.getUsername());
+        log.setPhone(logUser.getPhone());
         log.setLogTime(new Date());
         indexService.insertLog(log);
         return new ReturnBody(fileUrl);
@@ -96,6 +100,52 @@ public class IndexController {
             stringRedisTemplate.opsForValue().set(phone + RedisConstants.CODE_SUFFIX,code,10, TimeUnit.MINUTES);
             stringRedisTemplate.opsForValue().set(phone + RedisConstants.SEND_CHECK_SUFFIX,"1",1, TimeUnit.MINUTES);//加锁，一分钟只能发送一次
         }
+        return ReturnType.SUCCESS;
+    }
+
+    @ResponseBody
+    @PostMapping("/updatePassword")
+    public ReturnBody updatePassword(@RequestBody Map<String,String> param){
+        String phone = param.get("phone");
+        String code = param.get("code");
+        String password = param.get("password");
+        User user = indexService.findByPhone(phone);
+        if(null == user){
+            return ReturnType.PHONE_ERROR;
+        }
+        if (!code.equals(stringRedisTemplate.opsForValue().get(phone + RedisConstants.CODE_SUFFIX))) {
+            return ReturnType.CODE_ERROR;
+        }
+        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        indexService.updatePassword(user);
+        return ReturnType.SUCCESS;
+    }
+
+    @ResponseBody
+    @PostMapping("/register")
+    public ReturnBody register(@RequestBody Map<String,String> param){
+        String username = param.get("username");
+        String phone = param.get("phone");
+        String code = param.get("code");
+        String password = param.get("password");
+        User checkUser = indexService.findByPhone(phone);
+        if(null != checkUser){
+            return ReturnType.PHONE_DUPLICATED;
+        }
+        if (!code.equals(stringRedisTemplate.opsForValue().get(phone + RedisConstants.CODE_SUFFIX))) {
+            return ReturnType.CODE_ERROR;
+        }
+        User user = new User();
+        user.setUsername(username);
+        user.setPhone(phone);
+        user.setRegisterTime(new Date());
+        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        indexService.insertUser(user);
+        Log log = new Log();
+        log.setContent("注册");
+        log.setPhone(user.getPhone());
+        log.setLogTime(new Date());
+        indexService.insertLog(log);
         return ReturnType.SUCCESS;
     }
 

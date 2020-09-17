@@ -17,12 +17,27 @@ public class IndexServiceImpl implements IndexService {
     private LogMapper logMapper;
 
     @Override
-    public User findByUserName(String usersname) {
-        return userMapper.findByUserName(usersname);
+    public User findByPhone(String phone) {
+        return userMapper.findByPhone(phone);
     }
 
     @Override
     public void insertLog(Log log) {
         logMapper.insertLog(log);
+    }
+
+    @Override
+    public void updateLastLogin(User user) {
+        userMapper.updateLastLogin(user);
+    }
+
+    @Override
+    public void updatePassword(User user) {
+        userMapper.updatePassword(user);
+    }
+
+    @Override
+    public void insertUser(User user) {
+        userMapper.insertUser(user);
     }
 }

@@ -11,6 +11,7 @@ public class ReturnType {
     public static ReturnBody INVALID_PARAM = new ReturnBody("0203","非法参数！");
     public static ReturnBody NEED_LOGIN = new ReturnBody("0204","需要登陆！");
     public static ReturnBody SEND_TO_OFTEN = new ReturnBody("0205","发送太频繁，一分钟后再试！");
-    public static ReturnBody USERNAME_ERROR = new ReturnBody("0206","用户名错误！");
+    public static ReturnBody PHONE_ERROR = new ReturnBody("0206","手机号错误！");
     public static ReturnBody CODE_ERROR = new ReturnBody("0206","验证码错误！");
+    public static ReturnBody PHONE_DUPLICATED = new ReturnBody("0207","手机号已注册！");
 }

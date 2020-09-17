@@ -1,6 +1,7 @@
 package com.ljzzkkkss.lottery.server.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1146442421485029787L;
@@ -8,6 +9,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String phone;
+    private Date registerTime;
+    private Date lastLogin;
 
     public Integer getId() {
         return id;
@@ -39,5 +42,21 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }
