@@ -18,8 +18,8 @@ public class ArticleServiceImpl implements ArticleService {
     private BannerMapper bannerMapper;
 
     @Override
-    public List<Article> getArticleListByCategoryPage(String category, Integer page, Integer pageSize) {
-        Integer start = pageSize * (page - 1);
+    public List<Article> getArticleListByCategoryPage(String category, Integer pageIndex, Integer pageSize) {
+        Integer start = pageSize * (pageIndex - 1);
         return articleMapper.getArticleListByCategoryPage(category,start,pageSize);
     }
 

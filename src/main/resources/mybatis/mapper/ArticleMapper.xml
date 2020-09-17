@@ -5,7 +5,7 @@
     <select id="getArticleListByCategoryPage" resultType="com.ljzzkkkss.lottery.server.model.Article">
         SELECT `id`,`title`,`subTitle`,`category`,`label`,DATE_FORMAT(`date`,'%Y-%m-%d') `date`,`isTop`,`image` FROM `article`
         WHERE `category` = #{category} AND `status` = 1
-        ORDER BY `isTop`,`date` DESC LIMIT #{start},#{pageSize}
+        ORDER BY `isTop` DESC,`date` DESC LIMIT #{start},#{pageSize}
     </select>
 
     <select id="getArticleById" resultType="com.ljzzkkkss.lottery.server.model.Article">

@@ -42,7 +42,7 @@
                     if (res.code === '0000') {
                         app.helpList = res.data;
                     } else {
-                        alert(res.message);
+                        showToast(res.message);
                     }
                 },
                 error: err => {

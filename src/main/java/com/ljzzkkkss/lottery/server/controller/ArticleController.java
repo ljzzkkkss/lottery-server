@@ -16,9 +16,9 @@ public class ArticleController {
     private ArticleService articleService;
 
     @ResponseBody
-    @GetMapping("/article/getList")
-    public ReturnBody getList(String category,Integer page,Integer pageSize){
-        return new ReturnBody(articleService.getArticleListByCategoryPage(category,page,pageSize));
+    @GetMapping("/article/list")
+    public ReturnBody getList(String category,Integer pageIndex,Integer pageSize){
+        return new ReturnBody(articleService.getArticleListByCategoryPage(category,pageIndex,pageSize));
     }
 
     @ResponseBody

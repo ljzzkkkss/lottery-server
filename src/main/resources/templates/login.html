@@ -88,7 +88,7 @@
                             localStorage.setItem("ctx",res.data);
                             window.location.href = '/index'
                         }else{
-                            alert(res.message);
+                            showToast(res.message);
                         }
                     },
                     error: err => {
@@ -100,7 +100,7 @@
             sendCode(){
                 if(this.msg === '获取验证码') {
                     if(!this.phone){
-                        alert("请输入手机号！");
+                        showToast("请输入手机号！");
                         return;
                     }
                     $.ajax('/sendCode', {
@@ -111,7 +111,7 @@
                         }),
                         success: res => {
                             if (res.code === '0000') {
-                                alert("发送成功！");
+                                showToast("发送成功！");
                                 app.intervalId = setInterval(function () {
                                     app.second--;
                                     if(app.second === 0) {
@@ -123,7 +123,7 @@
                                     }
                                 }, 1000)
                             } else {
-                                alert(res.message);
+                                showToast(res.message);
                             }
                         },
                         error: err => {
@@ -145,7 +145,7 @@
                             localStorage.setItem("ctx",res.data);
                             window.location.href = '/index'
                         }else{
-                            alert(res.message);
+                            showToast(res.message);
                         }
                     },
                     error: err => {

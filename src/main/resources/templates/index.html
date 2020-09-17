@@ -33,23 +33,24 @@
                             </div>
                         </div>
                         <div class="changeTabsLists">
-                            <div class="tabName" :class="index == tabIndex?'current':''" v-for="(item,index) in articleTabs" @click="changeTabs(item.id,index)">{{item.name}}</div>
+                            <div class="tabName" :class="index == tabIndex?'current':''" v-for="(item,index) in articleTabs" @click="changeTabs(item,index)">{{item.name}}</div>
                         </div>
                         <div class="newsInfoLists" v-if="newsLists.length > 0">
-                            <div class="newsList flexCenterBetween" v-for="(item,index) in newsLists" @click="goNewsDetail(item.id)">
+                            <div class="newsList flexCenterBetween" v-for="(item) in newsLists" @click="goNewsDetail(item.id)">
                                 <div class="news_info flexTopBetween flex1">
-                                    <div class="title_box ellipsis2"><span class="hitRateBox">三天命中{{item.hitrate}}</span>{{item.title}}</div>
+                                    <div class="title_box ellipsis2"><span class="hitRateBox">{{item.subTitle}}</span>{{item.title}}</div>
                                     <div class="time_looknum flexCenter">
-                                        <div class="setTopTagBox" v-if="index < 2">置顶</div>
-                                        <div class="time_box">{{item.time}}</div>
+                                        <div class="setTopTagBox" v-if="item.isTop == 1">置顶</div>
+                                        <div class="setLabelTagBox" v-else-if="item.label != '' && item.label != null">{{item.label}}</div>
+                                        <div class="time_box">{{item.date}}</div>
                                     </div>
                                 </div>
-                                <img class="news_img" :src="item.img" alt="">
+                                <img class="news_img" :src="ctx + item.img" alt="">
                             </div>
                         </div>
                         <div class='noContentDefaultBox' v-else>
                             <div class='defalutContent'>
-                                <img class="defaultImg" src='/templates/img/audit.png'></img>
+                                <img class="defaultImg" src='/templates/img/audit.png'/>
                                 <div class='tipsBox'>
                                     <div>暂无信息</div>
                                 </div>
@@ -61,21 +62,20 @@
                 <div class="weui-tabbar">
                     <a href="/index" class="weui-tabbar__item weui-bar__item_on">
                         <span style="display: inline-block;position: relative;">
-                            <img src=".//templates/img/tab/tabIcon_1_2.png" alt="" class="weui-tabbar__icon">
-                            <!-- <span class="weui-badge" style="position: absolute;top: -2px;right: -13px;">8</span> -->
+                            <img src="/templates/img/tab/tabIcon_1_2.png" alt="" class="weui-tabbar__icon">
                         </span>
                         <p class="weui-tabbar__label">首页</p>
                     </a>
                     <a href="/scheme" class="weui-tabbar__item">
-                        <img src=".//templates/img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_2_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">自选方案</p>
                     </a>
                     <a href="/score" class="weui-tabbar__item">
-                        <img src=".//templates/img/tab/tabIcon_3_1.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_3_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">比分</p>
                     </a>
                     <a href="/mine" class="weui-tabbar__item">
-                        <img src=".//templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
+                        <img src="/templates/img/tab/tabIcon_4_1.png" alt="" class="weui-tabbar__icon">
                         <p class="weui-tabbar__label">我的</p>
                     </a>
                 </div>

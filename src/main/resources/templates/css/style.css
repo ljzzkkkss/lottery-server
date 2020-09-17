@@ -23,6 +23,7 @@
 .news_img{width: 116px;height: 85px;border-radius: 5px;margin-left:10px;}
 .hitRateBox{display:inline-block;margin-right:5px;min-width: 70px;height: 16px;background: #F1F6FF;border-radius: 2px;padding:0 4px;line-height: 16px;color:#75A1F1;font-size:10px;}
 .setTopTagBox{display:inline-block;margin-right:5px;width: 28px;height: 16px;text-align:center;line-height:14px;border-radius: 2px;border: 1px solid #E2231A;color:#E2231A;font-size:10px;}
+.setLabelTagBox{display:inline-block;margin-right:5px;width: 28px;height: 16px;text-align:center;line-height:14px;border-radius: 2px;border: 1px solid #F5A623;color:#F5A623;font-size:10px;}
 
 /*资讯详情*/
 .newsDetailBanner{width:100%;}
