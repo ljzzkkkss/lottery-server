@@ -43,66 +43,49 @@
             </div>
             <div class="contentBox">
                 <div class="articleProgrammeLists">
-                    <div class="programmeList">
-                        <div class="headerInfoBox flexCenterBetween">
-                            <div class="matchInfoBox">周五 003 欧冠</div>
+                    <div class="programmeList" v-for="item in recommendList">
+                        <div class="headerInfoBox flexCenterBetween" >
+                            <div class="matchInfoBox">{{item.match.round}} {{item.match.match}}</div>
                             <div class="countryVsInfo flexCenter">
                                 <div class="mainIcon">主</div>
-                                <div class="countryName">圣保罗</div>
+                                <div class="countryName">{{item.match.mainTeam}}</div>
                                 <div class="vsIcon">VS</div>
-                                <div class="countryName">科林蒂安</div>
+                                <div class="countryName">{{item.match.clientTeam}}</div>
                                 <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
                             </div>
                         </div>
-                        <div class="detailInfoBox flexCenter">
-                            <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                            <div class="dataInfoBox">
-                                <div class="dataBox">负</div>
-                                <div class="scoreBox">2.03</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="programmeList">
-                        <div class="headerInfoBox flexCenterBetween">
-                            <div class="matchInfoBox">周五 003 欧冠</div>
-                            <div class="countryVsInfo flexCenter">
-                                <div class="mainIcon">主</div>
-                                <div class="countryName">圣保罗</div>
-                                <div class="vsIcon">VS</div>
-                                <div class="countryName">科林蒂安</div>
-                                <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
-                            </div>
-                        </div>
-                        <div class="detailInfoBox flexCenter">
-                            <div class="leftTagBox styleColor2 flexCenterCenter">比分</div>
-                            <div class="dataInfoBox">
-                                <div class="dataBox">3:0</div>
-                                <div class="scoreBox">12:40</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="programmeList">
-                        <div class="headerInfoBox flexCenterBetween">
-                            <div class="matchInfoBox">周五 003 欧冠</div>
-                            <div class="countryVsInfo flexCenter">
-                                <div class="mainIcon">主</div>
-                                <div class="countryName">圣保罗</div>
-                                <div class="vsIcon">VS</div>
-                                <div class="countryName">科林蒂安</div>
-                                <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
-                            </div>
-                        </div>
-                        <div class="detailInfoBox flexCenter">
-                            <div class="leftTagBox styleColor3 flexCenterCenter">总进球</div>
-                            <div class="dataInfoBox">
-                                <div class="dataBox">2</div>
-                                <div class="scoreBox">2:40</div>
+                        <div v-for="(recommend, key) in item.recommend">
+                            <div v-for="i in Math.ceil(recommend.length/4)">
+                                <div class="detailInfoBox flexCenter">
+                                    <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
+                                    <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
+                                    <div class="leftTagBox styleColor3 flexCenterCenter" v-if="key=='总进球'">{{key}}</div>
+                                    <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                                    <div class="leftTagBox styleColor5 flexCenterCenter" v-if="key=='比分'">{{key}}</div>
+                                    <div class="leftTagBox styleColor6 flexCenterCenter" v-if="key=='半全场'">{{key}}</div>
+                                    <div class="dataInfoBox" v-if="recommend[0+4*(i-1)]">
+                                        <div class="dataBox">{{recommend[0+4*(i-1)].content}}</div>
+                                        <div class="scoreBox">{{recommend[0+4*(i-1)].rate}}</div>
+                                    </div>
+                                    <div class="dataInfoBox" v-if="recommend[1+4*(i-1)]">
+                                        <div class="dataBox">{{recommend[1+4*(i-1)].content}}</div>
+                                        <div class="scoreBox">{{recommend[1+4*(i-1)].rate}}</div>
+                                    </div>
+                                    <div class="dataInfoBox" v-if="recommend[2+4*(i-1)]">
+                                        <div class="dataBox">{{recommend[2+4*(i-1)].content}}</div>
+                                        <div class="scoreBox">{{recommend[2+4*(i-1)].rate}}</div>
+                                    </div>
+                                    <div class="dataInfoBox" v-if="recommend[3+4*(i-1)]">
+                                        <div class="dataBox">{{recommend[3+4*(i-1)].content}}</div>
+                                        <div class="scoreBox">{{recommend[3+4*(i-1)].rate}}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="commonBtn">跟单</div>
+            <div class="commonBtn" @click="order()">跟单</div>
         </div>
     </div>
 </body>
@@ -119,6 +102,18 @@
                 hasRecommend: 0,
                 recommendGame: ''
             },
+            recommendList:[{
+                match:{
+                    mainTeam:'',
+                    clientTeam:'',
+                    match:'',
+                    round:''
+                },
+                recommend:{
+
+                }
+            }],
+            needLogin: true,
             showRecommendPop:false
             
         },
@@ -132,6 +127,14 @@
             },
             hideRecommend(){
                 this.showRecommendPop = false;
+            },
+            order(){
+                if(this.needLogin){
+                    showToast("需要登陆");
+                    window.location.href = '/login';
+                }else {
+                    window.location.href = "/private/betting_order?articleId=" + $.request.queryString.id
+                }
             },
             init(id) {
                 showloading();
@@ -149,6 +152,32 @@
                     },
                     error: err => {
                         hideloading();
+                        console.log(err);
+                    }
+                });
+                $.ajax('/recommend/list?articleId=' + id, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        if (res.code === '0000') {
+                            app.recommendList = res.data;
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err);
+                    }
+                });
+                $.ajax('/private/userInfo', {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        if (res.code === '0000') {
+                            app.needLogin = false;
+                        }
+                    },
+                    error: err => {
                         console.log(err);
                     }
                 });

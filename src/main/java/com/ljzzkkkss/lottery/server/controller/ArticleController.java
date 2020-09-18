@@ -28,6 +28,12 @@ public class ArticleController {
     }
 
     @ResponseBody
+    @GetMapping("/recommend/list")
+    public ReturnBody getRecommendList(Integer articleId){
+        return new ReturnBody(articleService.getRecommendList(articleId));
+    }
+
+    @ResponseBody
     @GetMapping("/banner/list")
     public ReturnBody getBannerList(){
         return new ReturnBody(articleService.getBannerList());
@@ -36,5 +42,10 @@ public class ArticleController {
     @GetMapping("/news_detail")
     public String news_detail(){
         return "news_detail";
+    }
+
+    @GetMapping("/private/betting_order")
+    public String betting_order(){
+        return "betting_order";
     }
 }
