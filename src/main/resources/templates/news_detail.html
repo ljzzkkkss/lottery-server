@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="maskBox" v-if="showRecommendPop" @click="hideRecommend"></div>
-        <div class="popWinBox" v-if="showRecommendPop">
+        <div class="popWinBox" v-if="showRecommendPop" style="overflow: auto;height:80%;">
             <img class="closeIconBtn" src="/templates/img/closeIcon2.png" alt="" @click="hideRecommend">
             <div class="titleBoxWrap">
                 <span>推荐方案</span>

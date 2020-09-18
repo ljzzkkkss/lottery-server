@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/style.css" />
     <script type="text/javascript" src="/templates/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/templates/js/common.js"></script>
+    <script type="text/javascript" src="/templates/js/weui.min.js"></script>
 </head>
 
 <body>
@@ -20,11 +21,11 @@
                 <div class="weui_tab_bd">
                     <div class="matchScoreContainer flexCenterBetween">
                         <div class="headerTimeTypeSort flexCenterBetween">
-                            <div class="timeSortBox flexCenterAround" @click="showTimeSortLists">
+                            <div class="timeSortBox flexCenterAround" @click="selectWarrantyDate()">
                                 <img class="arrowImgBox" src="/templates/img/left_arrow.png" alt="">
                                 <div class="flex1 flexCenterCenter">
                                     <img class="timeIcon" src="/templates/img/timeIcon.png" alt="">
-                                    <div class="timeBox">20026期</div>
+                                    <div class="timeBox">{{selectedDate}}</div>
                                 </div>
                                 <img class="arrowImgBox" src="/templates/img/right_arrow.png" alt="">
                             </div>
@@ -34,36 +35,38 @@
                             </div>
                         </div>
                         <div class="scoreDetailInfoLists flex1">
-                            <div class="scoreDetailList" v-for="item in scoreDetailInfoLists">
-                                <div class="headerInfo flexCenterBetween">
-                                    <div class="nameBox">{{item.round}} {{item.match}}</div>
-                                    <div class="timeBox">{{item.matchTime}}</div>
-                                </div>
-                                <div class="detailInfoList flexCenter">
-                                    <div class="scoreInfoWrap">
-                                        <div class="scoreInfo flexCenterBetween flex1">
-                                            <div class="countryInfoBox flexCenter">
-                                                <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
-                                                <div class="countryName">{{item.mainTeam}}<span class="tipsBox"></span></div>
-                                            </div>
-                                            <div class="scoreBox flexCenter">
-                                                <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[0] : ''}}</div>
-                                                <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
-                                            </div>
-                                        </div>
-                                        <div class="scoreInfo flexCenterBetween flex1">
-                                            <div class="countryInfoBox flexCenter">
-                                                <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
-                                                <div class="countryName">{{item.clientTeam}}<span class="tipsBox"></span></div>
-                                            </div>
-                                            <div class="scoreBox flexCenter">
-                                                <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[1] : ''}}</div>
-                                                <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
-                                            </div>
-                                        </div>
+                            <div v-for="item in scoreDetailInfoLists">
+                                <div class="scoreDetailList" v-if="item.visible">
+                                    <div class="headerInfo flexCenterBetween">
+                                        <div class="nameBox">{{item.round}} {{item.match}}</div>
+                                        <div class="timeBox">{{item.matchTime}}</div>
                                     </div>
-                                    <div class="coutLineBox"></div>
-                                    <div class="matchScoreNumBox">{{item.status}}</div>
+                                    <div class="detailInfoList flexCenter">
+                                        <div class="scoreInfoWrap">
+                                            <div class="scoreInfo flexCenterBetween flex1">
+                                                <div class="countryInfoBox flexCenter">
+                                                    <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
+                                                    <div class="countryName">{{item.mainTeam}}<span class="tipsBox"></span></div>
+                                                </div>
+                                                <div class="scoreBox flexCenter">
+                                                    <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[0] : ''}}</div>
+                                                    <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="scoreInfo flexCenterBetween flex1">
+                                                <div class="countryInfoBox flexCenter">
+                                                    <img class="countryImg" src="/templates/img/mineIcon2.png" alt="">
+                                                    <div class="countryName">{{item.clientTeam}}<span class="tipsBox"></span></div>
+                                                </div>
+                                                <div class="scoreBox flexCenter">
+                                                    <div class="loseScoreBox">{{item.halfScore ? item.halfScore.split('-')[1] : ''}}</div>
+                                                    <div class="winScoreBox">{{item.totalScore ? item.totalScore.split('-')[0] : ''}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="coutLineBox"></div>
+                                        <div class="matchScoreNumBox">{{item.status}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,54 +95,7 @@
                 </div>
             </div>
         </div>
-        <div class="maskBox" v-if="sortListsFlag || timeSortListsFlag" @click="hideSortLists"></div>
-        <!--日期筛选-->
-        <div class="showTimeSortLists" v-if="timeSortListsFlag">
-            <div class="sortHeaderBox flexCenter">
-                <img class="timeIcon" src="/templates/img/timeIcon.png" alt="">
-                <div class="dataBox">08</div>
-            </div>
-            <div class="week_day_lists flexCenterAround">
-                <div class="timeBox">五</div>
-                <div class="timeBox">六</div>
-                <div class="timeBox">日</div>
-                <div class="timeBox">一</div>
-                <div class="timeBox">二</div>
-                <div class="timeBox">三</div>
-                <div class="timeBox">四</div>
-            </div>
-            <div class="day_lists flexCenter">
-                <div class="timeBox">1</div>
-                <div class="timeBox">2</div>
-                <div class="timeBox">3</div>
-                <div class="timeBox">4</div>
-                <div class="timeBox">5</div>
-                <div class="timeBox">6</div>
-                <div class="timeBox">7</div>
-                <div class="timeBox">8</div>
-                <div class="timeBox">9</div>
-                <div class="timeBox">今</div>
-                <div class="timeBox">11</div>
-                <div class="timeBox">12</div>
-                <div class="timeBox">13</div>
-                <div class="timeBox">14</div>
-                <div class="timeBox">15</div>
-                <div class="timeBox">16</div>
-                <div class="timeBox">17</div>
-                <div class="timeBox">18</div>
-                <div class="timeBox">19</div>
-                <div class="timeBox"><span class="selectTime">20</span></div>
-                <div class="timeBox">22</div>
-                <div class="timeBox">23</div>
-                <div class="timeBox">24</div>
-                <div class="timeBox">25</div>
-                <div class="timeBox">26</div>
-                <div class="timeBox">27</div>
-                <div class="timeBox">28</div>
-                <div class="timeBox">28</div>
-                <div class="timeBox">30</div>
-            </div>
-        </div>
+        <div class="maskBox" v-if="sortListsFlag" @click="hideSortLists"></div>
         <!--筛选-->
         <div class="showTypeSortLists flexCenterBetween" v-if="sortListsFlag">
             <div class="sortHeaderBox flexCenterBetween">
@@ -147,18 +103,13 @@
                     <img class="sortIcon" src="/templates/img/sortIcon.png" alt="">
                     <div class="dataBox">筛选</div>
                 </div>
-                <div class="dataBox">共11场比赛，已选1场</div>
             </div>
             <div class="typeSortLists flex1 flexCenter">
-                <div class="sortBox current">瑞典超</div>
-                <div class="sortBox">欧冠</div>
-                <div class="sortBox">巴甲</div>
-                <div class="sortBox">欧潮</div>
-                <div class="sortBox">欧冠</div>
+                <div class="sortBox" v-for="item in categoryList" :class="{ 'current' :  item.selected }" @click="selectMatch(item)">{{item.name}}</div>
             </div>                  
             <div class="footerFixedBtnLists flexCenterBetween">
                 <div class="btnBox cancleBtn" @click="hideSortLists">取消</div>
-                <div class="btnBox sureBtn">筛好了</div>
+                <div class="btnBox sureBtn" @click="matchSelectedOk()">筛好了</div>
             </div>
         </div>
     </div>
@@ -173,41 +124,79 @@
         el: '#webpage',
         data: {
             sortListsFlag:false,
-            timeSortListsFlag:false,
             scoreDetailInfoLists:[],
-            selectedDate: dateFormat('YYYY-mm-dd',new Date())
+            selectedDate: dateFormat('YYYY-mm-dd',new Date()),
+            categoryList: []
         },
         mounted: function () {
-            showloading();
-            $.ajax('/match/list?matchTime=' + this.selectedDate, {
-                type: 'GET',
-                contentType: 'application/json',
-                success: res => {
-                    // 隐藏加载中
-                    hideloading();
-                    if (res.code === '0000') {
-                        app.scoreDetailInfoLists = res.data;
-                    } else {
-                        showToast(res.message);
-                    }
-                },
-                error: err => {
-                    // 隐藏加载中
-                    hideloading();
-                    console.log(err);
-                }
-            });
+            this.init()
         },
         methods: {
-            showTimeSortLists(){
-                this.timeSortListsFlag = true;
-            },
             hideSortLists(){
                 this.sortListsFlag = false;
-                this.timeSortListsFlag = false;
             },
             showSortLists(){
                 this.sortListsFlag = true;
+            },
+            selectMatch(item){
+                if(item.selected){
+                    item.selected = false;
+                }else{
+                    item.selected = true;
+                }
+            },
+            matchSelectedOk(){
+                let selectedCategory = [];
+                this.categoryList.forEach(function(item) {
+                    if(item.selected){
+                        selectedCategory.push(item.name);
+                    }
+                });
+                this.scoreDetailInfoLists.forEach(function (item) {
+                    item.visible = selectedCategory.includes(item.match);
+                    app.hideSortLists();
+                })
+            },
+            selectWarrantyDate(){
+                let that = this;
+                weui.datePicker({
+                    start: 1990,
+                    defaultValue: that.selectedDate.split('-'),
+                    onConfirm: function (result) {
+                        that.selectedDate = result.join().replace(/,/g,'-')
+                        that.init();
+                    },
+                });
+            },
+            init(){
+                showloading();
+                $.ajax('/match/list?matchTime=' + this.selectedDate, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        // 隐藏加载中
+                        hideloading();
+                        if (res.code === '0000') {
+                            let categoryInserted = [];
+                            app.scoreDetailInfoLists = res.data;
+                            app.categoryList = [];
+                            app.scoreDetailInfoLists.forEach(function (item) {
+                                if(!categoryInserted.includes(item.match)){
+                                    app.categoryList.push({name:item.match,selected:true});
+                                    categoryInserted.push(item.match);
+                                }
+                                item.visible = true;
+                            })
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        // 隐藏加载中
+                        hideloading();
+                        console.log(err);
+                    }
+                });
             }
         }
     })
