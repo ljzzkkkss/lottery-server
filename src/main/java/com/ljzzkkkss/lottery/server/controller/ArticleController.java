@@ -44,8 +44,8 @@ public class ArticleController {
         return "news_detail";
     }
 
-    @GetMapping("/private/betting_order")
+    @GetMapping("/private/betting_order_recommend")
     public String betting_order(){
-        return "betting_order";
+        return "betting_order_recommend";
     }
 }

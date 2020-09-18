@@ -21,7 +21,7 @@ public class OptionalController {
 
     @GetMapping("/scheme")
     public String scheme(){
-        return "score";
+        return "scheme";
     }
 
     @ResponseBody

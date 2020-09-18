@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>投注确认</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/common.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/weui.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/templates/css/style.css" />
+    <script type="text/javascript" src="/templates/js/jquery-3.1.1.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script> -->
+</head>
+
+<body>
+    <div class="bettingDetailContainer" id="webpage">
+      <div class="headerBettingCountime">截止投注时间 <span class="timeBox">2020-08-12 22:00</span></div>
+      <div class="betLotteryInfoLists">
+          <div class="betInfoList">
+            <div class="headerInfoBox flexCenterBetween">
+                <div class="matchInfoBox">周五 003 欧冠</div>
+                <div class="countryVsInfo flexCenter">
+                    <div class="mainIcon">主</div>
+                    <div class="countryName">圣保罗</div>
+                    <div class="vsIcon">VS</div>
+                    <div class="countryName">科林蒂安</div>
+                    <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
+                </div>
+            </div>
+            <div class="detailInfoLists flexCenter">
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
+                    <div class="dataInfoBox flexCenterCenter">
+                        <div class="dataBox">负</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor4 flexCenterCenter">主 -1</div>
+                    <div class="dataInfoBox flexCenterCenter redBox">
+                        <div class="dataBox">负</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+            </div>
+            
+          </div>
+          <div class="betInfoList">
+            <div class="headerInfoBox flexCenterBetween">
+                <div class="matchInfoBox">周五 003 欧冠</div>
+                <div class="countryVsInfo flexCenter">
+                    <div class="mainIcon">主</div>
+                    <div class="countryName">圣保罗</div>
+                    <div class="vsIcon">VS</div>
+                    <div class="countryName">科林蒂安</div>
+                    <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
+                </div>
+            </div>
+            <div class="detailInfoLists flexCenter">
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
+                    <div class="dataInfoBox flexCenterCenter redBox">
+                        <div class="dataBox">负</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="betInfoList">
+            <div class="headerInfoBox flexCenterBetween">
+                <div class="matchInfoBox">周五 003 欧冠</div>
+                <div class="countryVsInfo flexCenter">
+                    <div class="mainIcon">主</div>
+                    <div class="countryName">圣保罗</div>
+                    <div class="vsIcon">VS</div>
+                    <div class="countryName">科林蒂安</div>
+                    <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
+                </div>
+            </div>
+            <div class="detailInfoLists flexCenter">
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
+                    <div class="dataInfoBox flexCenterCenter redBox">
+                        <div class="dataBox">负</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor4 flexCenterCenter">非让球</div>
+                    <div class="dataInfoBox flexCenterCenter redBox">
+                        <div class="dataBox">胜</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+                <div class="detailInfoBox flexCenter">
+                    <div class="leftTagBox styleColor2 flexCenterCenter">主 -1</div>
+                    <div class="dataInfoBox flexCenterCenter redBox">
+                        <div class="dataBox">胜</div>
+                        <div class="scoreBox">2.03</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="addSelectMatchBtn">+继续选择比赛<span class="numBox">已选3场</span></div>
+      <div class="tipsBox">注：全场90分钟（含伤停补时，不含加时赛及点球大战）</div>
+      <div class="footerBettingInfoBox">
+          <div class="bettingNumInfo flexCenterBetween">
+              <div class="infoBox flexCenter" @click="selectPassWays">
+                  <div class="numBox">2串1,3串1</div>
+                  <img class="arrowIcon" src="/templates/img/rightArrow.png" alt="">
+              </div>
+              <div class="addSubtractBox flexCenter">
+                  <div class="btnBox subtractBtn">-</div>
+                  <div class="numBox">1</div>
+                  <div class="btnBox addBtn">+</div>
+              </div>
+          </div>
+          <div class="footOptInfoBtn flexCenter">
+              <div class="sendBtnBox">发送给店长</div>
+              <div class="dataInfoBox flex1">
+                  <div class="betNumBox">7注<span class="moneyBox">14</span>元</div>
+                  <div class="rewardMoneyNum">预计奖金 6.12-57.58元</div>
+              </div>
+              <div class="saveBtnBox">保存方案</div>
+          </div>
+      </div>
+      <div class="maskBox" v-if="selectPassWaysPop" @click="cancleSelectPassWays"></div>
+      <div class="footerActionSheetPop flexCenterBetween" v-if="selectPassWaysPop">
+            <div class="titleBox">自由过关</div>
+            <div class="contentBox">
+                <div class="selectPassWays flexCenter">
+                    <div class="dataInfoCommonBox flexCenterCenter">
+                        <div class="dataBox">2串1</div>
+                    </div>
+                    <div class="dataInfoCommonBox flexCenterCenter redBox">
+                        <div class="dataBox">3串1</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="footerFixedBtnLists flexCenterBetween">
+                <div class="btnBox cancleBtn" @click="cancleSelectPassWays">取消</div>
+                <div class="btnBox sureBtn">筛好了</div>
+            </div>
+      </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="/templates/js/common.js"></script>
+<!-- <script type="text/javascript">
+    // 初始化
+    var vConsole = new VConsole();
+</script> -->
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#webpage',
+        data: {
+            selectPassWaysPop:false
+        },
+        mounted: function () {
+            
+        },
+        methods: {
+            selectPassWays(){
+                this.selectPassWaysPop = true
+            },
+            cancleSelectPassWays(){
+                this.selectPassWaysPop = false
+            }
+        }
+    })
+</script>
+
+</html>
