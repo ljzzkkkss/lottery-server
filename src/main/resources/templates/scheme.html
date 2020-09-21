@@ -27,9 +27,9 @@
                                     <img class="rightArrowBox" :class="showBetWays?'rotateStyle':''" src="/templates/img/rightArrow2.png" alt="">
                                 </div>
                                 <div class="allBetWasgLists flexCenter" v-show="showBetWays">
-                                    <div class="waysBox current">胜平负</div>
+                                    <div class="waysBox">胜平负</div>
                                     <div class="waysBox">让球胜平负</div>
-                                    <div class="waysBox">混合过关</div>
+                                    <div class="waysBox current">混合过关</div>
                                     <div class="waysBox">比分</div>
                                     <div class="waysBox">进球数</div>
                                     <div class="waysBox">半全场</div>
@@ -38,119 +38,45 @@
                             </div>
                         </div>
                         <div class="schemeInfoLists flex1">
-                            <div class="lotteryMatchDetaiInfo" v-for="(oddList,key,index) in matchList">
+                            <div class="lotteryMatchDetaiInfo" v-for="(subMatchList,key,index) in matchList">
                                 <div class="tabHeaderInfoBox flexCenterBetween" @click="changeShowSubDetail(index)">
-                                    <div>{{key}} {{oddList.length}}场比赛</div>
+                                    <div>{{key}} {{subMatchList.length}}场比赛</div>
                                     <img class="arrowIcon" :class="matchTab[index]?'rotateStyle':''" src="/templates/img/rightArrow.png" alt="">
                                 </div>
                                 <div class="lotteryMatchLists" v-show="matchTab[index]">
-                                    <div class="lotteryMatchBox">
+                                    <div class="lotteryMatchBox" v-for="match in subMatchList">
                                         <div class="countryVsInfo flexCenterCenter">
-                                            <div class="matchInfoBox">主[12]</div>
-                                            <div class="countryName">圣保罗</div>
+                                            <div class="matchInfoBox">主</div>
+                                            <div class="countryName">{{match.match.mainTeam}}</div>
                                             <div class="vsIcon">VS</div>
-                                            <div class="countryName">科林蒂安</div>
-                                            <div class="matchInfoBox">[12]</div>
+                                            <div class="countryName">{{match.match.clientTeam}}</div>
+                                            <div class="matchInfoBox"></div>
                                         </div>
                                         <div class="matchDetailBox flexCenter">
                                             <div class="labelBox">
-                                                <div>周一002</div>
-                                                <div>欧国联</div>
-                                                <div>22:00截止</div>
+                                                <div>{{match.match.round}}</div>
+                                                <div>{{match.match.match}}</div>
+                                                <div>{{match.match.matchTime.substr(11,5)}}截止</div>
                                             </div>
                                             <div class="matchInfoBoxWrap flex1">
-                                                <div class="detailInfoBox flexCenter">
-                                                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                                                    <div class="dataInfoBox flexCenterCenter current">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                </div>
-                                                <div class="detailInfoBox flexCenter">
-                                                    <div class="leftTagBox styleColor2 flexCenterCenter">主 -1</div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
+                                                <div class="detailInfoBox flexCenter" v-for="(oddList,key) in match.oddList" v-show="key == '胜负平' || key.startsWith('让球')">
+                                                    <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
+                                                    <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
+                                                    <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                                                    <div class="dataInfoBox flexCenterCenter" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,match.match)">
+                                                        <div class="dataBox">{{odd.content}}</div>
+                                                        <div class="scoreBox">{{odd.rate}}</div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="seletedCountBox flexCenterCenter">
-                                                <div>
+                                            <div class="seletedCountBox flexCenterCenter" @click="sureSchemeInfo(match)">
+                                                <div v-if="match.match.selectedNum != null && match.match.selectedNum > 0">
                                                     <div class="txtBox">已选</div>
-                                                    <div class="txtBox"><span class="numBox">2</span>项</div>
+                                                    <div class="txtBox"><span class="numBox">{{match.match.selectedNum}}</span>项</div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="lotteryMatchBox">
-                                        <div class="countryVsInfo flexCenterCenter">
-                                            <div class="matchInfoBox">主[12]</div>
-                                            <div class="countryName">圣保罗</div>
-                                            <div class="vsIcon">VS</div>
-                                            <div class="countryName">科林蒂安</div>
-                                            <div class="matchInfoBox">[12]</div>
-                                        </div>
-                                        <div class="matchDetailBox flexCenter">
-                                            <div class="labelBox">
-                                                <div>周一002</div>
-                                                <div>欧国联</div>
-                                                <div>22:00截止</div>
-                                            </div>
-                                            <div class="matchInfoBoxWrap flex1">
-                                                <div class="detailInfoBox flexCenter">
-                                                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                                                    <div class="selectSinglebetStyle flexCenter">  <!--单关红色区域-->
-                                                        <div class="dataInfoBox flexCenterCenter">
-                                                            <div class="dataBox">负</div>
-                                                            <div class="scoreBox">2.03</div>
-                                                        </div>
-                                                        <div class="dataInfoBox flexCenterCenter">
-                                                            <div class="dataBox">负</div>
-                                                            <div class="scoreBox">2.03</div>
-                                                        </div>
-                                                        <div class="dataInfoBox flexCenterCenter">
-                                                            <div class="dataBox">负</div>
-                                                            <div class="scoreBox">2.03</div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="detailInfoBox flexCenter">
-                                                    <div class="leftTagBox styleColor2 flexCenterCenter">主 -1</div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                    <div class="dataInfoBox flexCenterCenter">
-                                                        <div class="dataBox">负</div>
-                                                        <div class="scoreBox">2.03</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="seletedCountBox flexCenterCenter">
-                                                <div>
-                                                    <div class="txtBox">已选</div>
-                                                    <div class="txtBox"><span class="numBox">2</span>项</div>
+                                                <div v-else>
+                                                    <div class="txtBox">更多</div>
+                                                    <div class="txtBox">选项</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,9 +90,9 @@
                                 <div class="txtBox">清空</div>
                             </div>
                             <div class="dataInfoBox flex1 flexCenterCenter">
-                                <div class="betNumBox">已选择<span class="moneyBox">4</span>场</div>
+                                <div class="betNumBox">已选择<span class="moneyBox">{{selectedMatch}}</span>场</div>
                             </div>
-                            <div class="saveBtnBox" @click="sureSchemeInfo">选好了</div>
+                            <div class="saveBtnBox">选好了</div>
                         </div>
                     </div>
                 </div>
@@ -197,251 +123,82 @@
         <div class="maskBox" style="z-index: 1000;" v-if="sureSchemePop" @click="hideSureSchemeInfo"></div>
         <div class="popWinBox selectedSchemeDetail flexCenterBetween" v-if="sureSchemePop">
             <div class="countryVsInfo flexCenterCenter">
-                <div class="matchInfoBox">主[12]</div>
-                <div class="countryName">圣保罗</div>
+                <div class="matchInfoBox">主</div>
+                <div class="countryName">{{popMatch.match.mainTeam}}</div>
                 <div class="vsIcon">VS</div>
-                <div class="countryName">科林蒂安</div>
-                <div class="matchInfoBox">[12]</div>
+                <div class="countryName">{{popMatch.match.clientTeam}}</div>
+                <div class="matchInfoBox"></div>
             </div>
             <div class="schemeDetailContent">
                 <div class="tipsBox">红框区域可投单关</div>
-                <div class="matchInfoBoxWrap">
-                    <div class="detailInfoBox flexCenter">
-                        <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                        <div class="selectSinglebetStyle flexCenter">  <!--单关红色区域-->
-                            <div class="dataInfoBox">
-                                <div class="dataBox">负</div>
-                                <div class="scoreBox">2.03</div>
+                <div v-for="(oddList,key) in popMatch.oddList">
+                    <div class="matchInfoBoxWrap" v-show="key == '胜负平' || key.startsWith('让球')">
+                        <div class="detailInfoBox flexCenter">
+                            <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
+                            <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
+                            <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                            <div class="selectSinglebetStyle flexCenter" v-if="oddList[0].single == 1">  <!--单关红色区域-->
+                                <div class="dataInfoBox" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,popMatch.match)">
+                                    <div class="dataBox">{{odd.content}}</div>
+                                    <div class="scoreBox">{{odd.rate}}</div>
+                                </div>
                             </div>
-                            <div class="dataInfoBox">
-                                <div class="dataBox">负</div>
-                                <div class="scoreBox">2.03</div>
-                            </div>
-                            <div class="dataInfoBox current">
-                                <div class="dataBox">负</div>
-                                <div class="scoreBox">2.03</div>
+                            <div class="dataInfoBox flexCenter" v-else>  <!--单关红色区域-->
+                                <div class="dataInfoBox" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,popMatch.match)">
+                                    <div class="dataBox">{{odd.content}}</div>
+                                    <div class="scoreBox">{{odd.rate}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="detailInfoBox flexCenter">
-                        <div class="leftTagBox styleColor2 flexCenterCenter">主 -1</div>
-                        <div class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </div>
-                        <div class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </div>
-                        <div class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </div>
-                    </div>
+                    <table class="matchInfoBoxWrap" v-show="key == '总进球' || key == '比分' || key == '半全场'">
+                        <tr class="detailInfoBox">
+                            <td class="leftTagBox styleColor3" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='总进球'">{{key}}</td>
+                            <td class="leftTagBox styleColor5" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='比分'">{{key}}</td>
+                            <td class="leftTagBox styleColor6" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='半全场'">{{key}}</td>
+                        </tr>
+                        <tr class="detailInfoBox flexCenter selectSinglebetStyle" v-if="oddList[0].single == 1" v-for="i in Math.ceil(oddList.length/4)">
+                            <td class="dataInfoBox" :class="oddList[0+4*(i-1)].selected?'current':''" v-if="oddList[0+4*(i-1)]" @click="selectOdd(oddList[0+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[0+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[0+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[1+4*(i-1)].selected?'current':''" v-if="oddList[1+4*(i-1)]" @click="selectOdd(oddList[1+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[1+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[1+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[2+4*(i-1)].selected?'current':''" v-if="oddList[2+4*(i-1)]" @click="selectOdd(oddList[2+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[2+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[2+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[3+4*(i-1)].selected?'current':''" v-if="oddList[3+4*(i-1)]" @click="selectOdd(oddList[3+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[3+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[3+4*(i-1)].rate}}</div>
+                            </td>
+                        </tr>
+                        <tr class="detailInfoBox flexCenter" v-else v-for="i in Math.ceil(oddList.length/4)">
+                            <td class="dataInfoBox" :class="oddList[0+4*(i-1)].selected?'current':''" v-if="oddList[0+4*(i-1)]" @click="selectOdd(oddList[0+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[0+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[0+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[1+4*(i-1)].selected?'current':''" v-if="oddList[1+4*(i-1)]" @click="selectOdd(oddList[1+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[1+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[1+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[2+4*(i-1)].selected?'current':''" v-if="oddList[2+4*(i-1)]" @click="selectOdd(oddList[2+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[2+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[2+4*(i-1)].rate}}</div>
+                            </td>
+                            <td class="dataInfoBox" :class="oddList[3+4*(i-1)].selected?'current':''" v-if="oddList[3+4*(i-1)]" @click="selectOdd(oddList[3+4*(i-1)],popMatch.match)">
+                                <div class="dataBox">{{oddList[3+4*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[3+4*(i-1)].rate}}</div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <table class="matchInfoBoxWrap">
-                    <tr class="detailInfoBox">
-                        <td class="leftTagBox styleColor5 " rowspan="4">比分</td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter selectSinglebetStyle">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox" colspan="2">
-                            <div class="dataBox">胜其他</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox" colspan="2">
-                            <div class="dataBox">胜其他</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                </table>
-                <table class="matchInfoBoxWrap">
-                    <tr class="detailInfoBox">
-                        <td class="leftTagBox styleColor3 " rowspan="2">总决赛</td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter ">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                </table>
-                <table class="matchInfoBoxWrap">
-                    <tr class="detailInfoBox">
-                        <td class="leftTagBox styleColor3 " rowspan="2">总决赛</td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                    <tr class="detailInfoBox flexCenter ">
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                        <td class="dataInfoBox">
-                            <div class="dataBox">负</div>
-                            <div class="scoreBox">2.03</div>
-                        </td>
-                    </tr>
-                </table>
             </div>
            <div class="footerBtnLists flexCenter">
                <div class="btnBox" @click="hideSureSchemeInfo">取消</div>
-               <div class="btnBox sureBtn">确定</div>
+               <div class="btnBox sureBtn" @click="selectOther">确定</div>
            </div>
         </div>
     </div>
@@ -458,6 +215,7 @@
             showBetWays:false,
             sureSchemePop:false,
             needLogin:true,
+            selectedMatch: 0,
             matchList:{},
             matchTab:[],//控制每个日期下的比赛tab页显示
             popMatch:{}//更多选项对应的比赛
@@ -483,7 +241,6 @@
                     // 隐藏加载中
                     hideloading();
                     if (res.code === '0000') {
-                        console.info(res.data);
                         app.matchList = res.data;
                         for(let key in app.matchList){
                             app.matchTab.push(true);
@@ -499,8 +256,9 @@
             });
         },
         methods: {
-            sureSchemeInfo(){
+            sureSchemeInfo(match){
                 this.sureSchemePop = true;
+                this.popMatch = match;
             },
             hideSureSchemeInfo(){
                 this.sureSchemePop = false;
@@ -513,6 +271,26 @@
             },
             hideBetWays(){
                 this.showBetWays = false;
+            },
+            selectOther(){
+                this.sureSchemePop = false;
+            },
+            selectOdd(odd,match){
+                this.$set(odd,'selected',!odd.selected);
+                if(odd.selected){//选择
+                    if(null == match.selectedNum){
+                        match.selectedNum = 0;
+                    }
+                    if(match.selectedNum === 0){
+                        this.selectedMatch++;
+                    }
+                    this.$set(match,'selectedNum',match.selectedNum + 1);
+                }else{//取消选择
+                    this.$set(match,'selectedNum',match.selectedNum - 1);
+                    if(match.selectedNum === 0){
+                        this.selectedMatch--;
+                    }
+                }
             }
         }
     })
