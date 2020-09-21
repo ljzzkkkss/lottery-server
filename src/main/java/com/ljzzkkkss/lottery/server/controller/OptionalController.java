@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 
 @Controller
 public class OptionalController {
@@ -31,5 +32,11 @@ public class OptionalController {
         optionalParam.getOptional().setUserId(user.getId());
         optionalService.addOptional(optionalParam);
         return ReturnType.SUCCESS;
+    }
+
+    @ResponseBody
+    @GetMapping("/optional/matchList")
+    public ReturnBody getOddByMatchId() throws ParseException {
+        return new ReturnBody(optionalService.getMatchNotStartList());
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 public interface MatchMapper {
     List<Match> getMatchListByMatchTime(@Param("matchTime")String matchTime);
     Match getMatchById(@Param("id")Long id);
+    List<Match> getMatchListNotStart();
 }

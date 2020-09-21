@@ -26,7 +26,7 @@
                                     <div class="waysBox">混合过关</div>
                                     <img class="rightArrowBox" :class="showBetWays?'rotateStyle':''" src="/templates/img/rightArrow2.png" alt="">
                                 </div>
-                                <div class="allBetWasgLists flexCenter" v-if="showBetWays">
+                                <div class="allBetWasgLists flexCenter" v-show="showBetWays">
                                     <div class="waysBox current">胜平负</div>
                                     <div class="waysBox">让球胜平负</div>
                                     <div class="waysBox">混合过关</div>
@@ -38,12 +38,12 @@
                             </div>
                         </div>
                         <div class="schemeInfoLists flex1">
-                            <div class="lotteryMatchDetaiInfo">
-                                <div class="tabHeaderInfoBox flexCenterBetween" @click="changeShowSubDetail">
-                                    <div>2020-08-13 星期五 4场比赛</div>
-                                    <img class="arrowIcon" :class="showSubDetail?'rotateStyle':''" src="/templates/img/rightArrow.png" alt="">
+                            <div class="lotteryMatchDetaiInfo" v-for="(oddList,key,index) in matchList">
+                                <div class="tabHeaderInfoBox flexCenterBetween" @click="changeShowSubDetail(index)">
+                                    <div>{{key}} {{oddList.length}}场比赛</div>
+                                    <img class="arrowIcon" :class="matchTab[index]?'rotateStyle':''" src="/templates/img/rightArrow.png" alt="">
                                 </div>
-                                <div class="lotteryMatchLists" v-if="showSubDetail">
+                                <div class="lotteryMatchLists" v-show="matchTab[index]">
                                     <div class="lotteryMatchBox">
                                         <div class="countryVsInfo flexCenterCenter">
                                             <div class="matchInfoBox">主[12]</div>
@@ -456,11 +456,47 @@
         el: '#webpage',
         data: {
             showBetWays:false,
-            showSubDetail:true,
-            sureSchemePop:false
+            sureSchemePop:false,
+            needLogin:true,
+            matchList:{},
+            matchTab:[],//控制每个日期下的比赛tab页显示
+            popMatch:{}//更多选项对应的比赛
         },
         mounted: function () {
-            
+            $.ajax('/private/userInfo', {
+                type: 'GET',
+                contentType: 'application/json',
+                success: res => {
+                    if (res.code === '0000') {
+                        app.needLogin = false;
+                    }
+                },
+                error: err => {
+                    console.log(err);
+                }
+            });
+            showloading();
+            $.ajax('/optional/matchList', {
+                type: 'GET',
+                contentType: 'application/json',
+                success: res => {
+                    // 隐藏加载中
+                    hideloading();
+                    if (res.code === '0000') {
+                        console.info(res.data);
+                        app.matchList = res.data;
+                        for(let key in app.matchList){
+                            app.matchTab.push(true);
+                        }
+                    } else {
+                        showToast(res.message);
+                    }
+                },
+                error: err => {
+                    hideloading();
+                    console.log(err);
+                }
+            });
         },
         methods: {
             sureSchemeInfo(){
@@ -469,8 +505,8 @@
             hideSureSchemeInfo(){
                 this.sureSchemePop = false;
             },
-            changeShowSubDetail(){
-                this.showSubDetail = !this.showSubDetail;
+            changeShowSubDetail(index){
+                this.$set(this.matchTab,index,!this.matchTab[index]);
             },
             showChangeBetWays(){
                 this.showBetWays = !this.showBetWays;
