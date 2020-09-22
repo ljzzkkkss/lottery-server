@@ -227,6 +227,7 @@
             showList:['胜负平','让球','比分','总进球','半全场']
         },
         mounted: function () {
+            let that = this;
             $.ajax('/private/userInfo', {
                 type: 'GET',
                 contentType: 'application/json',
@@ -239,7 +240,20 @@
                     console.log(err);
                 }
             });
-            this.loadData();
+            if(window.localStorage.getItem("selectedMatch")){
+                that.matchList = JSON.parse(window.localStorage.getItem("selectedMatch"));
+                for(let key in that.matchList){
+                    that.matchTab.push(true);
+                    that.matchList[key].forEach(function(match){
+                        if(match.match.selectedNum && match.match.selectedNum > 0){
+                            that.selectedMatch++;
+                        }
+                    });
+                }
+                window.localStorage.removeItem("selectedMatch");
+            }else{
+                that.loadData();
+            }
         },
         methods: {
             sureSchemeInfo(match){
@@ -260,8 +274,8 @@
                 this.showBetWays = false;
             },
             selectOther(){
-                this.sureSchemePop = false;
-                for(let key in this.matchList){
+                app.sureSchemePop = false;
+                for(let key in app.matchList){
                     app.matchList[key].forEach(function(match,index){
                         if(match.match.id === app.popSelectedMatchId){
                             app.$set(app.matchList[key],index,app.popMatch);
@@ -334,11 +348,19 @@
                 });
             },
             confirm(){
+                if(this.selectedMatch > 8 && this.selectedCategory !== '单关'){
+                    showToast("最多选择8场比赛");
+                    return;
+                }
+                if(this.selectedMatch < 2 && this.selectedCategory !== '单关'){
+                    showToast("最少选择2场比赛");
+                    return;
+                }
+                window.localStorage.setItem("selectedMatch", JSON.stringify(this.matchList));
                 if(this.needLogin){
                     showToast("需要登陆");
                     window.location.href = '/login';
                 }else {
-                    window.localStorage.setItem("selectedMatch", this.matchList);
                     window.location.href = '/private/betting_order'
                 }
             }

@@ -16,100 +16,53 @@
 
 <body>
     <div class="bettingDetailContainer" id="webpage">
-      <div class="headerBettingCountime">截止投注时间 <span class="timeBox">2020-08-12 22:00</span></div>
+      <div class="headerBettingCountime">截止投注时间 <span class="timeBox">{{deadlineTime}}</span></div>
       <div class="betLotteryInfoLists">
-          <div class="betInfoList">
+          <div class="betInfoList" v-for="match in selectedMatchList">
             <div class="headerInfoBox flexCenterBetween">
-                <div class="matchInfoBox">周五 003 欧冠</div>
+                <div class="matchInfoBox">{{match.match.round}} {{match.match.match}}</div>
                 <div class="countryVsInfo flexCenter">
                     <div class="mainIcon">主</div>
-                    <div class="countryName">圣保罗</div>
+                    <div class="countryName">{{match.match.mainTeam}}</div>
                     <div class="vsIcon">VS</div>
-                    <div class="countryName">科林蒂安</div>
+                    <div class="countryName">{{match.match.clientTeam}}</div>
                     <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
                 </div>
             </div>
-            <div class="detailInfoLists flexCenter">
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                    <div class="dataInfoBox flexCenterCenter">
-                        <div class="dataBox">负</div>
-                        <div class="scoreBox">2.03</div>
+              <div v-for="(oddList, key) in match.oddList">
+                  <div v-for="i in Math.ceil(oddList.length/3)">
+                    <div class="detailInfoLists flexCenter">
+                        <div class="detailInfoBox flexCenter">
+                            <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
+                            <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
+                            <div class="leftTagBox styleColor3 flexCenterCenter" v-if="key=='总进球'">{{key}}</div>
+                            <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                            <div class="leftTagBox styleColor5 flexCenterCenter" v-if="key=='比分'">{{key}}</div>
+                            <div class="leftTagBox styleColor6 flexCenterCenter" v-if="key=='半全场'">{{key}}</div>
+                            <div class="dataInfoBox" v-if="oddList[0+3*(i-1)]">
+                                <div class="dataBox">{{oddList[0+3*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[0+3*(i-1)].rate}}</div>
+                            </div>
+                            <div class="dataInfoBox" v-if="oddList[1+3*(i-1)]">
+                                <div class="dataBox">{{oddList[1+3*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[1+3*(i-1)].rate}}</div>
+                            </div>
+                            <div class="dataInfoBox" v-if="oddList[2+4*(i-1)]">
+                                <div class="dataBox">{{oddList[2+3*(i-1)].content}}</div>
+                                <div class="scoreBox">{{oddList[2+3*(i-1)].rate}}</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor4 flexCenterCenter">主 -1</div>
-                    <div class="dataInfoBox flexCenterCenter redBox">
-                        <div class="dataBox">负</div>
-                        <div class="scoreBox">2.03</div>
-                    </div>
-                </div>
-            </div>
-            
-          </div>
-          <div class="betInfoList">
-            <div class="headerInfoBox flexCenterBetween">
-                <div class="matchInfoBox">周五 003 欧冠</div>
-                <div class="countryVsInfo flexCenter">
-                    <div class="mainIcon">主</div>
-                    <div class="countryName">圣保罗</div>
-                    <div class="vsIcon">VS</div>
-                    <div class="countryName">科林蒂安</div>
-                    <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
-                </div>
-            </div>
-            <div class="detailInfoLists flexCenter">
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                    <div class="dataInfoBox flexCenterCenter redBox">
-                        <div class="dataBox">负</div>
-                        <div class="scoreBox">2.03</div>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="betInfoList">
-            <div class="headerInfoBox flexCenterBetween">
-                <div class="matchInfoBox">周五 003 欧冠</div>
-                <div class="countryVsInfo flexCenter">
-                    <div class="mainIcon">主</div>
-                    <div class="countryName">圣保罗</div>
-                    <div class="vsIcon">VS</div>
-                    <div class="countryName">科林蒂安</div>
-                    <img class="arrowImg" src="/templates/img/rightArrow.png" alt="">
-                </div>
-            </div>
-            <div class="detailInfoLists flexCenter">
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor1 flexCenterCenter">非让球</div>
-                    <div class="dataInfoBox flexCenterCenter redBox">
-                        <div class="dataBox">负</div>
-                        <div class="scoreBox">2.03</div>
-                    </div>
-                </div>
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor4 flexCenterCenter">非让球</div>
-                    <div class="dataInfoBox flexCenterCenter redBox">
-                        <div class="dataBox">胜</div>
-                        <div class="scoreBox">2.03</div>
-                    </div>
-                </div>
-                <div class="detailInfoBox flexCenter">
-                    <div class="leftTagBox styleColor2 flexCenterCenter">主 -1</div>
-                    <div class="dataInfoBox flexCenterCenter redBox">
-                        <div class="dataBox">胜</div>
-                        <div class="scoreBox">2.03</div>
-                    </div>
-                </div>
-            </div>
+                  </div>
+              </div>
           </div>
       </div>
-      <div class="addSelectMatchBtn">+继续选择比赛<span class="numBox">已选3场</span></div>
+      <div class="addSelectMatchBtn" @click="continueSelect">+继续选择比赛<span class="numBox">已选{{selectedMatch}}场</span></div>
       <div class="tipsBox">注：全场90分钟（含伤停补时，不含加时赛及点球大战）</div>
       <div class="footerBettingInfoBox">
           <div class="bettingNumInfo flexCenterBetween">
               <div class="infoBox flexCenter" @click="selectPassWays">
-                  <div class="numBox">2串1,3串1</div>
+                  <div class="numBox">{{selectedGame}}</div>
                   <img class="arrowIcon" src="/templates/img/rightArrow.png" alt="">
               </div>
               <div class="addSubtractBox flexCenter">
@@ -132,18 +85,15 @@
             <div class="titleBox">自由过关</div>
             <div class="contentBox">
                 <div class="selectPassWays flexCenter">
-                    <div class="dataInfoCommonBox flexCenterCenter">
-                        <div class="dataBox">2串1</div>
-                    </div>
-                    <div class="dataInfoCommonBox flexCenterCenter redBox">
-                        <div class="dataBox">3串1</div>
+                    <div class="dataInfoCommonBox flexCenterCenter" :class="selectedGame.includes(item) ? 'redBox' : ''" v-for="(item,index) in gameList" @click="selectGame(item,index)">
+                        <div class="dataBox">{{item}}</div>
                     </div>
                 </div>
                 
             </div>
             <div class="footerFixedBtnLists flexCenterBetween">
                 <div class="btnBox cancleBtn" @click="cancleSelectPassWays">取消</div>
-                <div class="btnBox sureBtn">筛好了</div>
+                <div class="btnBox sureBtn" @click="selectGameOk">筛好了</div>
             </div>
       </div>
     </div>
@@ -158,17 +108,101 @@
     var app = new Vue({
         el: '#webpage',
         data: {
-            selectPassWaysPop:false
+            selectPassWaysPop:false,
+            matchList:{},//存储上一步选择的数据
+            selectedMatchList:[],
+            deadlineTime:'',
+            selectedMatch: 0,
+            selectedGame:'',
+            selectedGameTemp:'',//打开选择弹窗的时候需要记录一个当前的值，方便取消的时候回退操作
+            gameList:[]
         },
         mounted: function () {
-            
+            let that = this;
+            that.matchList = JSON.parse(window.localStorage.getItem("selectedMatch"));
+            let allSingle = true;//是否全部都选的单关
+            for(let key in that.matchList){
+                that.matchList[key].forEach(function(match){
+                    if(match.match.selectedNum && match.match.selectedNum > 0){
+                        that.selectedMatch++;
+                        let matchNew = {match:{},oddList:{}}; //构造一个新的match用于存储选择的赔率
+                        matchNew.match = match.match;
+                        for(let category in match.oddList){
+                            match.oddList[category].forEach(function(odd){
+                                if(odd.selected){
+                                    if(null == matchNew.oddList[category]){
+                                        matchNew.oddList[category] = [];
+                                    }
+                                    if(odd.single === 0){
+                                        allSingle = false;
+                                    }
+                                    matchNew.oddList[category].push(odd);
+                                }
+                            })
+                        }
+                        that.selectedMatchList.push(matchNew);
+                        if('' === that.deadlineTime){
+                            that.deadlineTime = match.match.matchTime;
+                        }else if(that.deadlineTime > match.match.matchTime){
+                            that.deadlineTime = match.match.matchTime;
+                        }
+                    }
+                });
+            }
+            if(allSingle){
+                that.gameList.push("单关");
+            }
+            for(let i = 2;i < (that.selectedMatch + 1); i++){
+                that.gameList.push( i + "串1");
+            }
+            that.selectedGame = that.gameList[0];
+            window.localStorage.removeItem("selectedMatch");
         },
         methods: {
             selectPassWays(){
+                this.selectedGameTemp = this.selectedGame;
                 this.selectPassWaysPop = true
             },
             cancleSelectPassWays(){
+                this.selectedGame = this.selectedGameTemp;
                 this.selectPassWaysPop = false
+            },
+            selectGameOk(){
+                this.selectPassWaysPop = false
+            },
+            selectGame(game,index){
+                let that = this;
+                if(!that.selectedGame.includes(game)){//选择
+                    if('' === that.selectedGame){
+                        that.selectedGame = game;
+                    }else {
+                        let selectedGameArr = [];
+                        that.selectedGame.split(',').forEach(function (item) {
+                            if (that.gameList.indexOf(item) < index) {
+                                selectedGameArr.push(item);
+                            } else {
+                                selectedGameArr.push(game);
+                                selectedGameArr.push(item);
+                            }
+                        });
+                        if (selectedGameArr.length === that.selectedGame.split(',').length) {//长度一样，说明原来选中的所有元素都在当前选择的元素前面
+                            selectedGameArr.push(game);
+                        }
+                        that.selectedGame = selectedGameArr.join(',');
+                    }
+                }else{//取消选中
+                    let selectedGameArr = that.selectedGame.split(',');
+                    if(1 === selectedGameArr.length){
+                        that.selectedGame = '';
+                    }else {
+                        selectedGameArr.splice(selectedGameArr.indexOf(game), 1);
+                        that.selectedGame = selectedGameArr.join(',');
+                    }
+                }
+            },
+            continueSelect(){
+                window.localStorage.setItem("selectedMatch",JSON.stringify(this.matchList));
+                window.location.href = "/scheme";
             }
         }
     })
