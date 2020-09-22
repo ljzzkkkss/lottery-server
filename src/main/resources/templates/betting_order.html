@@ -66,16 +66,16 @@
                   <img class="arrowIcon" src="/templates/img/rightArrow.png" alt="">
               </div>
               <div class="addSubtractBox flexCenter">
-                  <div class="btnBox subtractBtn">-</div>
-                  <div class="numBox">1</div>
-                  <div class="btnBox addBtn">+</div>
+                  <div class="btnBox subtractBtn" @click="subTimes">-</div>
+                  <div class="numBox">{{times}}</div>
+                  <div class="btnBox addBtn" @click="addTimes">+</div>
               </div>
           </div>
           <div class="footOptInfoBtn flexCenter">
               <div class="sendBtnBox">发送给店长</div>
               <div class="dataInfoBox flex1">
-                  <div class="betNumBox">7注<span class="moneyBox">14</span>元</div>
-                  <div class="rewardMoneyNum">预计奖金 6.12-57.58元</div>
+                  <div class="betNumBox">{{noteNumber}}注<span class="moneyBox">{{cost}}</span>元</div>
+                  <div class="rewardMoneyNum">预计奖金 {{minP * 2 * times}}-{{maxP * 2 * times}}元</div>
               </div>
               <div class="saveBtnBox">保存方案</div>
           </div>
@@ -100,10 +100,6 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/templates/js/common.js"></script>
-<!-- <script type="text/javascript">
-    // 初始化
-    var vConsole = new VConsole();
-</script> -->
 <script type="text/javascript">
     var app = new Vue({
         el: '#webpage',
@@ -115,7 +111,12 @@
             selectedMatch: 0,
             selectedGame:'',
             selectedGameTemp:'',//打开选择弹窗的时候需要记录一个当前的值，方便取消的时候回退操作
-            gameList:[]
+            gameList:[],
+            times: 1,
+            noteNumber: 0,
+            cost: 0,
+            maxP: 0,
+            minP: 0
         },
         mounted: function () {
             let that = this;
@@ -124,6 +125,7 @@
             for(let key in that.matchList){
                 that.matchList[key].forEach(function(match){
                     if(match.match.selectedNum && match.match.selectedNum > 0){
+                        that.noteNumArr.push(match.match.selectedNum);
                         that.selectedMatch++;
                         let matchNew = {match:{},oddList:{}}; //构造一个新的match用于存储选择的赔率
                         matchNew.match = match.match;
@@ -168,7 +170,28 @@
                 this.selectPassWaysPop = false
             },
             selectGameOk(){
-                this.selectPassWaysPop = false
+                let that = this;
+                that.selectPassWaysPop = false
+                //计算注数
+                that.noteNumber = 0;
+                that.selectedGame.split(',').forEach(function(item){
+                    if(item === '单关'){
+                        that.selectedMatchList.forEach(function(match){
+                            that.noteNumber += match.selectedNum;
+                            match.oddList.forEach(function(odd){
+                                if(that.minP > parseFloat(odd.rate)){
+                                    that.minP = parseFloat(odd.rate);
+                                }
+                                if(that.maxP < parseFloat(odd.rate)){
+                                    that.maxP = parseFloat(odd.rate);
+                                }
+                            })
+                        });
+                    }else{
+                        let times = item.split('串')[0];//几个一串
+                    }
+                });
+                that.cost = that.noteNumber * that.times * 2;
             },
             selectGame(game,index){
                 let that = this;
@@ -203,6 +226,16 @@
             continueSelect(){
                 window.localStorage.setItem("selectedMatch",JSON.stringify(this.matchList));
                 window.location.href = "/scheme";
+            },
+            addTimes(){
+                this.times++;
+                this.cost = this.noteNumber * this.times * 2;
+            },
+            subTimes(){
+                if(this.times > 1){
+                    this.times--;
+                    this.cost = this.noteNumber * this.times * 2;
+                }
             }
         }
     })
