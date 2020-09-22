@@ -20,6 +20,11 @@ public class OptionalController {
     @Resource
     private OptionalService optionalService;
 
+    @GetMapping("//private/betting_order")
+    public String betting_order(){
+        return "betting_order";
+    }
+
     @GetMapping("/scheme")
     public String scheme(){
         return "scheme";

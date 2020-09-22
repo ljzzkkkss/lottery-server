@@ -23,17 +23,17 @@
                             <div class="warningTipsBox">不向未成年人提供购彩和兑奖服务</div>
                             <div class="changeBetWasgBox">
                                 <div class="flexCenterCenter" @click="showChangeBetWays">
-                                    <div class="waysBox">混合过关</div>
+                                    <div class="waysBox">{{selectedCategory}}</div>
                                     <img class="rightArrowBox" :class="showBetWays?'rotateStyle':''" src="/templates/img/rightArrow2.png" alt="">
                                 </div>
                                 <div class="allBetWasgLists flexCenter" v-show="showBetWays">
-                                    <div class="waysBox">胜平负</div>
-                                    <div class="waysBox">让球胜平负</div>
-                                    <div class="waysBox current">混合过关</div>
-                                    <div class="waysBox">比分</div>
-                                    <div class="waysBox">进球数</div>
-                                    <div class="waysBox">半全场</div>
-                                    <div class="waysBox">单关投注</div>
+                                    <div class="waysBox" :class="selectedCategory == '胜负平'? 'current' : ''" @click="changeCategory('胜平负')">胜平负</div>
+                                    <div class="waysBox" :class="selectedCategory == '让球胜平负'? 'current' : ''" @click="changeCategory('让球胜平负')">让球胜平负</div>
+                                    <div class="waysBox"  :class="selectedCategory == '混合过关'? 'current' : ''" @click="changeCategory('混合过关')">混合过关</div>
+                                    <div class="waysBox" :class="selectedCategory == '比分'? 'current' : ''" @click="changeCategory('比分')">比分</div>
+                                    <div class="waysBox" :class="selectedCategory == '进球数'? 'current' : ''" @click="changeCategory('进球数')">进球数</div>
+                                    <div class="waysBox" :class="selectedCategory == '半全场'? 'current' : ''" @click="changeCategory('半全场')">半全场</div>
+                                    <div class="waysBox" :class="selectedCategory == '单关投注'? 'current' : ''" @click="changeCategory('单关投注')">单关投注</div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                                 <div>{{match.match.matchTime.substr(11,5)}}截止</div>
                                             </div>
                                             <div class="matchInfoBoxWrap flex1">
-                                                <div class="detailInfoBox flexCenter" v-for="(oddList,key) in match.oddList" v-show="key == '胜负平' || key.startsWith('让球')">
+                                                <div class="detailInfoBox flexCenter" v-for="(oddList,key) in match.oddList" v-if="(showList.includes('让球') && key.startsWith('让球'))  || (key == '胜负平' && showList.includes('胜负平')) || (selectedCategory == '单关投注' && oddList[0].single == 1 && (key.startsWith('让球') || key == '胜负平'))">
                                                     <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
                                                     <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
                                                     <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
@@ -67,6 +67,9 @@
                                                         <div class="dataBox">{{odd.content}}</div>
                                                         <div class="scoreBox">{{odd.rate}}</div>
                                                     </div>
+                                                </div>
+                                                <div class="detailInfoBox flexCenter" v-else-if="(key.startsWith('让球') || key == '胜负平') && selectedCategory != '胜平负' && selectedCategory != '让球胜平负'">
+                                                    <div class="dataInfoBox flexCenterCenter">请点击更多选项</div>
                                                 </div>
                                             </div>
                                             <div class="seletedCountBox flexCenterCenter" @click="sureSchemeInfo(match)">
@@ -87,12 +90,12 @@
                         <div class="footOptInfoBtn flexCenter">
                             <div class="clearContentBtn">
                                 <img class="deleteImg" src="/templates/img/deleteIcon.png" alt="">
-                                <div class="txtBox">清空</div>
+                                <div class="txtBox" @click="loadData">清空</div>
                             </div>
                             <div class="dataInfoBox flex1 flexCenterCenter">
                                 <div class="betNumBox">已选择<span class="moneyBox">{{selectedMatch}}</span>场</div>
                             </div>
-                            <div class="saveBtnBox">选好了</div>
+                            <div class="saveBtnBox" @click="confirm">选好了</div>
                         </div>
                     </div>
                 </div>
@@ -132,18 +135,18 @@
             <div class="schemeDetailContent">
                 <div class="tipsBox">红框区域可投单关</div>
                 <div v-for="(oddList,key) in popMatch.oddList">
-                    <div class="matchInfoBoxWrap" v-show="key == '胜负平' || key.startsWith('让球')">
+                    <div class="matchInfoBoxWrap" v-show="(showList.includes('让球') && key.startsWith('让球'))  || (key == '胜负平' && showList.includes('胜负平')) || (selectedCategory == '单关投注' && oddList[0].single == 1 && (key.startsWith('让球') || key == '胜负平'))">
                         <div class="detailInfoBox flexCenter">
                             <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
                             <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
                             <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
-                            <div class="selectSinglebetStyle flexCenter" v-if="oddList[0].single == 1">  <!--单关红色区域-->
+                            <div class="selectSinglebetStyle flexCenter" v-if="oddList[0].single == 1"><!--单关红色区域-->
                                 <div class="dataInfoBox" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,popMatch.match)">
                                     <div class="dataBox">{{odd.content}}</div>
                                     <div class="scoreBox">{{odd.rate}}</div>
                                 </div>
                             </div>
-                            <div class="dataInfoBox flexCenter" v-else>  <!--单关红色区域-->
+                            <div class="dataInfoBox flexCenter" v-else><!--单关红色区域-->
                                 <div class="dataInfoBox" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,popMatch.match)">
                                     <div class="dataBox">{{odd.content}}</div>
                                     <div class="scoreBox">{{odd.rate}}</div>
@@ -151,7 +154,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="matchInfoBoxWrap" v-show="key == '总进球' || key == '比分' || key == '半全场'">
+                    <table class="matchInfoBoxWrap" v-show="(key == '总进球' || key == '比分' || key == '半全场') && (showList.includes(key) || (selectedCategory == '单关投注' && oddList[0].single == 1))">
                         <tr class="detailInfoBox">
                             <td class="leftTagBox styleColor3" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='总进球'">{{key}}</td>
                             <td class="leftTagBox styleColor5" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='比分'">{{key}}</td>
@@ -216,9 +219,12 @@
             sureSchemePop:false,
             needLogin:true,
             selectedMatch: 0,
+            selectedCategory:'混合过关',
             matchList:{},
             matchTab:[],//控制每个日期下的比赛tab页显示
-            popMatch:{}//更多选项对应的比赛
+            popMatch:{},//更多选项对应的比赛
+            popSelectedMatchId: 0,//弹窗选择的比赛id
+            showList:['胜负平','让球','比分','总进球','半全场']
         },
         mounted: function () {
             $.ajax('/private/userInfo', {
@@ -233,32 +239,13 @@
                     console.log(err);
                 }
             });
-            showloading();
-            $.ajax('/optional/matchList', {
-                type: 'GET',
-                contentType: 'application/json',
-                success: res => {
-                    // 隐藏加载中
-                    hideloading();
-                    if (res.code === '0000') {
-                        app.matchList = res.data;
-                        for(let key in app.matchList){
-                            app.matchTab.push(true);
-                        }
-                    } else {
-                        showToast(res.message);
-                    }
-                },
-                error: err => {
-                    hideloading();
-                    console.log(err);
-                }
-            });
+            this.loadData();
         },
         methods: {
             sureSchemeInfo(match){
                 this.sureSchemePop = true;
-                this.popMatch = match;
+                this.popMatch = JSON.parse(JSON.stringify(match));//深拷贝，这样选择的结果就不会影响原来的对象
+                this.popSelectedMatchId = match.match.id;
             },
             hideSureSchemeInfo(){
                 this.sureSchemePop = false;
@@ -274,12 +261,24 @@
             },
             selectOther(){
                 this.sureSchemePop = false;
+                for(let key in this.matchList){
+                    app.matchList[key].forEach(function(match,index){
+                        if(match.match.id === app.popSelectedMatchId){
+                            app.$set(app.matchList[key],index,app.popMatch);
+                        }
+                    });
+                }
             },
             selectOdd(odd,match){
-                this.$set(odd,'selected',!odd.selected);
-                if(odd.selected){//选择
+                if(!odd.selected){//选择
                     if(null == match.selectedNum){
                         match.selectedNum = 0;
+                    }
+                    if(null == match.selectedCategory){
+                        match.selectedCategory = odd.category;
+                    }else if(match.selectedCategory !== odd.category){
+                        showToast('同一场比赛只能选择一个玩法');
+                        return;
                     }
                     if(match.selectedNum === 0){
                         this.selectedMatch++;
@@ -288,8 +287,59 @@
                 }else{//取消选择
                     this.$set(match,'selectedNum',match.selectedNum - 1);
                     if(match.selectedNum === 0){
+                        match.selectedCategory = null;
                         this.selectedMatch--;
                     }
+                }
+                this.$set(odd,'selected',!odd.selected);
+            },
+            changeCategory(category){
+                this.selectedCategory = category;
+                this.showBetWays = false;
+                if(category === '混合过关'){
+                    this.showList = ['胜负平','让球','比分','总进球','半全场']
+                }else if(category === '让球胜平负'){
+                    this.showList = ['让球']
+                }else if(category === '胜平负'){
+                    this.showList = ['胜负平']
+                }else if(category === '进球数'){
+                    this.showList = ['总进球']
+                }else {
+                    this.showList = [category]
+                }
+                this.loadData();
+            },
+            loadData(){
+                showloading();
+                $.ajax('/optional/matchList', {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        // 隐藏加载中
+                        hideloading();
+                        if (res.code === '0000') {
+                            app.matchList = res.data;
+                            for(let key in app.matchList){
+                                app.matchTab.push(true);
+                            }
+                            app.selectedMatch = 0;
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        hideloading();
+                        console.log(err);
+                    }
+                });
+            },
+            confirm(){
+                if(this.needLogin){
+                    showToast("需要登陆");
+                    window.location.href = '/login';
+                }else {
+                    window.localStorage.setItem("selectedMatch", this.matchList);
+                    window.location.href = '/private/betting_order'
                 }
             }
         }
