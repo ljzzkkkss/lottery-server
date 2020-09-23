@@ -56,7 +56,11 @@ public class OptionalServiceImpl implements OptionalService {
     }
 
     @Override
-    public void insertNote(Note note) {
+    @Transactional
+    public void sendMessage(Note note) {
+        if(null != note.getOptionalId()){
+            optionalMapper.confirmSendOptional(note.getOptionalId());
+        }
         noteMapper.insertNote(note);
     }
 

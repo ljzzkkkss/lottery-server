@@ -10,7 +10,7 @@ import java.util.Map;
 public interface OptionalService {
     void addOptional(OptionalParam optionalParam);
     void sendOptional(OptionalParam optionalParam);
-    void insertNote(Note note);
+    void sendMessage(Note note);
     Map<String,Object> getNoteList(Integer userId,Integer pageIndex,Integer pageSize);
     Map<String, List<Map<String,Object>>> getMatchNotStartList() throws ParseException;
 }

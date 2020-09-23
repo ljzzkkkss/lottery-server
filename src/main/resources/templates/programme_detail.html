@@ -20,11 +20,14 @@
             <div class="headerDataBox flexCenter">
                 <div class="dataInfoBox flex1">
                     <div class="labelBox">方案金额</div>
-                    <div class="dataBox">6.00元</div>
+                    <div class="dataBox">{{parseFloat(optionalInfo.optional.cost).toFixed(2)}}元</div>
                 </div>
                 <div class="dataInfoBox flex1">
-                    <div class="labelBox">方案中奖金额</div>
-                    <div class="dataBox">--</div>
+                    <div class="labelBox">方案状态</div>
+                    <div class="dataBox" v-if="optionalInfo.optional.status === 0">未发送</div>
+                    <div class="dataBox" v-if="optionalInfo.optional.status === 1">已发送</div>
+                    <div class="dataBox" v-if="optionalInfo.optional.status === 2">已投注</div>
+                    <div class="dataBox" v-if="optionalInfo.optional.status === 3">已开奖</div>
                 </div>
             </div>
             <div class="titleBoxWrap">
@@ -34,80 +37,50 @@
                 <div class="headerBox flexCenter">
                     <div class="titleBox flex1">玩法</div>
                     <div class="titleBox flex1">您的选择</div>
-                    <div class="titleBox flex1">赛过</div>
+                    <div class="titleBox flex1">赛果</div>
                     <div class="titleBox flex1">倍数</div>
                 </div>
-                <div class="matchCountryInfo flexCenterCenter">
-                    <div class="matchInfoBox">周五002 </div>
-                    <div class="countryVsInfo flexCenter">
-                        <div class="countryName">圣保罗</div>
-                        <div class="vsIcon">VS</div>
-                        <div class="countryName">科林蒂安</div>
+                <div v-for="match in optionalInfo.match">
+                    <div class="matchCountryInfo flexCenterCenter">
+                        <div class="matchInfoBox">{{match.match.round}} </div>
+                        <div class="countryVsInfo flexCenter">
+                            <div class="countryName">{{match.match.mainTeam}}</div>
+                            <div class="vsIcon">VS</div>
+                            <div class="countryName">{{match.match.clientTeam}}</div>
+                        </div>
                     </div>
+                    <table class="winloseScoreInfo" v-for="(optionalDetailList,key) in match.optionalDetail">
+                        <tr>
+                            <td class="scoreDetail">
+                                {{key}}
+                            </td>
+                            <td class="scoreDetail">
+                                <div>
+                                    <div class="infoBox" v-for="optionalDetail in optionalDetailList">{{optionalDetail.content}}<span class="dataBox">{{optionalDetail.rate}}</span></div>
+                                </div>
+                            </td>
+                            <td class="scoreDetail">
+                                <div class="infoBox">{{match.match.totalScore}}</div>
+                            </td>
+                            <td class="scoreDetail">
+                                <div class="infoBox">{{optionalInfo.optional.times}}</div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <table class="winloseScoreInfo">
-                    <tr>
-                        <td class="scoreDetail">
-                            胜平负
-                        </td>
-                        <td class="scoreDetail">
-                            <div>
-                                <div class="infoBox">胜<span class="dataBox">3.27</span></div>
-                                <div class="infoBox">平<span class="dataBox">3.27</span></div>
-                                <div class="infoBox">负<span class="dataBox">3.27</span></div>
-                            </div>
-                        </td>
-                        <td class="scoreDetail">
-                            <div class="infoBox">-</div>
-                        </td>
-                        <td class="scoreDetail">
-                            <div class="infoBox">1</div>
-                        </td>
-                    </tr>
-                </table>
-                <div class="matchCountryInfo flexCenterCenter">
-                    <div class="matchInfoBox">周五002 </div>
-                    <div class="countryVsInfo flexCenter">
-                        <div class="countryName">圣保罗</div>
-                        <div class="vsIcon">VS</div>
-                        <div class="countryName">科林蒂安</div>
-                    </div>
-                </div>
-                <table class="winloseScoreInfo">
-                    <tr>
-                        <td class="scoreDetail">胜平负</td>
-                        <td class="scoreDetail">
-                            <div class="infoBox">胜<span class="dataBox">3.27</span></div>
-                        </td>
-                        <td class="scoreDetail">
-                            <div class="infoBox">-</div>
-                        </td>
-                        <td class="scoreDetail">
-                            <div class="infoBox">1</div>
-                        </td>
-                    </tr>
-                </table>
             </div>
             <div class="tipsContentBox">
-                <div>竟彩足球，5串1</div>
-                <div>方案编号：200049495875757</div>
-                <div>温馨提示：方案中奖金额仅供参考</div>
+                <div>{{optionalInfo.optional.name}}，{{optionalInfo.optional.game}}</div>
             </div>
         </div>
         <div class="uploadImgListsWrap flexCenter">
             <div class="uploadImgBox">
-                <img class="imgBox" src="img/banner.png" alt="">
-            </div>
-            <div class="uploadImgBox">
-                <img class="imgBox" src="img/banner.png" alt="">
-            </div>
-            <div class="uploadImgBox">
-                <img class="imgBox" src="img/banner.png" alt="">
+                <img class="imgBox" src="ctx + optionalInfo.optional.lotteryImg" alt="" v-if="null != optionalInfo.optional.lotteryImg">
+                <img class="imgBox" src="ctx + optionalInfo.optional.lotteryImg2" alt="" v-if="null != optionalInfo.optional.lotteryImg2">
             </div>
         </div>
         <div class="footerFixedBtnLists flexCenterBetween">
-            <div class="btnBox cancleBtn">取消</div>
-            <div class="btnBox sureBtn">分享</div>
+            <div class="btnBox sureBtn" style="width:100%" @click="sendMessage" v-if="optionalInfo.optional.status === 0">发送给店长</div>
         </div>
     </div>
 </body>
@@ -121,13 +94,64 @@
     var app = new Vue({
         el: '#webpage',
         data: {
-
+            optionalInfo: {
+                match: [],
+                optional: {
+                    cost: "0"
+                }
+            },
+            ctx: '',
+            optionalId: 0,
         },
         mounted: function () {
-            
+            let that = this;
+            that.optionalId = $.request.queryString.id;
+            that.loadData();
+            that.ctx = window.localStorage.getItem("ctx");
         },
         methods: {
-
+            loadData(){
+                let that = this;
+                showloading();
+                $.ajax('/private/optional/getOptionalDetailById?optionalId=' + that.optionalId, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        hideloading();
+                        if (res.code === '0000') {
+                            that.optionalInfo = res.data;
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        hideloading();
+                        console.log(err);
+                    }
+                });
+            },
+            sendMessage(){
+                let that = this;
+                $.ajax('/private/optional/sendMessage', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        optionalId: that.optionalId,
+                        noteTime: dateFormat('YYYY-mm-dd HH:MM:SS',new Date())
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            showToast("发送成功");
+                            window.location.href = '/private/leave_message'
+                        }else{
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
+            }
         }
     })
 </script>

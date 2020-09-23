@@ -17,7 +17,7 @@
 <body>
     <div class="saveProgrammeContainer" id="webpage">
        <div class="programmeInfoLists" v-if="programmeLists.length > 0">
-           <div class="programmeList flexCenterBetween" v-for="item in programmeLists">
+           <div class="programmeList flexCenterBetween" v-for="item in programmeLists" @click="goToDetail(item.id)">
                <div class="flex1 infoBox">
                    <div class="nameBox ellipsis1">{{item.name}}</div>
                    <div class="timeBox">{{item.optionDate}}</div>
@@ -93,6 +93,9 @@
                     this.loadData();
                 }
             },
+            goToDetail(id){
+                window.location.href = "/private/programme_detail?id=" + id;
+            }
         }
     })
 </script>

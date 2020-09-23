@@ -56,6 +56,11 @@ public class MineController {
         return "save_programme";
     }
 
+    @GetMapping("/private/programme_detail")
+    public String programme_detail(){
+        return "programme_detail";
+    }
+
     @ResponseBody
     @GetMapping("/help/list")
     public ReturnBody helpList(){

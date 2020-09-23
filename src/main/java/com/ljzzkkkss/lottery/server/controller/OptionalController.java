@@ -59,7 +59,7 @@ public class OptionalController {
     public ReturnBody sendMessage(HttpServletRequest request, @RequestBody Note note){
         User user = (User) request.getSession().getAttribute("user");
         note.setUserId(user.getId());
-        optionalService.insertNote(note);
+        optionalService.sendMessage(note);
         return ReturnType.SUCCESS;
     }
 

@@ -10,4 +10,5 @@ public interface OptionalMapper {
     List<Optional> getOptionalListByUserId(@Param("userId")Integer userId,@Param("start")Integer start,@Param("pageSize")Integer pageSize);
     List<Optional> getPayedOptionalListByUserId(@Param("userId")Integer userId,@Param("start")Integer start,@Param("pageSize")Integer pageSize);
     Optional getOptionalByOptionalId(@Param("id")Integer id);
+    void confirmSendOptional(@Param("id")Integer id);
 }
