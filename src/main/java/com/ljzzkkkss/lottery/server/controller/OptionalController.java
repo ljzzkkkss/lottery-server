@@ -50,13 +50,13 @@ public class OptionalController {
     public ReturnBody sendOptional(HttpServletRequest request, @RequestBody OptionalParam optionalParam){
         User user = (User) request.getSession().getAttribute("user");
         optionalParam.getOptional().setUserId(user.getId());
-        optionalService.addOptional(optionalParam);
+        optionalService.sendOptional(optionalParam);
         return ReturnType.SUCCESS;
     }
 
     @ResponseBody
     @PostMapping("/private/optional/sendMessage")
-    public ReturnBody sendOptional(HttpServletRequest request, @RequestBody Note note){
+    public ReturnBody sendMessage(HttpServletRequest request, @RequestBody Note note){
         User user = (User) request.getSession().getAttribute("user");
         note.setUserId(user.getId());
         optionalService.insertNote(note);
@@ -70,7 +70,7 @@ public class OptionalController {
     }
 
     @ResponseBody
-    @GetMapping("/optional/getNoteList")
+    @GetMapping("/private/optional/getNoteList")
     public ReturnBody getNoteList(HttpServletRequest request,Integer pageIndex,Integer pageSize) {
         User user = (User) request.getSession().getAttribute("user");
         return new ReturnBody(optionalService.getNoteList(user.getId(),pageIndex,pageSize));

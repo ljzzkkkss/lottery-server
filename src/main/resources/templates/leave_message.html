@@ -17,14 +17,13 @@
 <body>
     <div class="leaveMessageContainer" id="webpage">
         <div class="messageTimeBox">11-10 08:30</div>
-        <div class="sendMessageContent leftMessageContent flexCenterTop">
-            <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
+        <div class="sendMessageContent rightMessageContent flexCenterTop">
             <div class="messageContent">
                 <span class="contentBox">文字文案文字文案文字文案文字文案文字文案文字文案文字文案</span>
             </div>
-        </div>
-        <div class="sendMessageContent leftMessageContent flexCenterTop">
             <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
+        </div>
+        <div class="sendMessageContent rightMessageContent flexCenterTop">
             <div class="messageContent messageContent_scheme"> <!--messageContent_scheme-->
                 <span class="contentBox">
                     <div class="titleBoxWrap">
@@ -90,18 +89,18 @@
                     </div>
                 </span>
             </div>
-        </div>
-        <div class="sendMessageContent rightMessageContent flexCenterTop">
-            <div class="messageContent">
-                <span class="contentBox">111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</span>
-            </div>
             <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
-            
+        </div>
+        <div class="sendMessageContent leftMessageContent flexCenterTop">
+            <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
+            <div class="messageContent">
+                <span class="contentBox">{{reply}}</span>
+            </div>
         </div>
         <div class="footerSendBtnBox ">
             <div class="sendMsgInputWrap flexCenter">
-                <input class="sendInputBox flex1" type="text" >
-                <div class="sendBtn">发送</div>
+                <input class="sendInputBox flex1" type="text" v-model="content">
+                <div class="sendBtn" @click="sendMessage">发送</div>
             </div>
             
         </div>
@@ -109,21 +108,73 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="/templates/js/common.js"></script>
-<!-- <script type="text/javascript">
-    // 初始化
-    var vConsole = new VConsole();
-</script> -->
 <script type="text/javascript">
     var app = new Vue({
         el: '#webpage',
         data: {
-
+            pageNum: 1,
+            pageSize: 5,
+            none: false,
+            messageList: [],
+            content: '',
+            reply: ''
         },
         mounted: function () {
-            
+            let that = this;
+            that.loadData();
         },
         methods: {
-
+            loadData(){
+                showloading();
+                $.ajax('/private/optional/getNoteList?pageIndex=' + this.pageNum + '&pageSize=' + this.pageSize, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        hideloading();
+                        if (res.code === '0000') {
+                            let lists = res.data.noteList;
+                            app.reply = res.data.reply;
+                            if(lists.length === 0){
+                                app.none = true;
+                            }else {
+                                for (let i in lists) {
+                                    app.messageList.push(lists[i]);
+                                }
+                            }
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        hideloading();
+                        console.log(err);
+                    }
+                });
+            },
+            sendMessage(){
+                let that = this;
+                if('' === that.content){
+                    showToast("消息内容不能为空");
+                }
+                $.ajax('/private/optional/sendMessage', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        content: that.content,
+                        noteTime: dateFormat('YYYY-mm-dd HH:MM:SS',new Date())
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            that.content = '';
+                        }else{
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
+            }
         }
     })
 </script>

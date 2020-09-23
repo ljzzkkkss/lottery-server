@@ -130,7 +130,7 @@ color: #D6D6D6;
 .titleBoxWrap span::after{content:'';width: 60px;height: 11px;background: #FFF3F2;border-radius: 2px;position: absolute;left:0px;right:0px;bottom: -3px;z-index: -1;}
 
 /*底部取消 分享按钮*/
-.footerFixedBtnLists{position: absolute;left:0px;bottom:0px;z-index:99;width:100%;padding:20px 14px 40px;}
+.footerFixedBtnLists{position: fixed;left:0px;bottom:0px;z-index:99;width:100%;padding:20px 14px 40px;background: #FAFAFA;}
 .footerFixedBtnLists .btnBox{width:48%;height: 42px;border-radius: 2px;text-align: center;line-height: 42px;font-size:14px;}
 .footerFixedBtnLists .btnBox.cancleBtn{background:#F1F1F2;color:#6F6F72;}
 .footerFixedBtnLists .btnBox.sureBtn{background:#EF4034;color:#fff;}
@@ -141,3 +141,8 @@ table,tbody,tr{width:100%;border-spacing: 0;}
 .footerActionSheetPop{border-top-left-radius: 16px;border-top-right-radius: 16px;background:#fff;padding:0 14px 100px;position: fixed;bottom: 0px;left:0px;width:100%;flex-direction: column;min-height: 226px;z-index: 1000;}
 .footerActionSheetPop .titleBox{padding:20px 0;text-align: center;color:#37373A;font-size:16px;width:100%;}
 .footerActionSheetPop .contentBox{max-height:200px;overflow: auto;width:100%;flex: 1;}
+
+/*上传图片*/
+.uploadImgListsWrap{flex-wrap: wrap;margin-top:20px;}
+.uploadImgBox{background: #F9F9FA;border: 1px solid #F9F9FA;border-radius: 8px;width:160px;height:160px;margin-left:10px;margin-bottom:10px;position: relative;overflow: hidden;}
+.uploadImgBox .imgBox{width:auto;height:100%;margin: 0 auto;display: block;}

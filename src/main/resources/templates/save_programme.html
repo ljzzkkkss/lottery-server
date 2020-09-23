@@ -26,13 +26,13 @@
            </div>
        </div>
        <div class='noContentDefaultBox' v-else>
-        <div class='defalutContent'>
-            <img class="defaultImg" src='/templates/img/audit.png'/>
-            <div class='tipsBox'>
-                <div>暂无信息</div>
+            <div class='defalutContent'>
+                <img class="defaultImg" src='/templates/img/audit.png'/>
+                <div class='tipsBox'>
+                    <div>暂无信息</div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -43,10 +43,20 @@
         data: {
             programmeLists: [],
             pageNum: 1,
-            pageSize: 10
+            pageSize: 10,
+            none: false
         },
         mounted: function () {
-            this.loadData();
+            let that = this;
+            $(window).on('scroll',function(){
+                var scrollTop = $(this).scrollTop();
+                var scrollHeight = $('.programmeInfoLists').height();
+                var windowHeight = $(this).height();
+                if(Math.abs(scrollTop + windowHeight -  scrollHeight) <= 1){
+                    that.scrollBottom();
+                }
+            });
+            that.loadData();
         },
         methods: {
             loadData(){
@@ -57,7 +67,14 @@
                     success: res => {
                         hideloading();
                         if (res.code === '0000') {
-                            app.programmeLists = res.data;
+                            let lists = res.data;
+                            if(lists.length === 0){
+                                app.none = true;
+                            }else {
+                                for (let i in lists) {
+                                    app.programmeLists.push(lists[i]);
+                                }
+                            }
                         } else {
                             showToast(res.message);
                         }
@@ -67,7 +84,15 @@
                         console.log(err);
                     }
                 });
-            }
+            },
+            scrollBottom(){
+                if(this.none){
+                    showToast('没有更多了');
+                }else{
+                    this.pageNum++;
+                    this.loadData();
+                }
+            },
         }
     })
 </script>

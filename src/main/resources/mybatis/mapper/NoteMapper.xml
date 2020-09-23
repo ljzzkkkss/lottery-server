@@ -4,7 +4,7 @@
 
     <select id="getNoteListByPage" resultType="com.ljzzkkkss.lottery.server.model.Note">
         SELECT `id`,`userId`,`content`,`optionalId`,`noteTime` FROM `note`
-        ORDER BY `noteTime` WHERE `userId` = #{userId} DESC LIMIT #{start},#{pageSize};
+        WHERE `userId` = #{userId} ORDER BY `noteTime` DESC LIMIT #{start},#{pageSize};
     </select>
 
     <insert id="insertNote" parameterType="com.ljzzkkkss.lottery.server.model.Note">
