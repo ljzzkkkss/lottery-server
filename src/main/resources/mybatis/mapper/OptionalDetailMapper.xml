@@ -4,7 +4,7 @@
 
     <select id="insertOptionalDetail" parameterType="com.ljzzkkkss.lottery.server.model.OptionalDetail">
         INSERT INTO `optional_detail`(`matchId`,`optionalId`,`category`,`rate`,`content`)
-        VALUES (#{matchId}.#{optionalId},#{category},#{rate},#{content},#{times},#{game},#{noteNumber},#{optionDate});
+        VALUES (#{matchId},#{optionalId},#{category},#{rate},#{content});
     </select>
 
     <select id="getOptionalDetailByOptionalId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.OptionalDetail">

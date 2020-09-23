@@ -72,12 +72,18 @@
               </div>
           </div>
           <div class="footOptInfoBtn flexCenter">
-              <div class="sendBtnBox">发送给店长</div>
-              <div class="dataInfoBox flex1">
+              <div class="dataInfoBox">
                   <div class="betNumBox">{{noteNumber}}注<span class="moneyBox">{{cost}}</span>元</div>
-                  <div class="rewardMoneyNum">预计奖金 {{minP * 2 * times}}-{{maxP * 2 * times}}元</div>
               </div>
-              <div class="saveBtnBox">保存方案</div>
+              <div class="dataInfoBox flex1">
+                  <div class="rewardMoneyNum">预计奖金 {{(minP * 2 * times).toFixed(2)}}-{{(maxP * 2 * times).toFixed(2)}}元</div>
+              </div>
+          </div>
+          <div class="footOptInfoBtn flexCenter">
+              <div class="sendBtnBox" @click="sendOptional">发送给店长</div>
+              <div class="dataInfoBox flex1">
+              </div>
+              <div class="saveBtnBox" @click="saveOptional">保存方案</div>
           </div>
       </div>
       <div class="maskBox" v-if="selectPassWaysPop" @click="cancleSelectPassWays"></div>
@@ -105,8 +111,8 @@
         el: '#webpage',
         data: {
             selectPassWaysPop:false,
-            matchList:{},//存储上一步选择的数据
-            selectedMatchList:[],
+            matchList:{},//存储上一步（自选投注页面）选择的数据
+            selectedMatchList:[],//选择的比赛列表
             deadlineTime:'',
             selectedMatch: 0,
             selectedGame:'',
@@ -116,7 +122,8 @@
             noteNumber: 0,
             cost: 0,
             maxP: 0,
-            minP: 0
+            minP: Infinity,
+            matchIndexArr:[]//比赛列表下标数组
         },
         mounted: function () {
             let that = this;
@@ -125,7 +132,6 @@
             for(let key in that.matchList){
                 that.matchList[key].forEach(function(match){
                     if(match.match.selectedNum && match.match.selectedNum > 0){
-                        that.noteNumArr.push(match.match.selectedNum);
                         that.selectedMatch++;
                         let matchNew = {match:{},oddList:{}}; //构造一个新的match用于存储选择的赔率
                         matchNew.match = match.match;
@@ -159,6 +165,11 @@
             }
             that.selectedGame = that.gameList[0];
             window.localStorage.removeItem("selectedMatch");
+            //构建下标数组
+            for(let i = 0;i < that.selectedMatchList.length; i++){
+                that.matchIndexArr.push(i);
+            }
+            that.calculate();//计算注数，预计中奖金额
         },
         methods: {
             selectPassWays(){
@@ -171,27 +182,8 @@
             },
             selectGameOk(){
                 let that = this;
-                that.selectPassWaysPop = false
-                //计算注数
-                that.noteNumber = 0;
-                that.selectedGame.split(',').forEach(function(item){
-                    if(item === '单关'){
-                        that.selectedMatchList.forEach(function(match){
-                            that.noteNumber += match.selectedNum;
-                            match.oddList.forEach(function(odd){
-                                if(that.minP > parseFloat(odd.rate)){
-                                    that.minP = parseFloat(odd.rate);
-                                }
-                                if(that.maxP < parseFloat(odd.rate)){
-                                    that.maxP = parseFloat(odd.rate);
-                                }
-                            })
-                        });
-                    }else{
-                        let times = item.split('串')[0];//几个一串
-                    }
-                });
-                that.cost = that.noteNumber * that.times * 2;
+                that.selectPassWaysPop = false;
+                that.calculate();
             },
             selectGame(game,index){
                 let that = this;
@@ -236,6 +228,176 @@
                     this.times--;
                     this.cost = this.noteNumber * this.times * 2;
                 }
+            },
+            calculate(){
+                let that = this;
+                //计算注数以及最高赔率
+                that.noteNumber = 0;
+                that.minP = Infinity;
+                that.maxP = 0;
+                that.selectedGame.split(',').forEach(function(item){
+                    if(item === '单关'){
+                        that.selectedMatchList.forEach(function(match){
+                            that.noteNumber += match.match.selectedNum;
+                            let minP = Infinity;
+                            let maxP = 0;
+                            for(let key in match.oddList) {
+                                match.oddList[key].forEach(function (odd) {
+                                    if (parseFloat(odd.rate) < minP) {
+                                        minP = parseFloat(odd.rate);
+                                    }
+                                    if (parseFloat(odd.rate) > maxP) {
+                                        maxP = parseFloat(odd.rate);
+                                    }
+                                })
+                            }
+                            if (that.minP > minP) {
+                                that.minP = minP;
+                            }
+                            that.maxP += maxP;
+                        });
+                    }else{
+                        let n = item.split('串')[0];//几个一串
+                        let combinationArr = that.combination(that.matchIndexArr,n);
+                        let minP = Infinity;
+                        let maxP = 0;
+                        combinationArr.forEach(function (combination) {
+                            let noteNumber = 1;
+                            let minPTmp = 1;
+                            let maxPTmp = 1;
+                            combination.forEach(function (index) {
+                                noteNumber *= that.selectedMatchList[index].match.selectedNum;
+                                let minRate = Infinity;
+                                let maxRate = 0;
+                                for(let key in that.selectedMatchList[index].oddList) {
+                                    that.selectedMatchList[index].oddList[key].forEach(function (odd) {
+                                        if (parseFloat(odd.rate) < minRate) {
+                                            minRate = parseFloat(odd.rate);
+                                        }
+                                        if (parseFloat(odd.rate) > maxRate) {
+                                            maxRate = parseFloat(odd.rate);
+                                        }
+                                    });
+                                }
+                                minPTmp *= minRate;
+                                maxPTmp *= maxRate;
+                            });//理论最高奖金应该是每场比赛都中了赔率最高的奖金，所以应该将这里的赔率最高值互相之间的乘积加起来，而最低中将则是最赔率最低的组合中了其中的一个
+                            if(minP > minPTmp){
+                                minP = minPTmp;
+                            }
+                            maxP += maxPTmp;
+                            that.noteNumber += noteNumber;
+                        });
+                        if(that.minP > minP){
+                            that.minP = minP;
+                        }
+                        if(that.maxP < maxP){
+                            that.maxP = maxP;
+                        }
+                    }
+                });
+                that.cost = that.noteNumber * that.times * 2;
+            },
+            combination(arr,num){//计算所有比赛串起来可能的排列组合,比赛用selectedMatchList数组下标表示
+                if(0 === num){
+                    return [];
+                }
+                let result = [];
+                (function f(t,a,n){
+                    if (n === 0) return result.push(t);
+                    for (let i = 0, l = a.length; i <= l-n; i++) {
+                        f(t.concat(a[i]),a.slice(i+1),n-1)
+                    }
+                })([],arr,num);
+                return result;
+            },
+            saveOptional(){
+                let that = this;
+                let optional = {
+                    name: '竞彩足球',
+                    cost: that.cost,
+                    times: that.times,
+                    game: that.selectedGame,
+                    noteNumber: that.noteNumber,
+                    status: 0,
+                    optionDate: dateFormat('YYYY-mm-dd HH:MM:SS',new Date())
+                };
+                let optionalDetailList = [];
+                that.selectedMatchList.forEach(function(match){
+                    for(let key in match.oddList) {
+                        match.oddList[key].forEach(function (odd) {
+                            optionalDetailList.push({
+                                matchId: odd.matchId,
+                                category: odd.category,
+                                rate: odd.rate,
+                                content: odd.content
+                            })
+                        })
+                    }
+                });
+                $.ajax('/private/optional/addOptional', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        optional,
+                        optionalDetailList
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            showToast("保存成功");
+                            window.location.href = '/private/save_programme'
+                        }else{
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
+            },
+            sendOptional(){
+                let that = this;
+                let optional = {
+                    name: '竞彩足球',
+                    cost: that.cost,
+                    times: that.times,
+                    game: that.selectedGame,
+                    noteNumber: that.noteNumber,
+                    status: 1,
+                    optionDate: dateFormat('YYYY-mm-dd HH:MM:SS',new Date())
+                };
+                let optionalDetailList = [];
+                that.selectedMatchList.forEach(function(match){
+                    for(let key in match.oddList) {
+                        match.oddList[key].forEach(function (odd) {
+                            optionalDetailList.push({
+                                matchId: odd.matchId,
+                                category: odd.category,
+                                rate: odd.rate,
+                                content: odd.content
+                            })
+                        })
+                    }
+                });
+                $.ajax('/private/optional/sendOptional', {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        optional,
+                        optionalDetailList
+                    }),
+                    success: res => {
+                        if(res.code === '0000'){
+                            showToast("发送成功");
+                            window.location.href = '/private/leave_message'
+                        }else{
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
             }
         }
     })

@@ -1,6 +1,7 @@
 package com.ljzzkkkss.lottery.server.controller;
 
 import com.ljzzkkkss.lottery.server.constants.ReturnType;
+import com.ljzzkkkss.lottery.server.model.Note;
 import com.ljzzkkkss.lottery.server.model.OptionalParam;
 import com.ljzzkkkss.lottery.server.model.ReturnBody;
 import com.ljzzkkkss.lottery.server.model.User;
@@ -30,6 +31,11 @@ public class OptionalController {
         return "scheme";
     }
 
+    @GetMapping("/private/leave_message")
+    public String leave_message(){
+        return "leave_message";
+    }
+
     @ResponseBody
     @PostMapping("/private/optional/addOptional")
     public ReturnBody addOptional(HttpServletRequest request, @RequestBody OptionalParam optionalParam){
@@ -40,8 +46,33 @@ public class OptionalController {
     }
 
     @ResponseBody
+    @PostMapping("/private/optional/sendOptional")
+    public ReturnBody sendOptional(HttpServletRequest request, @RequestBody OptionalParam optionalParam){
+        User user = (User) request.getSession().getAttribute("user");
+        optionalParam.getOptional().setUserId(user.getId());
+        optionalService.addOptional(optionalParam);
+        return ReturnType.SUCCESS;
+    }
+
+    @ResponseBody
+    @PostMapping("/private/optional/sendMessage")
+    public ReturnBody sendOptional(HttpServletRequest request, @RequestBody Note note){
+        User user = (User) request.getSession().getAttribute("user");
+        note.setUserId(user.getId());
+        optionalService.insertNote(note);
+        return ReturnType.SUCCESS;
+    }
+
+    @ResponseBody
     @GetMapping("/optional/matchList")
     public ReturnBody getOddByMatchId() throws ParseException {
         return new ReturnBody(optionalService.getMatchNotStartList());
+    }
+
+    @ResponseBody
+    @GetMapping("/optional/getNoteList")
+    public ReturnBody getNoteList(HttpServletRequest request,Integer pageIndex,Integer pageSize) {
+        User user = (User) request.getSession().getAttribute("user");
+        return new ReturnBody(optionalService.getNoteList(user.getId(),pageIndex,pageSize));
     }
 }

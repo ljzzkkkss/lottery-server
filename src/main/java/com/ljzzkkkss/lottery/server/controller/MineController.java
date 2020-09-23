@@ -17,9 +17,16 @@ public class MineController {
 
     @ResponseBody
     @GetMapping("/private/optional/getList")
-    public ReturnBody getList(HttpServletRequest request){
+    public ReturnBody getList(HttpServletRequest request,Integer pageIndex,Integer pageSize){
         User user = (User) request.getSession().getAttribute("user");
-        return new ReturnBody(mineService.getOptionalListByUserId(user.getId()));
+        return new ReturnBody(mineService.getOptionalListByUserId(user.getId(),pageIndex,pageSize));
+    }
+
+    @ResponseBody
+    @GetMapping("/private/optional/getPayedList")
+    public ReturnBody getPayedList(HttpServletRequest request,Integer pageIndex,Integer pageSize){
+        User user = (User) request.getSession().getAttribute("user");
+        return new ReturnBody(mineService.getPayedOptionalListByUserId(user.getId(),pageIndex,pageSize));
     }
 
     @ResponseBody

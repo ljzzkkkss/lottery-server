@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface MineService {
-    List<Optional> getOptionalListByUserId(Integer userId);
-    List<Optional> getPayedOptionalListByUserId(Integer userId);
+    List<Optional> getOptionalListByUserId(Integer userId,Integer pageIndex,Integer pageSize);
+    List<Optional> getPayedOptionalListByUserId(Integer userId,Integer pageIndex,Integer pageSize);
     Map<String,Object> getOptionalDetailByOptionalId(Integer optionalId,Integer userId);
     List<Help> getAllHelp();
 }

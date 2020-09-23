@@ -30,13 +30,15 @@ public class MineServiceImpl implements MineService {
     private HelpMapper helpMapper;
 
     @Override
-    public List<Optional> getOptionalListByUserId(Integer userId) {
-        return optionalMapper.getOptionalListByUserId(userId);
+    public List<Optional> getOptionalListByUserId(Integer userId,Integer pageIndex,Integer pageSize) {
+        Integer start = pageSize * (pageIndex - 1);
+        return optionalMapper.getOptionalListByUserId(userId,start,pageSize);
     }
 
     @Override
-    public List<Optional> getPayedOptionalListByUserId(Integer userId) {
-        return optionalMapper.getOptionalListByUserId(userId);
+    public List<Optional> getPayedOptionalListByUserId(Integer userId,Integer pageIndex,Integer pageSize) {
+        Integer start = pageSize * (pageIndex - 1);
+        return optionalMapper.getPayedOptionalListByUserId(userId,start,pageSize);
     }
 
     @Override

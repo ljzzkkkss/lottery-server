@@ -1,9 +1,6 @@
 package com.ljzzkkkss.lottery.server.service.impl;
 
-import com.ljzzkkkss.lottery.server.mapper.MatchMapper;
-import com.ljzzkkkss.lottery.server.mapper.OddMapper;
-import com.ljzzkkkss.lottery.server.mapper.OptionalDetailMapper;
-import com.ljzzkkkss.lottery.server.mapper.OptionalMapper;
+import com.ljzzkkkss.lottery.server.mapper.*;
 import com.ljzzkkkss.lottery.server.model.*;
 import com.ljzzkkkss.lottery.server.model.Optional;
 import com.ljzzkkkss.lottery.server.service.OptionalService;
@@ -25,6 +22,8 @@ public class OptionalServiceImpl implements OptionalService {
     private MatchMapper matchMapper;
     @Resource
     private OddMapper oddMapper;
+    @Resource
+    private NoteMapper noteMapper;
 
     @Override
     @Transactional
@@ -36,6 +35,38 @@ public class OptionalServiceImpl implements OptionalService {
             optionalDetail.setOptionalId(optional.getId());
             optionalDetailMapper.insertOptionalDetail(optionalDetail);
         }
+    }
+
+    @Override
+    @Transactional
+    public void sendOptional(OptionalParam optionalParam) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Optional optional = optionalParam.getOptional();
+        List<OptionalDetail> optionalDetailList = optionalParam.getOptionalDetailList();
+        optionalMapper.insertOptional(optional);
+        for(OptionalDetail optionalDetail : optionalDetailList){
+            optionalDetail.setOptionalId(optional.getId());
+            optionalDetailMapper.insertOptionalDetail(optionalDetail);
+        }
+        Note note = new Note();
+        note.setOptionalId(optional.getId());
+        note.setUserId(optional.getUserId());
+        note.setNoteTime(format.format(new Date()));
+        noteMapper.insertNote(note);
+    }
+
+    @Override
+    public void insertNote(Note note) {
+        noteMapper.insertNote(note);
+    }
+
+    @Override
+    public Map<String, Object> getNoteList(Integer userId, Integer pageIndex, Integer pageSize) {
+        Map<String,Object> result = new HashMap<>();
+        Integer start = pageSize * (pageIndex - 1);
+        result.put("reply",noteMapper.getReply());
+        result.put("noteList",noteMapper.getNoteListByPage(userId,start,pageSize));
+        return result;
     }
 
     @Override

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ljzzkkkss.lottery.server.mapper.NoteMapper" >
+
+    <select id="getNoteListByPage" resultType="com.ljzzkkkss.lottery.server.model.Note">
+        SELECT `id`,`userId`,`content`,`optionalId`,`noteTime` FROM `note`
+        ORDER BY `noteTime` WHERE `userId` = #{userId} DESC LIMIT #{start},#{pageSize};
+    </select>
+
+    <insert id="insertNote" parameterType="com.ljzzkkkss.lottery.server.model.Note">
+        INSERT INTO `note`(`userId`,`content`,`optionalId`,`noteTime`)
+        VALUES(#{userId},#{content},#{optionalId},#{noteTime})
+    </insert>
+
+    <select id="getReply" resultType="String">
+        SELECT `content` FROM `reply` LIMIT 1;
+    </select>
+
+</mapper>
