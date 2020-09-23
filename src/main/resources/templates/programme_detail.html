@@ -75,8 +75,8 @@
         </div>
         <div class="uploadImgListsWrap flexCenter">
             <div class="uploadImgBox">
-                <img class="imgBox" src="ctx + optionalInfo.optional.lotteryImg" alt="" v-if="null != optionalInfo.optional.lotteryImg">
-                <img class="imgBox" src="ctx + optionalInfo.optional.lotteryImg2" alt="" v-if="null != optionalInfo.optional.lotteryImg2">
+                <img class="imgBox" :src="ctx + optionalInfo.optional.lotteryImg" alt="" v-if="optionalInfo.optional.lotteryImg">
+                <img class="imgBox" :src="ctx + optionalInfo.optional.lotteryImg2" alt="" v-if="optionalInfo.optional.lotteryImg2">
             </div>
         </div>
         <div class="footerFixedBtnLists flexCenterBetween">

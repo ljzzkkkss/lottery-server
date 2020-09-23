@@ -15,6 +15,7 @@ public class Optional implements Serializable {
     private String game;
     private Integer noteNumber;
     private String optionDate;
+    private String lotteryImg2;
 
     public Integer getId() {
         return id;
@@ -94,5 +95,13 @@ public class Optional implements Serializable {
 
     public void setNoteNumber(Integer noteNumber) {
         this.noteNumber = noteNumber;
+    }
+
+    public String getLotteryImg2() {
+        return lotteryImg2;
+    }
+
+    public void setLotteryImg2(String lotteryImg2) {
+        this.lotteryImg2 = lotteryImg2;
     }
 }

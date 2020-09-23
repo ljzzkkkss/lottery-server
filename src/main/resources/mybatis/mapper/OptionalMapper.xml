@@ -8,19 +8,19 @@
     </insert>
 
     <select id="getOptionalListByUserId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.Optional">
-        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber` FROM `optional`
+        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber`,`status` FROM `optional`
         WHERE `userId` = #{userId} AND (`status` = 0 OR `status` = 1)
         ORDER BY `optionDate` DESC LIMIT #{start},#{pageSize}
     </select>
 
     <select id="getPayedOptionalListByUserId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.Optional">
-        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber` FROM `optional`
+        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber`,`status` FROM `optional`
         WHERE `userId` = #{userId} AND (`status` = 2 OR `status` = 3)
         ORDER BY `optionDate` DESC LIMIT #{start},#{pageSize}
     </select>
 
     <select id="getOptionalByOptionalId" parameterType="Integer" resultType="com.ljzzkkkss.lottery.server.model.Optional">
-        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber`,`status` FROM `optional`
+        SELECT `id`,`name`,DATE_FORMAT(`optionDate`,'%Y-%m-%d %H:%i:%s') `optionDate`,`cost`,`times`,`game`,`noteNumber`,`status`,`lotteryImg`,`lotteryImg2` FROM `optional`
         WHERE `id` = #{id}
     </select>
     <update id="confirmSendOptional" parameterType="Integer" >

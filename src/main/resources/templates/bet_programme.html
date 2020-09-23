@@ -17,15 +17,15 @@
 <body>
     <div class="saveProgrammeContainer" id="webpage">
        <div class="programmeInfoLists" v-if="programmeLists.length > 0">
-           <div class="programmeList flexCenterBetween" v-for="item in programmeLists">
+           <div class="programmeList flexCenterBetween" v-for="item in programmeLists" @click="goToDetail(item.id)">
                <div class="flex1 infoBox">
                    <div class="nameBox ellipsis1">{{item.name}}</div>
-                   <div class="timeBox">{{item.time}}</div>
+                   <div class="timeBox">{{item.optionDate}}</div>
                </div>
                <div class="otherInfoBox">
-                    <div class="moneyBox">{{item.money}}元</div>
-                    <div class="statusBox statusStyle1" v-if="item.status == 0">未开奖</div>
-                    <div class="statusBox statusStyle2" v-if="item.status == 1">已开奖</div>
+                    <div class="moneyBox">{{item.cost}}元</div>
+                    <div class="statusBox statusStyle1" v-if="item.status == 2">已投注</div>
+                    <div class="statusBox statusStyle2" v-if="item.status == 3">已开奖</div>
                </div>
                
            </div>
@@ -50,28 +50,61 @@
     var app = new Vue({
         el: '#webpage',
         data: {
-            programmeLists:[
-                {
-                    id:0,
-                    name:'竟彩足球',
-                    time:'09-12 12:23:32',
-                    money:2,
-                    status:0
-                },
-                {
-                    id:1,
-                    name:'竟彩足球',
-                    time:'09-12 12:23:32',
-                    money:2,
-                    status:1
-                }
-            ]
+            programmeLists: [],
+            pageNum: 1,
+            pageSize: 10,
+            none: false
         },
         mounted: function () {
-            
+            let that = this;
+            $(window).on('scroll',function(){
+                var scrollTop = $(this).scrollTop();
+                var scrollHeight = $('.programmeInfoLists').height();
+                var windowHeight = $(this).height();
+                if(Math.abs(scrollTop + windowHeight -  scrollHeight) <= 1){
+                    that.scrollBottom();
+                }
+            });
+            that.loadData();
         },
         methods: {
-
+            loadData(){
+                showloading();
+                $.ajax('/private/optional/getPayedList?pageIndex=' + this.pageNum + '&pageSize=' + this.pageSize, {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: res => {
+                        hideloading();
+                        if (res.code === '0000') {
+                            let lists = res.data;
+                            if(lists.length === 0){
+                                app.none = true;
+                            }else {
+                                for (let i in lists) {
+                                    app.programmeLists.push(lists[i]);
+                                }
+                            }
+                        } else {
+                            showToast(res.message);
+                        }
+                    },
+                    error: err => {
+                        hideloading();
+                        console.log(err);
+                    }
+                });
+            },
+            scrollBottom(){
+                if(this.none){
+                    showToast('没有更多了');
+                }else{
+                    this.pageNum++;
+                    this.loadData();
+                }
+            },
+            goToDetail(id){
+                window.location.href = "/private/programme_detail?id=" + id;
+            }
         }
     })
 </script>
