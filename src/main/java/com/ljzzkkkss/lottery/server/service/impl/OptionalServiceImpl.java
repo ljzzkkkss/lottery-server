@@ -64,8 +64,46 @@ public class OptionalServiceImpl implements OptionalService {
     public Map<String, Object> getNoteList(Integer userId, Integer pageIndex, Integer pageSize) {
         Map<String,Object> result = new HashMap<>();
         Integer start = pageSize * (pageIndex - 1);
+        List<Note> noteList = noteMapper.getNoteListByPage(userId,start,pageSize);
+        List<Map<String,Object>> noteMapList = new ArrayList<>();
+        for(Note note : noteList){
+            Map<String,Object> noteMap = new HashMap<>();
+            noteMap.put("note",note);
+            Optional optional = optionalMapper.getOptionalByOptionalId(note.getOptionalId());
+            List<OptionalDetail> optionalDetailList = optionalDetailMapper.getOptionalDetailByOptionalId(note.getOptionalId());
+            List<Map<String,Object>> matchList = new ArrayList<>();
+            Map<Long,Map<String,Object>> matchMap = new HashMap<>();
+            for(OptionalDetail optionalDetail : optionalDetailList){
+                Long matchId = optionalDetail.getMatchId();
+                if(null == matchMap.get(matchId)){
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("match",matchMapper.getMatchById(matchId));
+                    map.put("optionalDetail",new ArrayList<>());
+                    matchMap.put(matchId,map);
+                }
+                ((List<OptionalDetail>) matchMap.get(matchId).get("optionalDetail")).add(optionalDetail);
+            }
+            for(Long key : matchMap.keySet()){
+                List<OptionalDetail> optionalDetails = (List<OptionalDetail>) matchMap.get(key).get("optionalDetail");
+                Map<String,List<OptionalDetail>> optionalDetailMap = new HashMap<>();
+                Map<String,Object> match = new HashMap<>();
+                for(OptionalDetail optionalDetail : optionalDetails){
+                    if(null == optionalDetailMap.get(optionalDetail.getCategory())){
+                        optionalDetailMap.put(optionalDetail.getCategory(),new ArrayList<>());
+                    }
+                    optionalDetailMap.get(optionalDetail.getCategory()).add(optionalDetail);
+                }
+                match.put("match",matchMap.get(key).get("match"));
+                match.put("optionalDetail",optionalDetailMap);
+                matchList.add(match);
+            }
+            noteMap.put("optional",optional);
+            noteMap.put("match",matchList);
+            noteMapList.add(noteMap);
+        }
+        Collections.reverse(noteMapList);
         result.put("reply",noteMapper.getReply());
-        result.put("noteList",noteMapper.getNoteListByPage(userId,start,pageSize));
+        result.put("noteList",noteMapList);
         return result;
     }
 

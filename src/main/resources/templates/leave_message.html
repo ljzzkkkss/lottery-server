@@ -16,85 +16,67 @@
 
 <body>
     <div class="leaveMessageContainer" id="webpage">
-        <div class="messageTimeBox">11-10 08:30</div>
-        <div class="sendMessageContent rightMessageContent flexCenterTop">
-            <div class="messageContent">
-                <span class="contentBox">文字文案文字文案文字文案文字文案文字文案文字文案文字文案</span>
+        <div v-for="message in messageList">
+            <div class="sendMessageContent rightMessageContent flexCenterTop" v-if="null == message.optional">
+                <div class="messageContent">
+                    <span class="contentBox">{{message.note.content}}</span>
+                </div>
+                <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
             </div>
-            <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
-        </div>
-        <div class="sendMessageContent rightMessageContent flexCenterTop">
-            <div class="messageContent messageContent_scheme"> <!--messageContent_scheme-->
-                <span class="contentBox">
-                    <div class="titleBoxWrap">
-                        <span>方案内容</span>
-                    </div>
-                    <div class="matchDetailInfoBox">
-                        <div class="headerBox flexCenter">
-                            <div class="titleBox flex1">玩法</div>
-                            <div class="titleBox flex1">您的选择</div>
-                            <div class="titleBox flex1">赛过</div>
-                            <div class="titleBox flex1">倍数</div>
-                        </div>
-                        <div class="matchCountryInfo flexCenterCenter">
-                            <div class="matchInfoBox">周五002 </div>
-                            <div class="countryVsInfo flexCenter">
-                                <div class="countryName">圣保罗</div>
-                                <div class="vsIcon">VS</div>
-                                <div class="countryName">科林蒂安</div>
+            <div v-else>
+                <div class="messageTimeBox">{{message.note.noteTime}}</div>
+                <div class="sendMessageContent rightMessageContent flexCenterTop">
+                    <div class="messageContent messageContent_scheme"> <!--messageContent_scheme-->
+                        <span class="contentBox">
+                            <div class="titleBoxWrap">
+                                <span>方案内容</span>
                             </div>
-                        </div>
-                        <table class="winloseScoreInfo">
-                            <tr>
-                                <td class="scoreDetail">
-                                    胜平负
-                                </td>
-                                <td class="scoreDetail">
-                                    <div>
-                                        <div class="infoBox">胜<span class="dataBox">3.27</span></div>
-                                        <div class="infoBox">平<span class="dataBox">3.27</span></div>
-                                        <div class="infoBox">负<span class="dataBox">3.27</span></div>
+                            <div class="matchDetailInfoBox">
+                                <div class="headerBox flexCenter">
+                                    <div class="titleBox flex1">玩法</div>
+                                    <div class="titleBox flex1">您的选择</div>
+                                    <div class="titleBox flex1">赛果</div>
+                                    <div class="titleBox flex1">倍数</div>
+                                </div>
+                                <div v-for="match in message.match">
+                                    <div class="matchCountryInfo flexCenterCenter">
+                                        <div class="matchInfoBox">{{match.match.round}}</div>
+                                        <div class="countryVsInfo flexCenter">
+                                            <div class="countryName">{{match.match.mainTeam}}</div>
+                                            <div class="vsIcon">VS</div>
+                                            <div class="countryName">{{match.match.clientTeam}}</div>
+                                        </div>
                                     </div>
-                                </td>
-                                <td class="scoreDetail">
-                                    <div class="infoBox">-</div>
-                                </td>
-                                <td class="scoreDetail">
-                                    <div class="infoBox">1</div>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="matchCountryInfo flexCenterCenter">
-                            <div class="matchInfoBox">周五002 </div>
-                            <div class="countryVsInfo flexCenter">
-                                <div class="countryName">圣保罗</div>
-                                <div class="vsIcon">VS</div>
-                                <div class="countryName">科林蒂安</div>
+                                    <table class="winloseScoreInfo" v-for="(optionalDetailList,key) in match.optionalDetail">
+                                        <tr>
+                                            <td class="scoreDetail">
+                                                {{key}}
+                                            </td>
+                                            <td class="scoreDetail">
+                                                <div>
+                                                    <div class="infoBox" v-for="optionalDetail in optionalDetailList">{{optionalDetail.content}}<span class="dataBox">{{optionalDetail.rate}}</span></div>
+                                                </div>
+                                            </td>
+                                            <td class="scoreDetail">
+                                                <div class="infoBox">{{match.match.totalScore}}</div>
+                                            </td>
+                                            <td class="scoreDetail">
+                                                <div class="infoBox">{{message.optional.times}}</div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                        <table class="winloseScoreInfo">
-                            <tr>
-                                <td class="scoreDetail">胜平负</td>
-                                <td class="scoreDetail">
-                                    <div class="infoBox">胜<span class="dataBox">3.27</span></div>
-                                </td>
-                                <td class="scoreDetail">
-                                    <div class="infoBox">-</div>
-                                </td>
-                                <td class="scoreDetail">
-                                    <div class="infoBox">1</div>
-                                </td>
-                            </tr>
-                        </table>
+                        </span>
                     </div>
-                </span>
-            </div>
-            <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
-        </div>
-        <div class="sendMessageContent leftMessageContent flexCenterTop">
-            <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
-            <div class="messageContent">
-                <span class="contentBox">{{reply}}</span>
+                    <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
+                </div>
+                <div class="sendMessageContent leftMessageContent flexCenterTop">
+                    <img class="headerImg" src="/templates/img/defualtImg.png" alt="">
+                    <div class="messageContent">
+                        <span class="contentBox">{{reply}}</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footerSendBtnBox ">
@@ -122,6 +104,11 @@
         mounted: function () {
             let that = this;
             that.loadData();
+            that.$watch('messageList',function(val){
+                that.$nextTick(function() {
+                    $(document).scrollTop($(document).height());
+                });
+            })
         },
         methods: {
             loadData(){
@@ -132,6 +119,7 @@
                     success: res => {
                         hideloading();
                         if (res.code === '0000') {
+                            console.info(res.data);
                             let lists = res.data.noteList;
                             app.reply = res.data.reply;
                             if(lists.length === 0){
@@ -165,6 +153,12 @@
                     }),
                     success: res => {
                         if(res.code === '0000'){
+                            that.messageList.push({
+                                note:{
+                                    content: that.content,
+                                    noteTime: dateFormat('YYYY-mm-dd HH:MM:SS',new Date())
+                                }
+                            });
                             that.content = '';
                         }else{
                             showToast(res.message);
