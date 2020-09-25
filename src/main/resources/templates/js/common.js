@@ -280,7 +280,7 @@ function clearCachUserQRCode() {
 
 window.onerror = function () {
     var errInfo = JSON.stringify(arguments);
-    alert(errInfo);
+    console.info(errInfo);
     return true;
 };
 
