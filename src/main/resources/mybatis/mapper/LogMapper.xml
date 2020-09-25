@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.LogMapper" >
     <insert id="insertLog" parameterType="com.ljzzkkkss.lottery.server.model.Log">
-        INSERT INTO `Log`(`content`,`phone`,`logTime`)
+        INSERT INTO `log`(`content`,`phone`,`logTime`)
         VALUES(#{content},#{phone},#{logTime});
     </insert>
 
