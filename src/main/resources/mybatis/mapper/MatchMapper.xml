@@ -15,7 +15,7 @@
 
     <select id="getMatchListNotStart" resultType="com.ljzzkkkss.lottery.server.model.Match">
         SELECT `id`,`mainTeam`,`clientTeam`,`match`,`round`,`matchTime`,`endTime`,`status`
-        FROM `match` WHERE `status` = '未开始'
+        FROM `match` WHERE `endTime` &gt; NOW()
         ORDER BY DATE(`matchTime`),`round`;
     </select>
 
