@@ -3,20 +3,20 @@
 <mapper namespace="com.ljzzkkkss.lottery.server.mapper.MatchMapper" >
 
     <select id="getMatchListByMatchTime" parameterType="String" resultType="com.ljzzkkkss.lottery.server.model.Match">
-        SELECT `id`,`mainTeam`,`clientTeam`,`halfScore`,`totalScore`,`match`,`round`,`matchTime`,`endTime`,`status` FROM `match`
+        SELECT `id`,`mainTeam`,`clientTeam`,`halfScore`,`totalScore`,`match`,`round`,`matchTime`,`endTime`,`ownerDate`,`status` FROM `match`
         WHERE DATE(`matchTime`) = #{matchTime}
         ORDER BY `matchTime` DESC;
     </select>
 
     <select id="getMatchById" parameterType="Long" resultType="com.ljzzkkkss.lottery.server.model.Match">
-        SELECT `id`,`mainTeam`,`clientTeam`,`halfScore`,`totalScore`,`match`,`round`,`matchTime`,`endTime`,`status` FROM `match`
+        SELECT `id`,`mainTeam`,`clientTeam`,`halfScore`,`totalScore`,`match`,`round`,`matchTime`,`endTime`,`ownerDate`,`status` FROM `match`
         WHERE `id` = #{id};
     </select>
 
     <select id="getMatchListNotStart" resultType="com.ljzzkkkss.lottery.server.model.Match">
-        SELECT `id`,`mainTeam`,`clientTeam`,`match`,`round`,`matchTime`,`endTime`,`status`
+        SELECT `id`,`mainTeam`,`clientTeam`,`match`,`round`,`matchTime`,`endTime`,`ownerDate`,`status`
         FROM `match` WHERE `endTime` &gt; NOW()
-        ORDER BY DATE(`matchTime`),`round`;
+        ORDER BY `ownerDate`,`round`;
     </select>
 
 </mapper>
