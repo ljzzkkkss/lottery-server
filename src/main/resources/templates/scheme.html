@@ -56,7 +56,7 @@
                                             <div class="labelBox">
                                                 <div>{{match.match.round}}</div>
                                                 <div>{{match.match.match}}</div>
-                                                <div>{{match.match.matchTime.substr(11,5)}}截止</div>
+                                                <div>{{match.match.endTime.substr(11,5)}}截止</div>
                                             </div>
                                             <div class="matchInfoBoxWrap flex1">
                                                 <div class="detailInfoBox flexCenter" v-for="(oddList,key) in match.oddList" v-if="(showList.includes('让球') && key.startsWith('让球'))  || (key == '胜负平' && showList.includes('胜负平')) || (selectedCategory == '单关投注' && oddList[0].single == 1 && (key.startsWith('让球') || key == '胜负平'))">

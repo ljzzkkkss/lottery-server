@@ -150,9 +150,9 @@
                         }
                         that.selectedMatchList.push(matchNew);
                         if('' === that.deadlineTime){
-                            that.deadlineTime = match.match.matchTime;
-                        }else if(that.deadlineTime > match.match.matchTime){
-                            that.deadlineTime = match.match.matchTime;
+                            that.deadlineTime = match.match.endTime;
+                        }else if(that.deadlineTime > match.match.endTime){
+                            that.deadlineTime = match.match.endTime;
                         }
                     }
                 });
