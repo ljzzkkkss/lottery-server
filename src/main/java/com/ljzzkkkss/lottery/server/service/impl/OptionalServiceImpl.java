@@ -116,7 +116,7 @@ public class OptionalServiceImpl implements OptionalService {
         Map<String, List<Map<String,Object>>> result = new LinkedHashMap<>();
         List<Match> matchList = matchMapper.getMatchListNotStart();
         SimpleDateFormat formatForSecond = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat formatForDay = new SimpleDateFormat("yyyy-MM-dd E");
+        SimpleDateFormat formatForDay = new SimpleDateFormat("yyyy-MM-dd E",Locale.CHINA);
         for(Match match : matchList){
             List<Odd> oddList = oddMapper.getOddByMatchId(match.getId());
             Map<String,List<Odd>> oddMap = new HashMap<>();
@@ -129,7 +129,7 @@ public class OptionalServiceImpl implements OptionalService {
             }
             matchMap.put("match",match);
             matchMap.put("oddList",oddMap);
-            String key = formatForDay.format(formatForSecond.parse(match.getMatchTime()));
+            String key = formatForDay.format(formatForSecond.parse(match.getEndTime()));
             if(null == result.get(key)){
                 result.put(key,new ArrayList<>());
             }
