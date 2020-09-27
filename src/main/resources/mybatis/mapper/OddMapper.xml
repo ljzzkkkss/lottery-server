@@ -4,7 +4,7 @@
 
     <select id="getOddByMatchId" parameterType="Long" resultType="com.ljzzkkkss.lottery.server.model.Odd">
         SELECT `id`,`matchId`,`category`,`rate`,`content`,`single` FROM `odd`
-        WHERE `matchId` = #{matchId} ORDER BY `catetory`,`content`;
+        WHERE `matchId` = #{matchId} ORDER BY `category`,`content`;
     </select>
 
 </mapper>
