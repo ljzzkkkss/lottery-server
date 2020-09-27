@@ -36,7 +36,7 @@
                                 <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
                                 <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
                                 <div class="leftTagBox styleColor3 flexCenterCenter" v-if="key=='总进球'">{{key}}</div>
-                                <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                                <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') == -1">{{key}}</div>
                                 <div class="leftTagBox styleColor5 flexCenterCenter" v-if="key=='比分'">{{key}}</div>
                                 <div class="leftTagBox styleColor6 flexCenterCenter" v-if="key=='半全场'">{{key}}</div>
                                 <div class="dataInfoBox" v-if="recommendList[0+3*(i-1)]">

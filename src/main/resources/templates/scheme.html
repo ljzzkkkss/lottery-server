@@ -62,7 +62,7 @@
                                                 <div class="detailInfoBox flexCenter" v-for="(oddList,key) in match.oddList" v-if="(showList.includes('让球') && key.startsWith('让球'))  || (key == '胜负平' && showList.includes('胜负平')) || (selectedCategory == '单关投注' && oddList[0].single == 1 && (key.startsWith('让球') || key == '胜负平'))">
                                                     <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
                                                     <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
-                                                    <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                                                    <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') == -1">{{key}}</div>
                                                     <div class="dataInfoBox flexCenterCenter" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,match.match)">
                                                         <div class="dataBox">{{odd.content}}</div>
                                                         <div class="scoreBox">{{odd.rate}}</div>
@@ -139,7 +139,7 @@
                         <div class="detailInfoBox flexCenter">
                             <div class="leftTagBox styleColor1 flexCenterCenter" v-if="key=='胜负平'">{{key}}</div>
                             <div class="leftTagBox styleColor2 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') != -1">{{key}}</div>
-                            <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('+') != -1">{{key}}</div>
+                            <div class="leftTagBox styleColor4 flexCenterCenter" v-if="key.startsWith('让球') && key.indexOf('-') == -1">{{key}}</div>
                             <div class="selectSinglebetStyle flexCenter" v-if="oddList[0].single == 1"><!--单关红色区域-->
                                 <div class="dataInfoBox" :class="odd.selected?'current':''" v-for="odd in oddList" @click="selectOdd(odd,popMatch.match)">
                                     <div class="dataBox">{{odd.content}}</div>
