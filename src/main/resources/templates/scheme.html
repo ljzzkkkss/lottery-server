@@ -20,7 +20,6 @@
                 <div class="weui_tab_bd">
                     <div class="optionalSchemeContainer flexCenterBetween">
                         <div class="schemeHeaderInfoBox">
-                            <div class="warningTipsBox">不向未成年人提供购彩和兑奖服务</div>
                             <div class="changeBetWasgBox">
                                 <div class="flexCenterCenter" @click="showChangeBetWays">
                                     <div class="waysBox">{{selectedCategory}}</div>
@@ -36,6 +35,7 @@
                                     <div class="waysBox" :class="selectedCategory == '单关投注'? 'current' : ''" @click="changeCategory('单关投注')">单关投注</div>
                                 </div>
                             </div>
+                            <div class="warningTipsBox">不向未成年人提供购彩和兑奖服务</div>
                         </div>
                         <div class="schemeInfoLists flex1">
                             <div class="lotteryMatchDetaiInfo" v-for="(subMatchList,key,index) in matchList">
@@ -154,31 +154,13 @@
                             </div>
                         </div>
                     </div>
-                    <table class="matchInfoBoxWrap" v-show="(key == '总进球' || key == '比分' || key == '半全场') && (showList.includes(key) || (selectedCategory == '单关投注' && oddList[0].single == 1))">
+                    <table class="matchInfoBoxWrap" :class="oddList[0].single == 1 ? 'singlePassInfoBox':''" v-show="(key == '总进球' || key == '比分' || key == '半全场') && (showList.includes(key) || (selectedCategory == '单关投注' && oddList[0].single == 1))">
                         <tr class="detailInfoBox">
                             <td class="leftTagBox styleColor3" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='总进球'">{{key}}</td>
                             <td class="leftTagBox styleColor5" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='比分'">{{key}}</td>
                             <td class="leftTagBox styleColor6" :rowspan="Math.ceil(oddList.length/4)" v-if="key=='半全场'">{{key}}</td>
                         </tr>
-                        <tr class="detailInfoBox flexCenter selectSinglebetStyle" v-if="oddList[0].single == 1" v-for="i in Math.ceil(oddList.length/4)">
-                            <td class="dataInfoBox" :class="oddList[0+4*(i-1)].selected?'current':''" v-if="oddList[0+4*(i-1)]" @click="selectOdd(oddList[0+4*(i-1)],popMatch.match)">
-                                <div class="dataBox">{{oddList[0+4*(i-1)].content}}</div>
-                                <div class="scoreBox">{{oddList[0+4*(i-1)].rate}}</div>
-                            </td>
-                            <td class="dataInfoBox" :class="oddList[1+4*(i-1)].selected?'current':''" v-if="oddList[1+4*(i-1)]" @click="selectOdd(oddList[1+4*(i-1)],popMatch.match)">
-                                <div class="dataBox">{{oddList[1+4*(i-1)].content}}</div>
-                                <div class="scoreBox">{{oddList[1+4*(i-1)].rate}}</div>
-                            </td>
-                            <td class="dataInfoBox" :class="oddList[2+4*(i-1)].selected?'current':''" v-if="oddList[2+4*(i-1)]" @click="selectOdd(oddList[2+4*(i-1)],popMatch.match)">
-                                <div class="dataBox">{{oddList[2+4*(i-1)].content}}</div>
-                                <div class="scoreBox">{{oddList[2+4*(i-1)].rate}}</div>
-                            </td>
-                            <td class="dataInfoBox" :class="oddList[3+4*(i-1)].selected?'current':''" v-if="oddList[3+4*(i-1)]" @click="selectOdd(oddList[3+4*(i-1)],popMatch.match)">
-                                <div class="dataBox">{{oddList[3+4*(i-1)].content}}</div>
-                                <div class="scoreBox">{{oddList[3+4*(i-1)].rate}}</div>
-                            </td>
-                        </tr>
-                        <tr class="detailInfoBox flexCenter" v-else v-for="i in Math.ceil(oddList.length/4)">
+                        <tr class="detailInfoBox flexCenter" :class="oddList[0].single == 1 ? (i == 1 ? 'selectSinglebetStyle2 first-of-type' : (i == Math.ceil(oddList.length/4) ? 'selectSinglebetStyle2 last-of-type' : 'selectSinglebetStyle2')) : ''" v-for="i in Math.ceil(oddList.length/4)">
                             <td class="dataInfoBox" :class="oddList[0+4*(i-1)].selected?'current':''" v-if="oddList[0+4*(i-1)]" @click="selectOdd(oddList[0+4*(i-1)],popMatch.match)">
                                 <div class="dataBox">{{oddList[0+4*(i-1)].content}}</div>
                                 <div class="scoreBox">{{oddList[0+4*(i-1)].rate}}</div>

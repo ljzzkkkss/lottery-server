@@ -21,7 +21,7 @@
 .news_info  .time_looknum .time_box{padding-right:5px;}
 .news_info  .time_looknum .look_num{padding-left:5px;}
 .news_img{width: 116px;height: 85px;border-radius: 5px;margin-left:10px;}
-.hitRateBox{display:inline-block;margin-right:5px;min-width: 70px;height: 16px;background: #F1F6FF;border-radius: 2px;padding:0 4px;line-height: 16px;color:#75A1F1;font-size:10px;}
+.hitRateBox{display:inline-block;margin-right:5px;height: 16px;background: #F1F6FF;border-radius: 2px;padding:0 4px;line-height: 16px;color:#75A1F1;font-size:10px;}
 .setTopTagBox{display:inline-block;margin-right:5px;width: 28px;height: 16px;text-align:center;line-height:14px;border-radius: 2px;border: 1px solid #E2231A;color:#E2231A;font-size:10px;}
 .setLabelTagBox{display:inline-block;margin-right:5px;width: 28px;height: 16px;text-align:center;line-height:14px;border-radius: 2px;border: 1px solid #F5A623;color:#F5A623;font-size:10px;}
 
@@ -179,9 +179,9 @@
 .changeBetWasgBox .waysBox{color:#FFFFFF;font-size:16px;font-weight: bold;}
 .changeBetWasgBox .rightArrowBox{width:6px;height:auto;margin-left: 10px;transform: rotate(90deg);transition: all 0.5s ease;}
 .changeBetWasgBox .rightArrowBox.rotateStyle{transform: rotate(-90deg);}
-.warningTipsBox{width:100%;height: 28px;text-align:center;line-height:28px;color:#FFFFFF;font-size:12px;background: #FC6945;position: relative;z-index: 1000;}
+.warningTipsBox{width:100%;height: 28px;text-align:center;line-height:28px;color:#FFFFFF;font-size:12px;background: #FC6945;position: relative;z-index: 999;}
 .allBetWasgLists{padding:5px 10px;background:#fff;flex-wrap: wrap;position: absolute;width:100%;left:0px;top:45px;z-index: 1000;}
-.allBetWasgLists .waysBox{border-radius: 4px;border:1px solid #ccc;color:#333435;font-size:16px;width:30%;height: 42px;text-align: center;line-height: 40px;margin:0 1.5% 10px;}
+.allBetWasgLists .waysBox{border-radius: 4px;border:1px solid #ccc;color:#333435;font-size:16px;font-weight:normal;width:30%;height: 42px;text-align: center;line-height: 40px;margin:0 1.5% 10px;}
 .allBetWasgLists .waysBox.current{color:#EF4034;border:1px solid #EF4034;}
 
 .lotteryMatchDetaiInfo .tabHeaderInfoBox{width:100%;height: 32px;background:#fff;padding:0 14px;color:#6F6F72;font-size: 12px;}
@@ -196,15 +196,33 @@
 .lotteryMatchBox .matchDetailBox .labelBox{color:#6F6F72;font-size:10px;margin-right:5px;}
 /* .lotteryMatchBox .matchDetailBox .detailInfoBoxWrap{border-top:1px solid #f9f9fa;}
 .lotteryMatchBox .matchDetailBox .detailInfoBox{border-bottom:1px solid #F9F9FA;} */
-.matchInfoBoxWrap .detailInfoBox{margin-top:-1px;}
+/* .matchInfoBoxWrap .detailInfoBox{margin-top:-1px;} */
 .matchInfoBoxWrap .leftTagBox{height: 35px;line-height: 10px;}
-.matchInfoBoxWrap .dataInfoBox{flex:1;min-height: 35px;background: #fff;border:1px solid #F9F9FA;margin-left:-1px;text-align: center;color:#37373A;font-size:14px;}
-.matchInfoBoxWrap .dataInfoBox:first-child{margin-left:0px;}
+.matchInfoBoxWrap .dataInfoBox{flex:1;min-height: 35px;background: #fff;text-align: center;color:#37373A;font-size:14px;}
+/* .matchInfoBoxWrap .dataInfoBox:first-child{margin-left:0px;} */
 .matchInfoBoxWrap .dataInfoBox .scoreBox{font-size:12px;margin-left:4px;}
-.matchInfoBoxWrap .dataInfoBox.current{background: #FFF3F2;border: 1px solid #EF4034;color:#EF4034;position: relative;}
+.matchInfoBoxWrap .selectSinglebetStyle .dataInfoBox{margin-left:-1px;}
+.matchInfoBoxWrap .selectSinglebetStyle .dataInfoBox.current{background: #FFF3F2;/*border: 1px solid #EF4034;*/color:#EF4034;position: relative;}
+.matchInfoBoxWrap .selectSinglebetStyle .dataInfoBox.current::after{content:'';width:100%;height: 100%;position: absolute;left:0px;top:-1px;border: 1px solid #EF4034;box-sizing: border-box;}
+.matchInfoBoxWrap .selectSinglebetStyle .dataInfoBox.current{margin-right: -1px;}
+.matchInfoBoxWrap .selectSinglebetStyle .dataInfoBox.current::after{height: calc(100% + 2px);}
 .lotteryMatchBox .matchDetailBox .seletedCountBox{font-size: 12px;color:#6F6F72;text-align: center;background:#fff;width:43px;height: 73px;}
 .lotteryMatchBox .matchDetailBox .seletedCountBox .numBox{color:#EF4034;}
-.selectSinglebetStyle{border:1px solid #EF4034;position: relative;width: 100%;}
+.selectSinglebetStyle{border:1px solid #FC6A60;position: relative;width: 100%;}
+.singlePassInfoBox .selectSinglebetStyle2{position: relative;border-left:1px solid #FC6A60;border-right: 1px solid #FC6A60;}
+.singlePassInfoBox .selectSinglebetStyle2.first-of-type{border-top:1px solid #FC6A60;}
+.singlePassInfoBox .selectSinglebetStyle2.last-of-type{border-bottom:1px solid #FC6A60;}
+.singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox.current{background: #FFF3F2;border-bottom: 1px solid #EF4034;color:#EF4034;position: relative;}
+.singlePassInfoBox .selectSinglebetStyle2.last-of-type .dataInfoBox.current{border-bottom:0 none;}
+.singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox.current::after{content:'';width:100%;height: calc(100% + 2px);position: absolute;left:0px;top:-1px;border: 1px solid #EF4034;box-sizing: border-box;}
+.singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox{margin-left: -1px;}
+
+/* .singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox:first-child{border-left:1px solid #FC6A60;}
+.singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox:last-child{border-right: 1px solid #FC6A60;}
+.singlePassInfoBox .selectSinglebetStyle2 .dataInfoBox.current{border:1px solid #EF4034;} */
+/* .singlePassInfoBox .selectSinglebetStyle2 td:first-child.current::after{border-left: 0 none;}
+.singlePassInfoBox .selectSinglebetStyle2 td:last-child.current::after{border-right: 0 none;}
+.singlePassInfoBox .selectSinglebetStyle2.last-of-type td.current::after{border-bottom: 0 none;} */
 
 .selectedSchemeDetail{max-height: 80%;flex-direction: column;padding:0px;}
 .selectedSchemeDetail .countryVsInfo{width:100%;padding:20px 15px;}
@@ -215,18 +233,18 @@
 .selectedSchemeDetail .schemeDetailContent{background: #FAFAFA;overflow: auto;flex:1;width:100%;padding:0 15px 5px;}
 .selectedSchemeDetail .schemeDetailContent .matchInfoBoxWrap{margin-bottom:20px;}
 .selectedSchemeDetail .schemeDetailContent .matchInfoBoxWrap .leftTagBox{height: 45px;line-height: 14px;}
-.selectedSchemeDetail .footerBtnLists{width:100%;}
+.selectedSchemeDetail .footerBtnLists{width:100%;height: 52px;}
 .selectedSchemeDetail .footerBtnLists .btnBox{flex:1;text-align: center;height: 52px;line-height: 52px;color:#37373A;font-size: 16px;}
 .selectedSchemeDetail .footerBtnLists .btnBox.sureBtn{color:#EF4034;}
 
 /*比分*/
 .matchScoreContainer{width:100%;height: 100%;background:#FAFAFA;flex-direction: column;padding:10px 14px;}
 .headerTimeTypeSort{width:100%;position: relative;}
-.headerTimeTypeSort .timeSortBox{height:42px;padding:0 20px;background:#fff;width:237px;}
+.headerTimeTypeSort .timeSortBox{height:42px;padding:0 20px;background:#fff;flex: 1;}
 .headerTimeTypeSort .timeSortBox .arrowImgBox{width:12px;height: 12px;}
 .headerTimeTypeSort .timeSortBox .timeIcon{width:16px;height: 16px;margin-right:5px;}
 .headerTimeTypeSort .timeSortBox .timeBox{color:#6F6F72;font-size:14px;}
-.headerTimeTypeSort .typeSortBox{padding:0 25px;height: 42px;background: #FFFFFF;}
+.headerTimeTypeSort .typeSortBox{padding:0 25px;height: 42px;background: #FFFFFF;margin-left:10px;}
 .headerTimeTypeSort .typeSortBox .sortIcon{width:16px;height: 16px;margin-right:5px;}
 .headerTimeTypeSort .typeSortBox .dataBox{color:#6F6F72;font-size:14px;}
 .scoreDetailInfoLists{width:100%;overflow:auto;}
